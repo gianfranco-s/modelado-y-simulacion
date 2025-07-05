@@ -1,0 +1,259 @@
+---
+title: "Modelado Y Simulación - Clase 1"
+author: "Gianfranco Salomone"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+    
+jupyter: python3
+---
+
+## Introducción
+Objetivos de la materia
+Material
+Documentación
+Qué es un modelo
+Software
+
+### Recomendaciones
+* Tener un software para tomar notas. Pueden hacerlo en markdown, LaTex, google docs.
+* Tener un directorio bien organizado
+* Mantenerse al día con los TP. Para eso les dejaré la última hora de cursada libre.
+* Leer el apunte de clase antes de la clase
+
+## ¿Qué es un modelo?
+Es la representación simplificada de un fenómeno real. Sirve para entender el comportamiento de un sistema, anticipar su comportamiento futuro, o mejorar sistemas existentes.
+
+La simulación permite estudiar el comportamiento del sistema sin necesidad de construirlo físicamente, o experimentar de forma riesgosa o costosa.
+
+En esta materia nos orientaremos a los modelos matemáticos, que representan fenómenos mediante ecuaciones.
+
+
+## Clasificación de modelos
+Según su comportamiento
+Estáticos vs. Dinámicos: Si el tiempo es una variable relevante.
+Lineales vs. No Lineales: Relación entre entrada y salida.
+Tiempo Continuo vs. Tiempo Discreto: Cómo evolucionan las variables en el tiempo.
+Determinísticos vs. Estocásticos: Si hay incertidumbre o aleatoriedad.
+Según su derivación
+Basados en leyes fundamentales (física, química).
+De caja negra (empíricos): Basados en datos de entrada/salida, sin conocimiento interno.
+De caja gris: Combinación de ambos.
+
+
+Durante las clases 1 y 2, vamos a repasar y/o introducir temas de modelado y simulación de sistemas mecánicos
+
+
+## Ejemplo de derivación de un modelo
+Durante el resto de esta clase vamos a ocuparnos de derivar un matemático, basándonos en leyes de la Física, y propondremos posibles comportamientos, suponiendo las condiciones del sistema. También intentaremos encontrar los comportamientos que estamos asumiendo.
+
+Finalmente, realizaremos la simulación.
+
+### Modelado de un tanque de agua
+Consideremos el caso del llenado de un tanque de agua ¿Por qué es relevante?
+
+Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque.
+Hay una cantidad de materia que ingresa al tanque
+Una cantidad de materia que egresa
+En la relación de ambas, es que podremos decidir qué pasa con ese nivel
+
+
+| Magnitud                   | Símbolo | Unidades SI   |
+|:--------------------------:|:-------:|:-------------:|
+| Tiempo                     | $t$     | $s$           |
+| Caudal de ingreso          | $u$     | $m^3/s$       |
+| Caudal de egreso           | $v$     | $m^3/s$       |
+| Superficie del tanque      | $A$     | $m^2$         |
+| Volumen dentro del tanque  | $V$     | $m^3$         |
+| Nivel de fluido            | $y$     | $m$           |
+
+: Magnitudes del ejemplo
+
+
+El volumen dentro del tanque se calcula así:
+$$ V=Ay $$
+
+La ley de conservación de la masa se puede escribir así:
+$$ \frac{dV}{dt} = u - v $$
+
+Por lo tanto, reemplazando en la ecuación inicial:
+$$ A\frac{dy}{dt} = u - v $$
+
+El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO):
+$$ v \propto P $$
+
+Y como la presión depende del nivel de fluido (OJO de nuevo):
+$$ v = ky $$
+
+Reemplazando en la ecuación de diferencia de caudales:
+$$ A\frac{dy}{dt} = u - ky $$
+$$ \dot{y}(t) = -\frac{k}{A} y(t) + \frac{1}{A} u(t) $$
+
+Hemos arribado a una expresión que relaciona el nivel de fluido (variable bajo estudio), con el caudal ingresante (variable externa), y los parámetros del sistema. Supongamos que sabemos que el caudal de entrada, en el instante $t_0=0$ pasa de $0$ a $U_0$. Para $t>=0$, la ecuación diferencial puede expresarse así:
+$$ \dot{y}(t) = -\frac{k}{A} y(t) + \frac{U_0}{A} $$
+
+### Respuesta temporal cualitativa
+Propongamos una posible evolución del nivel de fluido, considerando que “se abre la canilla” y se deja abierta.
+
+Empecemos por graficar los ejes que nos interesa estudiar
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+
+# create two side-by-side axes sharing the same x-axis
+fig, (ax_u, ax_v) = plt.subplots(1, 2, sharex=True, figsize=(8,4))
+
+# label the y-axes
+ax_u.set_ylabel('u')
+ax_v.set_ylabel('v')
+
+# common x-axis label
+fig.supxlabel('t')
+
+# only bottom & left spines; no ticks or tick labels
+for ax in (ax_u, ax_v):
+    for spine in ['top','right']:
+        ax.spines[spine].set_visible(False)
+    ax.set_xticks([])    # remove x-ticks
+    ax.set_yticks([])    # remove y-ticks
+
+plt.tight_layout()
+plt.show()
+```
+
+Luego propongamos posibles gráficas para cada una. Necesitaremos al menos tener el valor inicial en cada caso.
+			GRÁFICA DE u
+			GRÁFICA de v
+
+### Respuesta temporal analítica
+Implica hallar una solución a la ecuación diferencial. Recordando las clases de cálculo, vemos que se trata de una
+Ecuación Diferencial Ordinaria (ODE, en inglés. Este término es importante)
+De primer orden (hay una única derivada)
+Lineal (la variable no es argumento de ninguna otra función)
+No homogénea (hay un término independiente)
+
+No entraremos en detalles de resolución de esta EDO. Baste con indicar que, si el nivel inicial 
+y(t) = U0/k + (y0 - u0/k) e^(-k/A t)
+
+Si consideramos el llenado desde vacío (y0=0)
+y(t) = [ 1 - e^(-k/A t)] U0/k
+
+¿Gráfica de esta ecuación?
+Cambio de variables:
+Normalización: considerar y_hat = y_(U0/k) = 1-e^(-k/At)
+A/k = tau
+
+GRÁFICA
+
+### ¿Qué cosas estamos asumiendo?
+OJO: v ∝ P y v = ky
+Es verdad que a mayor presión, mayor velocidad de salida. Pero la relación entre ambas cantidades es más compleja:
+Bernoulli
+P1 + (1/2)ρ v1² + ρgy1 = P2 + (1/2)ρv2² + ρgy2
+
+El punto 1 es donde se mide y1. El punto y2 es donde se hace el desagote
+P1=P2 = atmosférica
+El término de y2 puede despreciarse, por considerarse mucho menor que y1 (OJO!)
+y1=y
+La velocidad de bajada v1 puede despreciarse por ser mucho menor que la velocidad de salida (OJO!)
+
+gy =(1/2)v2²
+
+v2 A2 = q2 (q2 en nuestro ejemplo se llama v, lo que es un poco confuso)
+q2 = A2 sqrt(2gy) 
+
+Esta ecuación nos llevaría a una ED no-lineal… nos vamos a ocupar de eso más adelante
+Simulación en MATLAB
+Definiremos A=1, k=0,3, u=10, tfinal=50
+
+Ejemplo de script
+% Modelos y Simulación
+% Clase 02
+% Ejemplo de script:
+ 
+clc;
+clear all;
+ 
+% u:       control
+% tfinal:  tiempo final
+% yo:      nivel inicial
+ 
+% Inicialización de variables:
+u = 10;
+tfinal = 50;
+y0 = 4;
+ 
+% Constantes del sistema:
+k = 0.3;
+A = 1;
+ 
+% Defino la ecuación diferencial,
+% primero la var indep, luego la dependiente.
+dy = @(t,y) -k*y/A + u/A
+ 
+% Para usar la función dy: la evaluaremos para t = 3, y = 4
+dy(3,4)
+ 
+% Gráfica de la función y, una vez resuelta la ecuación diferencial:
+[t,y] = ode23(dy,[0,tfinal],y0);
+plot(t,y);
+title('Respuesta de y(t)');
+xlabel('Tiempo [seg]');
+ylabel('Nivel del tanque [m]');
+ 
+grid
+
+
+Ejemplo de función
+Para construir una función se usa la sintaxis:
+function [ output_args ] = <nombre> ( input_args )
+
+end
+
+Se recomienda que el nombre de la función coincida con el nombre del archivo .m; el nombre de este último es el que usará MatLab para llamar a la función.
+
+function [t,y] = MyS_02_tank1_func(u,tfinal,y0)
+% Modelos y Simulación
+% Clase 02
+% Ejemplo de función
+ 
+% Argumentos:
+% u:       control
+% tfinal:  tiempo final
+% y0:      nivel inicial
+ 
+ 
+ 
+clf  % Limpia la figura abierta
+k = 0.3;
+A = 1;
+ 
+% Defino la función, primero la var indep, luego la dependiente.
+dy = @(t,y) -k*y/A + u/A;
+ 
+% Se guarda en las variables t e y los valores de la resolución numérica de
+% la ecuación diferencial.
+[t,y] = ode23(dy,[0,tfinal],y0);
+plot(t,y)
+title('Respuesta de y(t)');
+xlabel('Tiempo [seg]');
+ylabel('Nivel del tanque [m]');
+grid
+ 
+end
+ 
+ 
+Luego, en la ventana de comandos se invoca la función con el nombre de archivo:
+
+
+
+
+
