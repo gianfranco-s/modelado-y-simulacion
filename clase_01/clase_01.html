@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gianfranco Salomone">
+
+<title>Modelado Y Simulación - Clase 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="clase_01_files/libs/clipboard/clipboard.min.js"></script>
+<script src="clase_01_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="clase_01_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="clase_01_files/libs/quarto-html/popper.min.js"></script>
+<script src="clase_01_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="clase_01_files/libs/quarto-html/anchor.min.js"></script>
+<link href="clase_01_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="clase_01_files/libs/quarto-html/quarto-syntax-highlighting-236d90495073fb2ac8939117e3e83141.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="clase_01_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="clase_01_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="clase_01_files/libs/bootstrap/bootstrap-e749e0063aba91fd750f88f320edf3b1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1</span> Introducción</a>
+  <ul class="collapse">
+  <li><a href="#recomendaciones" id="toc-recomendaciones" class="nav-link" data-scroll-target="#recomendaciones"><span class="header-section-number">1.1</span> Recomendaciones</a></li>
+  </ul></li>
+  <li><a href="#qué-es-un-modelo" id="toc-qué-es-un-modelo" class="nav-link" data-scroll-target="#qué-es-un-modelo"><span class="header-section-number">2</span> ¿Qué es un modelo?</a></li>
+  <li><a href="#clasificación-de-modelos" id="toc-clasificación-de-modelos" class="nav-link" data-scroll-target="#clasificación-de-modelos"><span class="header-section-number">3</span> Clasificación de modelos</a>
+  <ul class="collapse">
+  <li><a href="#según-su-comportamiento" id="toc-según-su-comportamiento" class="nav-link" data-scroll-target="#según-su-comportamiento"><span class="header-section-number">3.1</span> Según su comportamiento</a></li>
+  <li><a href="#según-su-derivación" id="toc-según-su-derivación" class="nav-link" data-scroll-target="#según-su-derivación"><span class="header-section-number">3.2</span> Según su derivación</a></li>
+  </ul></li>
+  <li><a href="#ejemplo-de-derivación-de-un-modelo" id="toc-ejemplo-de-derivación-de-un-modelo" class="nav-link" data-scroll-target="#ejemplo-de-derivación-de-un-modelo"><span class="header-section-number">4</span> Ejemplo de derivación de un modelo</a>
+  <ul class="collapse">
+  <li><a href="#modelado-de-un-tanque-de-agua" id="toc-modelado-de-un-tanque-de-agua" class="nav-link" data-scroll-target="#modelado-de-un-tanque-de-agua"><span class="header-section-number">4.1</span> Modelado de un tanque de agua</a></li>
+  <li><a href="#respuesta-temporal-cualitativa" id="toc-respuesta-temporal-cualitativa" class="nav-link" data-scroll-target="#respuesta-temporal-cualitativa"><span class="header-section-number">4.2</span> Respuesta temporal cualitativa</a></li>
+  <li><a href="#respuesta-temporal-analítica" id="toc-respuesta-temporal-analítica" class="nav-link" data-scroll-target="#respuesta-temporal-analítica"><span class="header-section-number">4.3</span> Respuesta temporal analítica</a></li>
+  <li><a href="#gráfica-de-esta-ecuación" id="toc-gráfica-de-esta-ecuación" class="nav-link" data-scroll-target="#gráfica-de-esta-ecuación"><span class="header-section-number">4.4</span> ¿Gráfica de esta ecuación?</a></li>
+  <li><a href="#qué-cosas-estamos-asumiendo" id="toc-qué-cosas-estamos-asumiendo" class="nav-link" data-scroll-target="#qué-cosas-estamos-asumiendo"><span class="header-section-number">4.5</span> ¿Qué cosas estamos asumiendo?</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../clase_01.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Modelado Y Simulación - Clase 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gianfranco Salomone </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>https://youtu.be/sUroO7PXm5M?t=1172 https://ximera.osu.edu/ode</p>
+<section id="introducción" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introducción"><span class="header-section-number">1</span> Introducción</h2>
+<p>Objetivos de la materia Material Documentación Qué es un modelo Software</p>
+<section id="recomendaciones" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="recomendaciones"><span class="header-section-number">1.1</span> Recomendaciones</h3>
+<ul>
+<li>Tener un software para tomar notas. Pueden hacerlo en markdown, LaTex, google docs.</li>
+<li>Tener un directorio bien organizado</li>
+<li>Mantenerse al día con los TP. Para eso les dejaré la última hora de cursada libre.</li>
+<li>Leer el apunte de clase antes de la clase</li>
+</ul>
+</section>
+</section>
+<section id="qué-es-un-modelo" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="qué-es-un-modelo"><span class="header-section-number">2</span> ¿Qué es un modelo?</h2>
+<p>Es la representación simplificada de un fenómeno real. Sirve para entender el comportamiento de un sistema, anticipar su comportamiento futuro, o mejorar sistemas existentes.</p>
+<p>La simulación permite estudiar el comportamiento del sistema sin necesidad de construirlo físicamente, o experimentar de forma riesgosa o costosa.</p>
+<p>En esta materia nos orientaremos a los modelos matemáticos, que representan fenómenos mediante ecuaciones.</p>
+</section>
+<section id="clasificación-de-modelos" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="clasificación-de-modelos"><span class="header-section-number">3</span> Clasificación de modelos</h2>
+<section id="según-su-comportamiento" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="según-su-comportamiento"><span class="header-section-number">3.1</span> Según su comportamiento</h3>
+<ul>
+<li>Estáticos vs.&nbsp;Dinámicos: Si el tiempo es una variable relevante.</li>
+<li>Lineales vs.&nbsp;No Lineales: Relación entre entrada y salida.</li>
+<li>Tiempo Continuo vs.&nbsp;Tiempo Discreto: Cómo evolucionan las variables en el tiempo.</li>
+<li>Determinísticos vs.&nbsp;Estocásticos: Si hay incertidumbre o aleatoriedad.</li>
+</ul>
+</section>
+<section id="según-su-derivación" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="según-su-derivación"><span class="header-section-number">3.2</span> Según su derivación</h3>
+<ul>
+<li>Basados en leyes fundamentales (física, química).</li>
+<li>De caja negra (empíricos): Basados en datos de entrada/salida, sin conocimiento interno.</li>
+<li>De caja gris: Combinación de ambos.</li>
+</ul>
+<p>Durante las clases 1 y 2, vamos a repasar y/o introducir temas de modelado y simulación de sistemas mecánicos</p>
+</section>
+</section>
+<section id="ejemplo-de-derivación-de-un-modelo" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="ejemplo-de-derivación-de-un-modelo"><span class="header-section-number">4</span> Ejemplo de derivación de un modelo</h2>
+<p>Durante el resto de esta clase vamos a ocuparnos de derivar un matemático, basándonos en leyes de la Física, y propondremos posibles comportamientos, suponiendo las condiciones del sistema. También intentaremos encontrar los comportamientos que estamos asumiendo.</p>
+<p>Finalmente, realizaremos la simulación.</p>
+<section id="modelado-de-un-tanque-de-agua" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="modelado-de-un-tanque-de-agua"><span class="header-section-number">4.1</span> Modelado de un tanque de agua</h3>
+<p>Consideremos el caso del llenado de un tanque de agua ¿Por qué es relevante?</p>
+<p>Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque. Hay una cantidad de materia que ingresa al tanque Una cantidad de materia que egresa En la relación de ambas, es que podremos decidir qué pasa con ese nivel</p>
+<table class="caption-top table">
+<caption>Magnitudes del ejemplo</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Magnitud</th>
+<th style="text-align: center;">Símbolo</th>
+<th style="text-align: center;">Unidades SI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Tiempo</td>
+<td style="text-align: center;"><span class="math inline">t</span></td>
+<td style="text-align: center;"><span class="math inline">s</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Caudal de ingreso</td>
+<td style="text-align: center;"><span class="math inline">u</span></td>
+<td style="text-align: center;"><span class="math inline">m^3/s</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Caudal de egreso</td>
+<td style="text-align: center;"><span class="math inline">v</span></td>
+<td style="text-align: center;"><span class="math inline">m^3/s</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Superficie del tanque</td>
+<td style="text-align: center;"><span class="math inline">A</span></td>
+<td style="text-align: center;"><span class="math inline">m^2</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Volumen dentro del tanque</td>
+<td style="text-align: center;"><span class="math inline">V</span></td>
+<td style="text-align: center;"><span class="math inline">m^3</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Nivel de fluido</td>
+<td style="text-align: center;"><span class="math inline">y</span></td>
+<td style="text-align: center;"><span class="math inline">m</span></td>
+</tr>
+</tbody>
+</table>
+<p>El volumen dentro del tanque se calcula así: <span class="math display"> V=Ay </span></p>
+<p>La ley de conservación de la masa se puede escribir así: <span class="math display"> \frac{dV}{dt} = u - v </span></p>
+<p>Por lo tanto, reemplazando en la ecuación inicial: <span class="math display"> A\frac{dy}{dt} = u - v </span></p>
+<p>El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO): <span class="math display"> v \propto P </span></p>
+<p>Y como la presión depende del nivel de fluido (OJO de nuevo): <span class="math display"> v = ky </span></p>
+<p>Reemplazando en la ecuación de diferencia de caudales: <span class="math display"> A\frac{dy}{dt} = u - ky </span> <span class="math display"> \dot{y}(t) = -\frac{k}{A} y(t) + \frac{1}{A} u(t) </span></p>
+<p>Hemos arribado a una expresión que relaciona el nivel de fluido (variable bajo estudio), con el caudal ingresante (variable externa), y los parámetros del sistema. Supongamos que sabemos que el caudal de entrada, en el instante <span class="math inline">t_0=0</span> pasa de <span class="math inline">0</span> a <span class="math inline">U_0</span>. Para <span class="math inline">t&gt;=0</span>, la ecuación diferencial puede expresarse así: <span class="math display"> \dot{y}(t) = -\frac{k}{A} y(t) + \frac{U_0}{A} </span></p>
+</section>
+<section id="respuesta-temporal-cualitativa" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="respuesta-temporal-cualitativa"><span class="header-section-number">4.2</span> Respuesta temporal cualitativa</h3>
+<p>Propongamos una posible evolución del nivel de fluido, considerando que “se abre la canilla” y se deja abierta.</p>
+<p>Empecemos por graficar los ejes que nos interesa estudiar</p>
+<div id="5982a44f" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="clase_01_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Luego propongamos posibles gráficas para cada una. Necesitaremos al menos tener el valor inicial en cada caso. GRÁFICA DE u GRÁFICA de v</p>
+</section>
+<section id="respuesta-temporal-analítica" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="respuesta-temporal-analítica"><span class="header-section-number">4.3</span> Respuesta temporal analítica</h3>
+<p>Implica hallar una solución a la ecuación diferencial. Recordando las clases de cálculo, vemos que se trata de una: * Ecuación Diferencial Ordinaria – ODE, en inglés * De primer orden – hay una única derivada * Lineal – la variable no es argumento de ninguna otra función * No homogénea – hay un término independiente</p>
+<p>La solución de esta ecuación diferencial es: <span class="math display"> y(t) = \frac{U_0}{k} + \left(y_0 - \frac{U_0}{k}\right) e^{-(k/A) t} </span></p>
+<p>Consideremos el llenado desde vacío, con <span class="math inline">y_0 = 0</span> <span class="math display"> y(t) = \left( 1 - e^{-(k/A) t} \right) \frac{U_0}{k} </span></p>
+</section>
+<section id="gráfica-de-esta-ecuación" class="level3" data-number="4.4">
+<h3 data-number="4.4" class="anchored" data-anchor-id="gráfica-de-esta-ecuación"><span class="header-section-number">4.4</span> ¿Gráfica de esta ecuación?</h3>
+<p>Normalización:<br>
+* Constante de tiempo: <span class="math inline">A/k = \tau</span><br>
+* Normalización: <span class="math inline">\hat{y} = y/(U_0/k)</span></p>
+<p>Haciendo esos cambios: <span class="math display"> \hat{y}(t) = 1-e^{-t/\tau} </span></p>
+<p>GRÁFICA</p>
+</section>
+<section id="qué-cosas-estamos-asumiendo" class="level3" data-number="4.5">
+<h3 data-number="4.5" class="anchored" data-anchor-id="qué-cosas-estamos-asumiendo"><span class="header-section-number">4.5</span> ¿Qué cosas estamos asumiendo?</h3>
+<p>OJO: v ∝ P y v = ky Es verdad que a mayor presión, mayor velocidad de salida. Pero la relación entre ambas cantidades es más compleja: Bernoulli P1 + (1/2)ρ v1² + ρgy1 = P2 + (1/2)ρv2² + ρgy2</p>
+<p>El punto 1 es donde se mide y1. El punto y2 es donde se hace el desagote P1=P2 = atmosférica El término de y2 puede despreciarse, por considerarse mucho menor que y1 (OJO!) y1=y La velocidad de bajada v1 puede despreciarse por ser mucho menor que la velocidad de salida (OJO!)</p>
+<p>gy =(1/2)v2²</p>
+<p>v2 A2 = q2 (q2 en nuestro ejemplo se llama v, lo que es un poco confuso) q2 = A2 sqrt(2gy)</p>
+<p>Esta ecuación nos llevaría a una ED no-lineal… nos vamos a ocupar de eso más adelante Simulación en MATLAB Definiremos A=1, k=0,3, u=10, tfinal=50</p>
+<p>Ejemplo de script % Modelos y Simulación % Clase 02 % Ejemplo de script:</p>
+<p>clc; clear all;</p>
+<p>% u: control % tfinal: tiempo final % yo: nivel inicial</p>
+<p>% Inicialización de variables: u = 10; tfinal = 50; y0 = 4;</p>
+<p>% Constantes del sistema: k = 0.3; A = 1;</p>
+<p>% Defino la ecuación diferencial, % primero la var indep, luego la dependiente. dy = @(t,y) -k*y/A + u/A</p>
+<p>% Para usar la función dy: la evaluaremos para t = 3, y = 4 dy(3,4)</p>
+<p>% Gráfica de la función y, una vez resuelta la ecuación diferencial: [t,y] = ode23(dy,[0,tfinal],y0); plot(t,y); title(‘Respuesta de y(t)’); xlabel(‘Tiempo [seg]’); ylabel(‘Nivel del tanque [m]’);</p>
+<p>grid</p>
+<p>Ejemplo de función Para construir una función se usa la sintaxis: function [ output_args ] = <nombre> ( input_args )</nombre></p>
+<p>end</p>
+<p>Se recomienda que el nombre de la función coincida con el nombre del archivo .m; el nombre de este último es el que usará MatLab para llamar a la función.</p>
+<p>function [t,y] = MyS_02_tank1_func(u,tfinal,y0) % Modelos y Simulación % Clase 02 % Ejemplo de función</p>
+<p>% Argumentos: % u: control % tfinal: tiempo final % y0: nivel inicial</p>
+<p>clf % Limpia la figura abierta k = 0.3; A = 1;</p>
+<p>% Defino la función, primero la var indep, luego la dependiente. dy = @(t,y) -k*y/A + u/A;</p>
+<p>% Se guarda en las variables t e y los valores de la resolución numérica de % la ecuación diferencial. [t,y] = ode23(dy,[0,tfinal],y0); plot(t,y) title(‘Respuesta de y(t)’); xlabel(‘Tiempo [seg]’); ylabel(‘Nivel del tanque [m]’); grid</p>
+<p>end</p>
+<p>Luego, en la ventana de comandos se invoca la función con el nombre de archivo:</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -15,6 +15,8 @@ format:
     
 jupyter: python3
 ---
+https://youtu.be/sUroO7PXm5M?t=1172
+https://ximera.osu.edu/ode
 
 ## Introducción
 Objetivos de la materia
@@ -38,15 +40,17 @@ En esta materia nos orientaremos a los modelos matemáticos, que representan fen
 
 
 ## Clasificación de modelos
-Según su comportamiento
-Estáticos vs. Dinámicos: Si el tiempo es una variable relevante.
-Lineales vs. No Lineales: Relación entre entrada y salida.
-Tiempo Continuo vs. Tiempo Discreto: Cómo evolucionan las variables en el tiempo.
-Determinísticos vs. Estocásticos: Si hay incertidumbre o aleatoriedad.
-Según su derivación
-Basados en leyes fundamentales (física, química).
-De caja negra (empíricos): Basados en datos de entrada/salida, sin conocimiento interno.
-De caja gris: Combinación de ambos.
+
+### Según su comportamiento
+* Estáticos vs. Dinámicos: Si el tiempo es una variable relevante.
+* Lineales vs. No Lineales: Relación entre entrada y salida.
+* Tiempo Continuo vs. Tiempo Discreto: Cómo evolucionan las variables en el tiempo.
+* Determinísticos vs. Estocásticos: Si hay incertidumbre o aleatoriedad.
+
+### Según su derivación
+* Basados en leyes fundamentales (física, química).
+* De caja negra (empíricos): Basados en datos de entrada/salida, sin conocimiento interno.
+* De caja gris: Combinación de ambos.
 
 
 Durante las clases 1 y 2, vamos a repasar y/o introducir temas de modelado y simulación de sistemas mecánicos
@@ -134,22 +138,26 @@ Luego propongamos posibles gráficas para cada una. Necesitaremos al menos tener
 			GRÁFICA de v
 
 ### Respuesta temporal analítica
-Implica hallar una solución a la ecuación diferencial. Recordando las clases de cálculo, vemos que se trata de una
-Ecuación Diferencial Ordinaria (ODE, en inglés. Este término es importante)
-De primer orden (hay una única derivada)
-Lineal (la variable no es argumento de ninguna otra función)
-No homogénea (hay un término independiente)
+Implica hallar una solución a la ecuación diferencial. Recordando las clases de cálculo, vemos que se trata de una:
+* Ecuación Diferencial Ordinaria -- ODE, en inglés
+* De primer orden -- hay una única derivada
+* Lineal -- la variable no es argumento de ninguna otra función
+* No homogénea -- hay un término independiente
 
-No entraremos en detalles de resolución de esta EDO. Baste con indicar que, si el nivel inicial 
-y(t) = U0/k + (y0 - u0/k) e^(-k/A t)
+La solución de esta ecuación diferencial es:
+$$ y(t) = \frac{U_0}{k} + \left(y_0 - \frac{U_0}{k}\right) e^{-(k/A) t} $$
 
-Si consideramos el llenado desde vacío (y0=0)
-y(t) = [ 1 - e^(-k/A t)] U0/k
+Consideremos el llenado desde vacío, con $y_0 = 0$
+$$ y(t) = \left( 1 - e^{-(k/A) t} \right) \frac{U_0}{k} $$
 
-¿Gráfica de esta ecuación?
-Cambio de variables:
-Normalización: considerar y_hat = y_(U0/k) = 1-e^(-k/At)
-A/k = tau
+
+### ¿Gráfica de esta ecuación?
+Normalización:  
+* Constante de tiempo: $A/k = \tau$  
+* Normalización: $\hat{y} = y/(U_0/k)$
+
+Haciendo esos cambios:
+$$ \hat{y}(t) = 1-e^{-t/\tau} $$
 
 GRÁFICA
 
