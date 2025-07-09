@@ -217,7 +217,7 @@ Esta ecuación es claramente no-lineal, y la usaremos para el trabajo práctico.
 ## Simulación del modelo lineal
 Para este primer ejemplo, estableceremos constantes "a dedo", para validar que el modelo sea coherente con nuestra expectativa de comportamiento.
 
-Archivo `mys_clase_01_modelo_lineal.m`
+Archivo `mys_clase_01a_modelo_lineal.m`
 ```MATLAB
 % Modelos y Simulación
 % Tema: modelo lineal de nivel
@@ -264,45 +264,60 @@ grid;
 
 ```
 
+### Funciones
 Ejemplo de función
 Para construir una función se usa la sintaxis:
+```MATLAB
 function [ output_args ] = <nombre> ( input_args )
-
+  <operaciones>
 end
-
+```
 Se recomienda que el nombre de la función coincida con el nombre del archivo .m; el nombre de este último es el que usará MatLab para llamar a la función.
 
-function [t,y] = MyS_02_tank1_func(u,tfinal,y0)
+Archivo `mys_clase_01b_main.m`
+```MATLAB
 % Modelos y Simulación
-% Clase 02
-% Ejemplo de función
+% Tema: utilización de funciones -- main
+% Autor: Gianfranco Salomone
  
-% Argumentos:
-% u:       control
-% tfinal:  tiempo final
-% y0:      nivel inicial
- 
- 
- 
-clf  % Limpia la figura abierta
-k = 0.3;
-A = 1;
- 
-% Defino la función, primero la var indep, luego la dependiente.
-dy = @(t,y) -k*y/A + u/A;
- 
-% Se guarda en las variables t e y los valores de la resolución numérica de
-% la ecuación diferencial.
-[t,y] = ode23(dy,[0,tfinal],y0);
-plot(t,y)
-title('Respuesta de y(t)');
-xlabel('Tiempo [seg]');
-ylabel('Nivel del tanque [m]');
-grid
+clc;
+clear all;
+
+t_start = 0;
+t_end = 20;
+t_step = 0.1;
+
+% Llamado a la función
+[t, y, dy] = mys_clase_01b_func(t_start, t_end, t_step);
+
+figure;
+
+subplot(2, 1, 1);
+plot(t, y, 'b-', 'LineWidth', 1.5);
+xlabel('Time (t)');
+ylabel('y(t)');
+title('y = t + sin(t)');
+grid on;
+
+subplot(2, 1, 2);
+plot(t, dy, 'r-', 'LineWidth', 1.5);
+xlabel('Time (t)');
+ylabel('dy/dt');
+title('dy/dt = 1 + cos(t)');
+grid on;
+
+```
+Archivo `mys_clase_01b_func.m`
+```MATLAB
+% Modelos y Simulación
+% Tema: utilización de funciones -- func
+% Autor: Gianfranco Salomone
+
+function [z, y, dy] = mys_clase_01b_func(t_start, t_end, t_step)
+
+  z = t_start : t_step : t_end;
+  y = z + sin(z);
+  dy = gradient(y, t_step);
  
 end
-``` 
-
-```{python}
-
 ```

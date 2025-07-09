@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -108,6 +143,10 @@ window.Quarto = {
   <li><a href="#gráfica-de-esta-ecuación" id="toc-gráfica-de-esta-ecuación" class="nav-link" data-scroll-target="#gráfica-de-esta-ecuación"><span class="header-section-number">4.4</span> Gráfica de esta ecuación</a></li>
   <li><a href="#qué-cosas-estamos-asumiendo" id="toc-qué-cosas-estamos-asumiendo" class="nav-link" data-scroll-target="#qué-cosas-estamos-asumiendo"><span class="header-section-number">4.5</span> ¿Qué cosas estamos asumiendo?</a></li>
   </ul></li>
+  <li><a href="#simulación-del-modelo-lineal" id="toc-simulación-del-modelo-lineal" class="nav-link" data-scroll-target="#simulación-del-modelo-lineal"><span class="header-section-number">5</span> Simulación del modelo lineal</a>
+  <ul class="collapse">
+  <li><a href="#funciones" id="toc-funciones" class="nav-link" data-scroll-target="#funciones"><span class="header-section-number">5.1</span> Funciones</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../clase_01.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -189,7 +228,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="modelado_nivel_un_recipiente_sin_valvula.svg" class="img-fluid figure-img"></p>
-<figcaption>​</figcaption>
+<figcaption>Sistema de nivel</figcaption>
 </figure>
 </div>
 <p>Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque. Hay una cantidad de materia que ingresa al tanque y una cantidad de materia que egresa. En la relación de ambas, podremos hallar la evolución del nivel de fluido.</p>
@@ -237,7 +276,7 @@ window.Quarto = {
 </table>
 <p>El volumen dentro del tanque se calcula así: <span class="math display"> V = Ch </span></p>
 <p>La ley de conservación de la masa se puede escribir así: <span class="math display"> \frac{dV}{dt} = q_i - q_s </span></p>
-<p>Por lo tanto, reemplazando en la ecuación inicial: <span class="math display"> C\frac{dy}{dt} = q_i - q_s </span></p>
+<p>Por lo tanto, reemplazando en la ecuación inicial: <span class="math display"> C\frac{dh}{dt} = q_i - q_s </span></p>
 <p>El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO). A su vez, la presión en el fondo del recipiente puede considerarse proporcional al nivel de fluido (OJO de nuevo): <span class="math display"> v_s \propto P_1 \propto h </span></p>
 <p>Si la relación es de proporcionalidad, se puede plantear un valor de <span class="math inline">k</span> que la convierta en igualdad: <span class="math display"> v_s \approx kh </span></p>
 <p>Reemplazando en la ecuación de diferencia de caudales: <span class="math display"> C\frac{dh}{dt} = q_i - kh </span> <span class="math display"> \dot{h}(t) = -\frac{k}{C} h(t) + \frac{1}{C} q_i(t) </span></p>
@@ -247,7 +286,7 @@ window.Quarto = {
 <h3 data-number="4.2" class="anchored" data-anchor-id="respuesta-temporal-cualitativa"><span class="header-section-number">4.2</span> Respuesta temporal cualitativa</h3>
 <p>Propongamos una posible evolución del nivel de fluido, considerando que “se abre la canilla” y se deja abierta.</p>
 <p>Empecemos por graficar los ejes que nos interesa estudiar</p>
-<div id="a1fe028c" class="cell" data-execution_count="1">
+<div id="bfba1554" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -279,7 +318,15 @@ window.Quarto = {
 <li>Normalización: <span class="math inline">\hat{h} = h/(U_0/k)</span></li>
 </ul>
 <p>Haciendo esos cambios: <span class="math display"> \hat{h}(t) = 1-e^{-t/\tau} </span></p>
-<p>GRÁFICA</p>
+<div id="e60fd001" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="clase_01_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="qué-cosas-estamos-asumiendo" class="level3" data-number="4.5">
 <h3 data-number="4.5" class="anchored" data-anchor-id="qué-cosas-estamos-asumiendo"><span class="header-section-number">4.5</span> ¿Qué cosas estamos asumiendo?</h3>
@@ -287,28 +334,104 @@ window.Quarto = {
 <p>El lado izquierdo de la ecuación corresponde a la superficie del fluido. Allí, la presión es la presión atmosférica, dado que el recipiente se encuentra abierto: <span class="math inline">P_h=p_{atm}</span></p>
 <p>El lado derecho corresponde al punto de salida, que también está abierto, de manera que <span class="math inline">P_h=p_{atm}</span>. Si ponemos en este punto el origen de coordenadas, también podemos establecer que <span class="math inline">h_s=0</span> (OJO! No es válido si el tamaño del desagote es grande.)</p>
 <p>Nótese que la presión del lado izquierdo de la ecuación <strong>no</strong> es la del fondo del tanque.</p>
-<p>gy =(1/2)v2²</p>
-<p>v2 A2 = q2 (q2 en nuestro ejemplo se llama v, lo que es un poco confuso) q2 = A2 sqrt(2gy)</p>
-<p>Esta ecuación nos llevaría a una ED no-lineal… nos vamos a ocupar de eso más adelante Simulación en MATLAB Definiremos A=1, k=0,3, u=10, tfinal=50</p>
-<p>Ejemplo de script % Modelos y Simulación % Clase 02 % Ejemplo de script:</p>
-<p>clc; clear all;</p>
-<p>% u: control % tfinal: tiempo final % yo: nivel inicial</p>
-<p>% Inicialización de variables: u = 10; tfinal = 50; y0 = 4;</p>
-<p>% Constantes del sistema: k = 0.3; A = 1;</p>
-<p>% Defino la ecuación diferencial, % primero la var indep, luego la dependiente. dy = @(t,y) -k*y/A + u/A</p>
-<p>% Para usar la función dy: la evaluaremos para t = 3, y = 4 dy(3,4)</p>
-<p>% Gráfica de la función y, una vez resuelta la ecuación diferencial: [t,y] = ode23(dy,[0,tfinal],y0); plot(t,y); title(‘Respuesta de y(t)’); xlabel(‘Tiempo [seg]’); ylabel(‘Nivel del tanque [m]’);</p>
-<p>grid</p>
-<p>Ejemplo de función Para construir una función se usa la sintaxis: function [ output_args ] = <nombre> ( input_args )</nombre></p>
-<p>end</p>
+<p>Tomando en cuenta esas consideraciones, podemos reescribir la ecuación de Bernoulli: <span class="math display"> 2gh = v_s^2 - v_h^2 </span></p>
+<p>Utilizando la definición de caudal, y reconociendo que entre el punto donde se mide <span class="math inline">h</span> y el punto de desagote no se crea ni se destruye materia (OJO! No vale para flujo turbulento ni fluidos compresibles): <span class="math display"> q_s = q_h \longrightarrow v_s C_d = v_h C \longrightarrow v_h = \frac{C_d}{C} v_s </span> <span class="math display"> 2gh = v_s^2 - \left( \frac{C_d}{C} v_s \right)^2 \longrightarrow 2gh = 1 - \left( \frac{C_d^2}{C^2} \right) v_s^2 </span> <span class="math display"> q_s = \sqrt{\frac{2gC_d^2}{1-\frac{C_d^2}{C^2}}} \sqrt{h} </span></p>
+<p>Donde <span class="math inline">C_d</span> es la sección del desagote.</p>
+<p>Este último caso, la ecuación descriptiva del sistema sería <span class="math display"> C\frac{dh}{dt} = q_i - q_s \longrightarrow  C\frac{dh}{dt} = q_i - C' \sqrt{h} </span></p>
+<p>Esta ecuación es claramente no-lineal, y la usaremos para el trabajo práctico.</p>
+</section>
+</section>
+<section id="simulación-del-modelo-lineal" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="simulación-del-modelo-lineal"><span class="header-section-number">5</span> Simulación del modelo lineal</h2>
+<p>Para este primer ejemplo, estableceremos constantes “a dedo”, para validar que el modelo sea coherente con nuestra expectativa de comportamiento.</p>
+<p>Archivo <code>mys_clase_01a_modelo_lineal.m</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Modelos y Simulación</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Tema: modelo lineal de nivel</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">% Autor: Gianfranco Salomone</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">clc</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="va">clear</span> <span class="va">all</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">% U0:      acción externa  [m^3/s]</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">% tfinal:  tiempo final    [s]</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">% ho:      nivel inicial   [m]</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">% k:       cte de prop     [m^2/s] (se deduce!)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">% C:       sección tanque  [m^2]</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">% Inicialización de variables:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="va">U0</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="va">tfinal</span> <span class="op">=</span> <span class="fl">50</span><span class="op">;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="va">h0</span> <span class="op">=</span> <span class="fl">4</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">% Constantes del sistema:</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="va">k</span> <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="va">C</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">% Se define la ecuación diferencial</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">% primero la var indep, luego la dependiente</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="va">dh</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span><span class="va">h</span>) <span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">h</span><span class="op">/</span><span class="va">C</span> <span class="op">+</span> <span class="va">U0</span><span class="op">/</span><span class="va">C</span>  <span class="co">% Es una función paramétrica</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">% Es posible evaluar la función paramétrica</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">% para t = 3, h = 4</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="va">dh</span>(<span class="fl">3</span><span class="op">,</span><span class="fl">4</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">% Array de puntos que cumplen con la condición de la función paramétrica</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="va">tspan</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">,</span> <span class="va">tfinal</span>]</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">h</span>] <span class="op">=</span> <span class="va">ode23</span>(<span class="va">dh</span><span class="op">,</span> <span class="va">tspan</span><span class="op">,</span> <span class="va">h0</span>)<span class="op">;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">% Gráfica de la función y, una vez resuelta la ecuación diferencial:</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">h</span>)<span class="op">;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'Respuesta de h(t)'</span>)<span class="op">;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Tiempo (s)'</span>)<span class="op">;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'Nivel del tanque (m)'</span>)<span class="op">;</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="funciones" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="funciones"><span class="header-section-number">5.1</span> Funciones</h3>
+<p>Ejemplo de función Para construir una función se usa la sintaxis:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [ <span class="va">output_args</span> ] <span class="op">=</span> <span class="op">&lt;</span><span class="va">nombre</span><span class="op">&gt;</span> ( <span class="va">input_args</span> )</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span><span class="va">operaciones</span><span class="op">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Se recomienda que el nombre de la función coincida con el nombre del archivo .m; el nombre de este último es el que usará MatLab para llamar a la función.</p>
-<p>function [t,y] = MyS_02_tank1_func(u,tfinal,y0) % Modelos y Simulación % Clase 02 % Ejemplo de función</p>
-<p>% Argumentos: % u: control % tfinal: tiempo final % y0: nivel inicial</p>
-<p>clf % Limpia la figura abierta k = 0.3; A = 1;</p>
-<p>% Defino la función, primero la var indep, luego la dependiente. dy = @(t,y) -k*y/A + u/A;</p>
-<p>% Se guarda en las variables t e y los valores de la resolución numérica de % la ecuación diferencial. [t,y] = ode23(dy,[0,tfinal],y0); plot(t,y) title(‘Respuesta de y(t)’); xlabel(‘Tiempo [seg]’); ylabel(‘Nivel del tanque [m]’); grid</p>
-<p>end</p>
-<p>Luego, en la ventana de comandos se invoca la función con el nombre de archivo:</p>
+<p>Archivo <code>mys_clase_01b_main.m</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Modelos y Simulación</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Tema: utilización de funciones</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">% Autor: Gianfranco Salomone</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">clc</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="va">clear</span> <span class="va">all</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">t_start</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">t_end</span> <span class="op">=</span> <span class="fl">20</span><span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">t_step</span> <span class="op">=</span> <span class="fl">0.1</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">% Llamado a la función</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">y</span><span class="op">,</span> <span class="va">dy</span>] <span class="op">=</span> <span class="va">mys_clase_01b_func</span>(<span class="va">t_start</span><span class="op">,</span> <span class="va">t_end</span><span class="op">,</span> <span class="va">t_step</span>)<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span><span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">y</span><span class="op">,</span> <span class="ss">'b-'</span><span class="op">,</span> <span class="ss">'LineWidth'</span><span class="op">,</span> <span class="fl">1.5</span>)<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Time (t)'</span>)<span class="op">;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'y(t)'</span>)<span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'y = t + sin(t)'</span>)<span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">dy</span><span class="op">,</span> <span class="ss">'r-'</span><span class="op">,</span> <span class="ss">'LineWidth'</span><span class="op">,</span> <span class="fl">1.5</span>)<span class="op">;</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Time (t)'</span>)<span class="op">;</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'dy/dt'</span>)<span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'dy/dt = 1 + cos(t)'</span>)<span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Archivo <code>mys_clase_01b_func.m</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">z</span><span class="op">,</span> <span class="va">y</span><span class="op">,</span> <span class="va">dy</span>] <span class="op">=</span> <span class="va">mys_clase_01b_func</span>(<span class="va">t_start</span><span class="op">,</span> <span class="va">t_end</span><span class="op">,</span> <span class="va">t_step</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">z</span> <span class="op">=</span> <span class="va">t_start</span> <span class="op">:</span> <span class="va">t_step</span> <span class="op">:</span> <span class="va">t_end</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="va">y</span> <span class="op">=</span> <span class="va">z</span> <span class="op">+</span> <span class="va">sin</span>(<span class="va">z</span>)<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="va">dy</span> <span class="op">=</span> <span class="va">gradient</span>(<span class="va">y</span><span class="op">,</span> <span class="va">t_step</span>)<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 
