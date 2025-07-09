@@ -64,7 +64,7 @@ Finalmente, realizaremos la simulación.
 ### Modelado de un tanque de agua
 Consideremos el caso del llenado de un tanque de agua.
 
-![&#8203;](modelado_nivel_un_recipiente_sin_valvula.svg)
+![Sistema de nivel](modelado_nivel_un_recipiente_sin_valvula.svg)
 
 Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque. Hay una cantidad de materia que ingresa al tanque y una cantidad de materia que egresa. En la relación de ambas, podremos hallar la evolución del nivel de fluido.
 
@@ -88,7 +88,7 @@ La ley de conservación de la masa se puede escribir así:
 $$ \frac{dV}{dt} = q_i - q_s $$
 
 Por lo tanto, reemplazando en la ecuación inicial:
-$$ C\frac{dy}{dt} = q_i - q_s $$
+$$ C\frac{dh}{dt} = q_i - q_s $$
 
 El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO). A su vez, la presión en el fondo del recipiente puede considerarse proporcional al nivel de fluido (OJO de nuevo):
 $$ v_s \propto P_1 \propto h $$
@@ -158,7 +158,35 @@ Vamos a hacer un cambio de variables, para hacer más genérica la respuesta.
 Haciendo esos cambios:
 $$ \hat{h}(t) = 1-e^{-t/\tau} $$
 
-GRÁFICA
+```{python}
+#| echo: false
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+tau = 1
+tf = 8
+
+t = np.linspace(0, tf, 50)
+h_hat = (1-np.exp(-t/tau))
+
+fig, ax = plt.subplots()
+ax.plot(t, h_hat, label=r"$\hat{h}(t)$")
+
+for border in ("top", "right"):
+  ax.spines[border].set_visible(False)
+
+for border in ("bottom", "left"):
+  ax.spines[border].set_position(('data', 0))
+  ax.spines[border].set_linestyle('-')
+  ax.spines[border].set_color('lightgray')
+
+ax.set_xlabel(r"$t$")
+ax.set_ylabel(r"$\hat{h}(t)$")
+# ax.set_title(r"Respuesta: $\hat{h}(t) = 1 - e^{-t/\tau}$")
+
+plt.show()
+```
 
 ### ¿Qué cosas estamos asumiendo?
 OJO: $v_s \propto P_1 \propto h$
@@ -171,54 +199,70 @@ El lado derecho corresponde al punto de salida, que también está abierto, de m
 
 Nótese que la presión del lado izquierdo de la ecuación **no** es la del fondo del tanque.
 
+Tomando en cuenta esas consideraciones, podemos reescribir la ecuación de Bernoulli:
+$$ 2gh = v_s^2 - v_h^2 $$
 
+Utilizando la definición de caudal, y reconociendo que entre el punto donde se mide $h$ y el punto de desagote no se crea ni se destruye materia (OJO! No vale para flujo turbulento ni fluidos compresibles):
+$$ q_s = q_h \longrightarrow v_s C_d = v_h C \longrightarrow v_h = \frac{C_d}{C} v_s $$
+$$ 2gh = v_s^2 - \left( \frac{C_d}{C} v_s \right)^2 \longrightarrow 2gh = 1 - \left( \frac{C_d^2}{C^2} \right) v_s^2 $$
+$$ q_s = \sqrt{\frac{2gC_d^2}{1-\frac{C_d^2}{C^2}}} \sqrt{h} $$
 
-gy =(1/2)v2²
+Donde $C_d$ es la sección del desagote.
 
-v2 A2 = q2 (q2 en nuestro ejemplo se llama v, lo que es un poco confuso)
-q2 = A2 sqrt(2gy) 
+Este último caso, la ecuación descriptiva del sistema sería 
+$$ C\frac{dh}{dt} = q_i - q_s \longrightarrow  C\frac{dh}{dt} = q_i - C' \sqrt{h} $$
 
-Esta ecuación nos llevaría a una ED no-lineal… nos vamos a ocupar de eso más adelante
-Simulación en MATLAB
-Definiremos A=1, k=0,3, u=10, tfinal=50
+Esta ecuación es claramente no-lineal, y la usaremos para el trabajo práctico.
 
-Ejemplo de script
+## Simulación del modelo lineal
+Para este primer ejemplo, estableceremos constantes "a dedo", para validar que el modelo sea coherente con nuestra expectativa de comportamiento.
+
+Archivo `mys_clase_01_modelo_lineal.m`
+```MATLAB
 % Modelos y Simulación
-% Clase 02
-% Ejemplo de script:
+% Tema: modelo lineal de nivel
+% Autor: Gianfranco Salomone
  
 clc;
 clear all;
  
-% u:       control
-% tfinal:  tiempo final
-% yo:      nivel inicial
- 
+% U0:      acción externa  [m^3/s]
+% tfinal:  tiempo final    [s]
+% ho:      nivel inicial   [m]
+
+% k:       cte de prop     [m^2/s] (se deduce!)
+% C:       sección tanque  [m^2]
+
 % Inicialización de variables:
-u = 10;
+U0 = 10;
 tfinal = 50;
-y0 = 4;
- 
+h0 = 4;
+
 % Constantes del sistema:
 k = 0.3;
-A = 1;
+C = 1;
  
-% Defino la ecuación diferencial,
-% primero la var indep, luego la dependiente.
-dy = @(t,y) -k*y/A + u/A
+% Se define la ecuación diferencial
+% primero la var indep, luego la dependiente
+dh = @(t,h) -k*h/C + U0/C  % Es una función paramétrica
  
-% Para usar la función dy: la evaluaremos para t = 3, y = 4
-dy(3,4)
- 
-% Gráfica de la función y, una vez resuelta la ecuación diferencial:
-[t,y] = ode23(dy,[0,tfinal],y0);
-plot(t,y);
-title('Respuesta de y(t)');
-xlabel('Tiempo [seg]');
-ylabel('Nivel del tanque [m]');
- 
-grid
+% Es posible evaluar la función paramétrica
+% para t = 3, h = 4
+dh(3,4)
 
+% Array de puntos que cumplen con la condición de la función paramétrica
+tspan = [0, tfinal]
+[t, h] = ode23(dh, tspan, h0);
+
+% Gráfica de la función y, una vez resuelta la ecuación diferencial:
+plot(t, h);
+title('Respuesta de h(t)');
+xlabel('Tiempo (s)');
+ylabel('Nivel del tanque (m)');
+ 
+grid;
+
+```
 
 Ejemplo de función
 Para construir una función se usa la sintaxis:
@@ -257,11 +301,8 @@ ylabel('Nivel del tanque [m]');
 grid
  
 end
- 
- 
-Luego, en la ventana de comandos se invoca la función con el nombre de archivo:
+``` 
 
+```{python}
 
-
-
-
+```
