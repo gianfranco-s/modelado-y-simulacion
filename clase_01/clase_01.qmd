@@ -234,11 +234,67 @@ with open(filename, "r") as f:
 print("-" * 60)
 ```
 
+```{python}
+#| echo: false
+
+import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+def dh(t, h, U0=10, k=0.3, C=1):
+    """
+    dh/dt = -k*h/C + U0/C
+    """
+    return -k * h / C + U0 / C
+
+def main():
+    # Parameters
+    U0 = 10     # acción externa [m^3/s]
+    tfinal = 50 # tiempo final [s]
+    h0 = 4      # nivel inicial [m]
+    k = 0.3     # cte de proporcionalidad [m^2/s]
+    C = 1       # sección del tanque [m^2]
+
+    # 1) Parametric evaluation at t=3, h=4
+    print("dh(3,4) =", dh(3, 4, U0, k, C))
+
+    # 2) Solve ODE on t ∈ [0, tfinal]
+    t_eval = np.linspace(0, tfinal, 500)
+    sol = solve_ivp(
+        fun=lambda t, h: dh(t, h, U0, k, C),
+        t_span=(0, tfinal),
+        y0=[h0],
+        t_eval=t_eval,
+        method='RK45'
+    )
+
+    t = sol.t
+    h = sol.y[0]
+
+    # 3) Plot the result
+    fig, ax = plt.subplots(figsize=(8,4))
+    ax.plot(t, h, lw=2)
+    ax.set_xlabel('Tiempo (s)')
+    ax.set_ylabel('Nivel del tanque (m)')
+
+    for border in ("top", "right", "bottom", "left"):
+      ax.spines[border].set_visible(False)
+
+    ax.axvline(0, color='gray', linestyle=':')
+    ax.axhline(0, color='gray', linestyle=':')
+    plt.show()
+
+main()
+
+
+```
+
+¿Por qué no da lo mismo que la gráfica inicial? ¿Qué podemos cambiar?
 
 ### Funciones
 Ejemplo de función
 Para construir una función se usa la sintaxis:
-```MATLAB
+```
 function [ output_args ] = <nombre> ( input_args )
   <operaciones>
 end

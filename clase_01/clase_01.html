@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -286,7 +251,7 @@ window.Quarto = {
 <h3 data-number="4.2" class="anchored" data-anchor-id="respuesta-temporal-cualitativa"><span class="header-section-number">4.2</span> Respuesta temporal cualitativa</h3>
 <p>Propongamos una posible evolución del nivel de fluido, considerando que “se abre la canilla” y se deja abierta.</p>
 <p>Empecemos por graficar los ejes que nos interesa estudiar</p>
-<div id="a614423d" class="cell" data-execution_count="1">
+<div id="59b9acd2" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -318,7 +283,7 @@ window.Quarto = {
 <li>Normalización: <span class="math inline">\hat{h} = h/(U_0/k)</span></li>
 </ul>
 <p>Haciendo esos cambios: <span class="math display"> \hat{h}(t) = 1-e^{-t/\tau} </span></p>
-<div id="fa2ff7d2" class="cell" data-execution_count="2">
+<div id="c43570a4" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -344,8 +309,8 @@ window.Quarto = {
 <section id="simulación-del-modelo-lineal" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="simulación-del-modelo-lineal"><span class="header-section-number">5</span> Simulación del modelo lineal</h2>
 <p>Para este primer ejemplo, estableceremos constantes “a dedo”, para validar que el modelo sea coherente con nuestra expectativa de comportamiento.</p>
-<p>Archivo “mys_clase_01a_modelo_lineal.m”</p>
-<div id="53a335f2" class="cell" data-execution_count="4">
+<p><strong>Archivo “mys_clase_01a_modelo_lineal.m”</strong></p>
+<div id="a48d462e" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>------------------------------------------------------------
 % Modelos y Simulación
@@ -394,15 +359,28 @@ grid;
 ------------------------------------------------------------</code></pre>
 </div>
 </div>
+<div id="0372f633" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-stdout">
+<pre><code>dh(3,4) = 8.8</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="clase_01_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>¿Por qué no da lo mismo que la gráfica inicial? ¿Qué podemos cambiar?</p>
 <section id="funciones" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="funciones"><span class="header-section-number">5.1</span> Funciones</h3>
 <p>Ejemplo de función Para construir una función se usa la sintaxis:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [ <span class="va">output_args</span> ] <span class="op">=</span> <span class="op">&lt;</span><span class="va">nombre</span><span class="op">&gt;</span> ( <span class="va">input_args</span> )</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span><span class="va">operaciones</span><span class="op">&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>function [ output_args ] = &lt;nombre&gt; ( input_args )
+  &lt;operaciones&gt;
+end</code></pre>
 <p>Se recomienda que el nombre de la función coincida con el nombre del archivo .m; el nombre de este último es el que usará MatLab para llamar a la función.</p>
 <p><strong>Archivo “mys_clase_01b_main.m”</strong></p>
-<div id="d910fc61" class="cell" data-execution_count="6">
+<div id="df99c79f" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>------------------------------------------------------------
 % Modelos y Simulación
@@ -439,7 +417,7 @@ grid on;
 </div>
 </div>
 <p><strong>Archivo “mys_clase_01b_func.m”</strong></p>
-<div id="7a7c22c0" class="cell" data-execution_count="8">
+<div id="2f356015" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-stdout">
 <pre><code>------------------------------------------------------------
 % Modelos y Simulación
