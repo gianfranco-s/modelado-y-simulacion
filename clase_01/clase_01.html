@@ -286,7 +286,7 @@ window.Quarto = {
 <h3 data-number="4.2" class="anchored" data-anchor-id="respuesta-temporal-cualitativa"><span class="header-section-number">4.2</span> Respuesta temporal cualitativa</h3>
 <p>Propongamos una posible evolución del nivel de fluido, considerando que “se abre la canilla” y se deja abierta.</p>
 <p>Empecemos por graficar los ejes que nos interesa estudiar</p>
-<div id="bfba1554" class="cell" data-execution_count="1">
+<div id="a614423d" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -318,7 +318,7 @@ window.Quarto = {
 <li>Normalización: <span class="math inline">\hat{h} = h/(U_0/k)</span></li>
 </ul>
 <p>Haciendo esos cambios: <span class="math display"> \hat{h}(t) = 1-e^{-t/\tau} </span></p>
-<div id="e60fd001" class="cell" data-execution_count="2">
+<div id="fa2ff7d2" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -344,49 +344,56 @@ window.Quarto = {
 <section id="simulación-del-modelo-lineal" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="simulación-del-modelo-lineal"><span class="header-section-number">5</span> Simulación del modelo lineal</h2>
 <p>Para este primer ejemplo, estableceremos constantes “a dedo”, para validar que el modelo sea coherente con nuestra expectativa de comportamiento.</p>
-<p>Archivo <code>mys_clase_01a_modelo_lineal.m</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Modelos y Simulación</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Tema: modelo lineal de nivel</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">% Autor: Gianfranco Salomone</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">clc</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="va">clear</span> <span class="va">all</span><span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">% U0:      acción externa  [m^3/s]</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">% tfinal:  tiempo final    [s]</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">% ho:      nivel inicial   [m]</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">% k:       cte de prop     [m^2/s] (se deduce!)</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">% C:       sección tanque  [m^2]</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">% Inicialización de variables:</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="va">U0</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="va">tfinal</span> <span class="op">=</span> <span class="fl">50</span><span class="op">;</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="va">h0</span> <span class="op">=</span> <span class="fl">4</span><span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">% Constantes del sistema:</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="va">k</span> <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="va">C</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">% Se define la ecuación diferencial</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">% primero la var indep, luego la dependiente</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="va">dh</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span><span class="va">h</span>) <span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">h</span><span class="op">/</span><span class="va">C</span> <span class="op">+</span> <span class="va">U0</span><span class="op">/</span><span class="va">C</span>  <span class="co">% Es una función paramétrica</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">% Es posible evaluar la función paramétrica</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">% para t = 3, h = 4</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="va">dh</span>(<span class="fl">3</span><span class="op">,</span><span class="fl">4</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">% Array de puntos que cumplen con la condición de la función paramétrica</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="va">tspan</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">,</span> <span class="va">tfinal</span>]</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">h</span>] <span class="op">=</span> <span class="va">ode23</span>(<span class="va">dh</span><span class="op">,</span> <span class="va">tspan</span><span class="op">,</span> <span class="va">h0</span>)<span class="op">;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">% Gráfica de la función y, una vez resuelta la ecuación diferencial:</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">h</span>)<span class="op">;</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'Respuesta de h(t)'</span>)<span class="op">;</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Tiempo (s)'</span>)<span class="op">;</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'Nivel del tanque (m)'</span>)<span class="op">;</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Archivo “mys_clase_01a_modelo_lineal.m”</p>
+<div id="53a335f2" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-stdout">
+<pre><code>------------------------------------------------------------
+% Modelos y Simulación
+% Tema: modelo lineal de nivel
+% Autor: Gianfranco Salomone
+ 
+clc;
+clear all;
+ 
+% U0:      acción externa  [m^3/s]
+% tfinal:  tiempo final    [s]
+% ho:      nivel inicial   [m]
+
+% k:       cte de prop     [m^2/s] (se deduce!)
+% C:       sección tanque  [m^2]
+
+% Inicialización de variables:
+U0 = 10;
+tfinal = 50;
+h0 = 4;
+
+% Constantes del sistema:
+k = 0.3;
+C = 1;
+ 
+% Se define la ecuación diferencial
+% primero la var indep, luego la dependiente
+dh = @(t,h) -k*h/C + U0/C  % Es una función paramétrica
+ 
+% Es posible evaluar la función paramétrica
+% para t = 3, h = 4
+dh(3,4)
+
+% Array de puntos que cumplen con la condición de la función paramétrica
+tspan = [0, tfinal]
+[t, h] = ode23(dh, tspan, h0);
+
+% Gráfica de la función y, una vez resuelta la ecuación diferencial:
+plot(t, h);
+title('Respuesta de h(t)');
+xlabel('Tiempo (s)');
+ylabel('Nivel del tanque (m)');
+ 
+grid;
+
+------------------------------------------------------------</code></pre>
+</div>
+</div>
 <section id="funciones" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="funciones"><span class="header-section-number">5.1</span> Funciones</h3>
 <p>Ejemplo de función Para construir una función se usa la sintaxis:</p>
@@ -394,44 +401,62 @@ window.Quarto = {
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span><span class="va">operaciones</span><span class="op">&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Se recomienda que el nombre de la función coincida con el nombre del archivo .m; el nombre de este último es el que usará MatLab para llamar a la función.</p>
-<p>Archivo <code>mys_clase_01b_main.m</code></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Modelos y Simulación</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Tema: utilización de funciones</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">% Autor: Gianfranco Salomone</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">clc</span><span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="va">clear</span> <span class="va">all</span><span class="op">;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">t_start</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">t_end</span> <span class="op">=</span> <span class="fl">20</span><span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">t_step</span> <span class="op">=</span> <span class="fl">0.1</span><span class="op">;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">% Llamado a la función</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">y</span><span class="op">,</span> <span class="va">dy</span>] <span class="op">=</span> <span class="va">mys_clase_01b_func</span>(<span class="va">t_start</span><span class="op">,</span> <span class="va">t_end</span><span class="op">,</span> <span class="va">t_step</span>)<span class="op">;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span><span class="op">;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">y</span><span class="op">,</span> <span class="ss">'b-'</span><span class="op">,</span> <span class="ss">'LineWidth'</span><span class="op">,</span> <span class="fl">1.5</span>)<span class="op">;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Time (t)'</span>)<span class="op">;</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'y(t)'</span>)<span class="op">;</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'y = t + sin(t)'</span>)<span class="op">;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">dy</span><span class="op">,</span> <span class="ss">'r-'</span><span class="op">,</span> <span class="ss">'LineWidth'</span><span class="op">,</span> <span class="fl">1.5</span>)<span class="op">;</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Time (t)'</span>)<span class="op">;</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'dy/dt'</span>)<span class="op">;</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'dy/dt = 1 + cos(t)'</span>)<span class="op">;</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Archivo <code>mys_clase_01b_func.m</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">z</span><span class="op">,</span> <span class="va">y</span><span class="op">,</span> <span class="va">dy</span>] <span class="op">=</span> <span class="va">mys_clase_01b_func</span>(<span class="va">t_start</span><span class="op">,</span> <span class="va">t_end</span><span class="op">,</span> <span class="va">t_step</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">z</span> <span class="op">=</span> <span class="va">t_start</span> <span class="op">:</span> <span class="va">t_step</span> <span class="op">:</span> <span class="va">t_end</span><span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="va">y</span> <span class="op">=</span> <span class="va">z</span> <span class="op">+</span> <span class="va">sin</span>(<span class="va">z</span>)<span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="va">dy</span> <span class="op">=</span> <span class="va">gradient</span>(<span class="va">y</span><span class="op">,</span> <span class="va">t_step</span>)<span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Archivo “mys_clase_01b_main.m”</strong></p>
+<div id="d910fc61" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-stdout">
+<pre><code>------------------------------------------------------------
+% Modelos y Simulación
+% Tema: utilización de funciones -- main
+% Autor: Gianfranco Salomone
+ 
+clc;
+clear all;
+
+t_start = 0;
+t_end = 20;
+t_step = 0.1;
+
+% Llamado a la función
+[t, y, dy] = mys_clase_01b_func(t_start, t_end, t_step);
+
+figure;
+
+subplot(2, 1, 1);
+plot(t, y, 'b-', 'LineWidth', 1.5);
+xlabel('Time (t)');
+ylabel('y(t)');
+title('y = t + sin(t)');
+grid on;
+
+subplot(2, 1, 2);
+plot(t, dy, 'r-', 'LineWidth', 1.5);
+xlabel('Time (t)');
+ylabel('dy/dt');
+title('dy/dt = 1 + cos(t)');
+grid on;
+
+------------------------------------------------------------</code></pre>
+</div>
+</div>
+<p><strong>Archivo “mys_clase_01b_func.m”</strong></p>
+<div id="7a7c22c0" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-stdout">
+<pre><code>------------------------------------------------------------
+% Modelos y Simulación
+% Tema: utilización de funciones -- func
+% Autor: Gianfranco Salomone
+
+function [z, y, dy] = mys_clase_01b_func(t_start, t_end, t_step)
+
+  z = t_start : t_step : t_end;
+  y = z + sin(z);
+  dy = gradient(y, t_step);
+ 
+end
+
+------------------------------------------------------------</code></pre>
+</div>
+</div>
 </section>
 </section>
 

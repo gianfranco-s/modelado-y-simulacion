@@ -222,14 +222,14 @@ Para este primer ejemplo, estableceremos constantes "a dedo", para validar que e
 filename = "mys_clase_01a_modelo_lineal.m"
 ```
 
-Archivo "`{python} filename`"
+**Archivo "`{python} filename`"**
 
 
 ```{python}
 #| echo: false
 
 print("-" * 60)
-with open(filename, ) as f:
+with open(filename, "r") as f:
     print(f.read())
 print("-" * 60)
 ```
@@ -250,13 +250,13 @@ Se recomienda que el nombre de la función coincida con el nombre del archivo .m
 #| echo: false
 filename = "mys_clase_01b_main.m"
 ```
-Archivo "`{python} filename`"
+**Archivo "`{python} filename`"**
 
 ```{python}
 #| echo: false
 
 print("-" * 60)
-with open(filename, ) as f:
+with open(filename, "r") as f:
     print(f.read())
 print("-" * 60)
 ```
@@ -266,12 +266,13 @@ print("-" * 60)
 #| echo: false
 filename = "mys_clase_01b_func.m"
 ```
-Archivo "`{python} filename`"
+**Archivo "`{python} filename`"**
+
 ```{python}
 #| echo: false
 
 print("-" * 60)
-with open(filename, ) as f:
+with open(filename, "r") as f:
     print(f.read())
 print("-" * 60)
 ```
