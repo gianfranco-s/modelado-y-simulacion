@@ -105,7 +105,7 @@ window.Quarto = {
   <li><a href="#modelado-de-un-tanque-de-agua" id="toc-modelado-de-un-tanque-de-agua" class="nav-link" data-scroll-target="#modelado-de-un-tanque-de-agua"><span class="header-section-number">4.1</span> Modelado de un tanque de agua</a></li>
   <li><a href="#respuesta-temporal-cualitativa" id="toc-respuesta-temporal-cualitativa" class="nav-link" data-scroll-target="#respuesta-temporal-cualitativa"><span class="header-section-number">4.2</span> Respuesta temporal cualitativa</a></li>
   <li><a href="#respuesta-temporal-analítica" id="toc-respuesta-temporal-analítica" class="nav-link" data-scroll-target="#respuesta-temporal-analítica"><span class="header-section-number">4.3</span> Respuesta temporal analítica</a></li>
-  <li><a href="#gráfica-de-esta-ecuación" id="toc-gráfica-de-esta-ecuación" class="nav-link" data-scroll-target="#gráfica-de-esta-ecuación"><span class="header-section-number">4.4</span> ¿Gráfica de esta ecuación?</a></li>
+  <li><a href="#gráfica-de-esta-ecuación" id="toc-gráfica-de-esta-ecuación" class="nav-link" data-scroll-target="#gráfica-de-esta-ecuación"><span class="header-section-number">4.4</span> Gráfica de esta ecuación</a></li>
   <li><a href="#qué-cosas-estamos-asumiendo" id="toc-qué-cosas-estamos-asumiendo" class="nav-link" data-scroll-target="#qué-cosas-estamos-asumiendo"><span class="header-section-number">4.5</span> ¿Qué cosas estamos asumiendo?</a></li>
   </ul></li>
   </ul>
@@ -176,7 +176,7 @@ window.Quarto = {
 <li>De caja negra (empíricos): Basados en datos de entrada/salida, sin conocimiento interno.</li>
 <li>De caja gris: Combinación de ambos.</li>
 </ul>
-<p>Durante las clases 1 y 2, vamos a repasar y/o introducir temas de modelado y simulación de sistemas mecánicos</p>
+<p>Durante las clases 1 y 2, vamos a repasar e introducir temas de modelado y simulación.</p>
 </section>
 </section>
 <section id="ejemplo-de-derivación-de-un-modelo" class="level2" data-number="4">
@@ -185,15 +185,16 @@ window.Quarto = {
 <p>Finalmente, realizaremos la simulación.</p>
 <section id="modelado-de-un-tanque-de-agua" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="modelado-de-un-tanque-de-agua"><span class="header-section-number">4.1</span> Modelado de un tanque de agua</h3>
-<p>Consideremos el caso del llenado de un tanque de agua ¿Por qué es relevante?</p>
-<p>Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque. Hay una cantidad de materia que ingresa al tanque Una cantidad de materia que egresa En la relación de ambas, es que podremos decidir qué pasa con ese nivel</p>
+<p>Consideremos el caso del llenado de un tanque de agua.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="modelado_nivel_un_recipiente_sin_valvula.svg" class="img-fluid figure-img"></p>
+<figcaption>​</figcaption>
+</figure>
+</div>
+<p>Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque. Hay una cantidad de materia que ingresa al tanque y una cantidad de materia que egresa. En la relación de ambas, podremos hallar la evolución del nivel de fluido.</p>
 <table class="caption-top table">
 <caption>Magnitudes del ejemplo</caption>
-<colgroup>
-<col style="width: 20%">
-<col style="width: 30%">
-<col style="width: 30%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: center;">Magnitud</th>
@@ -209,17 +210,17 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: center;">Caudal de ingreso</td>
-<td style="text-align: center;"><span class="math inline">u</span></td>
+<td style="text-align: center;"><span class="math inline">q_i</span></td>
 <td style="text-align: center;"><span class="math inline">m^3/s</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Caudal de egreso</td>
-<td style="text-align: center;"><span class="math inline">v</span></td>
+<td style="text-align: center;"><span class="math inline">q_s</span></td>
 <td style="text-align: center;"><span class="math inline">m^3/s</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Superficie del tanque</td>
-<td style="text-align: center;"><span class="math inline">A</span></td>
+<td style="text-align: center;"><span class="math inline">C</span></td>
 <td style="text-align: center;"><span class="math inline">m^2</span></td>
 </tr>
 <tr class="odd">
@@ -229,24 +230,24 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: center;">Nivel de fluido</td>
-<td style="text-align: center;"><span class="math inline">y</span></td>
+<td style="text-align: center;"><span class="math inline">h</span></td>
 <td style="text-align: center;"><span class="math inline">m</span></td>
 </tr>
 </tbody>
 </table>
-<p>El volumen dentro del tanque se calcula así: <span class="math display"> V=Ay </span></p>
-<p>La ley de conservación de la masa se puede escribir así: <span class="math display"> \frac{dV}{dt} = u - v </span></p>
-<p>Por lo tanto, reemplazando en la ecuación inicial: <span class="math display"> A\frac{dy}{dt} = u - v </span></p>
-<p>El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO): <span class="math display"> v \propto P </span></p>
-<p>Y como la presión depende del nivel de fluido (OJO de nuevo): <span class="math display"> v = ky </span></p>
-<p>Reemplazando en la ecuación de diferencia de caudales: <span class="math display"> A\frac{dy}{dt} = u - ky </span> <span class="math display"> \dot{y}(t) = -\frac{k}{A} y(t) + \frac{1}{A} u(t) </span></p>
-<p>Hemos arribado a una expresión que relaciona el nivel de fluido (variable bajo estudio), con el caudal ingresante (variable externa), y los parámetros del sistema. Supongamos que sabemos que el caudal de entrada, en el instante <span class="math inline">t_0=0</span> pasa de <span class="math inline">0</span> a <span class="math inline">U_0</span>. Para <span class="math inline">t&gt;=0</span>, la ecuación diferencial puede expresarse así: <span class="math display"> \dot{y}(t) = -\frac{k}{A} y(t) + \frac{U_0}{A} </span></p>
+<p>El volumen dentro del tanque se calcula así: <span class="math display"> V = Ch </span></p>
+<p>La ley de conservación de la masa se puede escribir así: <span class="math display"> \frac{dV}{dt} = q_i - q_s </span></p>
+<p>Por lo tanto, reemplazando en la ecuación inicial: <span class="math display"> C\frac{dy}{dt} = q_i - q_s </span></p>
+<p>El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO). A su vez, la presión en el fondo del recipiente puede considerarse proporcional al nivel de fluido (OJO de nuevo): <span class="math display"> v_s \propto P_1 \propto h </span></p>
+<p>Si la relación es de proporcionalidad, se puede plantear un valor de <span class="math inline">k</span> que la convierta en igualdad: <span class="math display"> v_s \approx kh </span></p>
+<p>Reemplazando en la ecuación de diferencia de caudales: <span class="math display"> C\frac{dh}{dt} = q_i - kh </span> <span class="math display"> \dot{h}(t) = -\frac{k}{C} h(t) + \frac{1}{C} q_i(t) </span></p>
+<p>Hemos arribado a una expresión que relaciona el nivel de fluido (variable bajo estudio), con el caudal ingresante (variable externa), y los parámetros del sistema. Supongamos que sabemos que el caudal de entrada, en el instante <span class="math inline">t_0=0</span> pasa de <span class="math inline">0</span> a <span class="math inline">U_0</span>. Para <span class="math inline">t&gt;=0</span>, la ecuación diferencial puede expresarse así: <span class="math display"> \dot{h}(t) = -\frac{k}{C} y(t) + \frac{U_0}{C} </span></p>
 </section>
 <section id="respuesta-temporal-cualitativa" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="respuesta-temporal-cualitativa"><span class="header-section-number">4.2</span> Respuesta temporal cualitativa</h3>
 <p>Propongamos una posible evolución del nivel de fluido, considerando que “se abre la canilla” y se deja abierta.</p>
 <p>Empecemos por graficar los ejes que nos interesa estudiar</p>
-<div id="5982a44f" class="cell" data-execution_count="1">
+<div id="a1fe028c" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -255,26 +256,37 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Luego propongamos posibles gráficas para cada una. Necesitaremos al menos tener el valor inicial en cada caso. GRÁFICA DE u GRÁFICA de v</p>
+<p>Luego propongamos posibles gráficas a mano alzada para cada una.</p>
 </section>
 <section id="respuesta-temporal-analítica" class="level3" data-number="4.3">
 <h3 data-number="4.3" class="anchored" data-anchor-id="respuesta-temporal-analítica"><span class="header-section-number">4.3</span> Respuesta temporal analítica</h3>
-<p>Implica hallar una solución a la ecuación diferencial. Recordando las clases de cálculo, vemos que se trata de una: * Ecuación Diferencial Ordinaria – ODE, en inglés * De primer orden – hay una única derivada * Lineal – la variable no es argumento de ninguna otra función * No homogénea – hay un término independiente</p>
-<p>La solución de esta ecuación diferencial es: <span class="math display"> y(t) = \frac{U_0}{k} + \left(y_0 - \frac{U_0}{k}\right) e^{-(k/A) t} </span></p>
-<p>Consideremos el llenado desde vacío, con <span class="math inline">y_0 = 0</span> <span class="math display"> y(t) = \left( 1 - e^{-(k/A) t} \right) \frac{U_0}{k} </span></p>
+<p>Implica hallar una solución a la ecuación diferencial. Recordando las clases de cálculo, vemos que se trata de una:</p>
+<ul>
+<li>Ecuación Diferencial Ordinaria – ODE, en inglés</li>
+<li>De primer orden – hay una única derivada</li>
+<li>Lineal – la variable no es argumento de ninguna otra función</li>
+<li>No homogénea – hay un término independiente</li>
+</ul>
+<p>La solución de esta ecuación diferencial es: <span class="math display"> h(t) = \frac{U_0}{k} + \left(h_0 - \frac{U_0}{k}\right) e^{-(k/C) t} </span></p>
+<p>Consideremos el llenado desde vacío, con <span class="math inline">h_0 = 0</span> <span class="math display"> h(t) = \left( 1 - e^{-(k/C) t} \right) \frac{U_0}{k} </span></p>
 </section>
 <section id="gráfica-de-esta-ecuación" class="level3" data-number="4.4">
-<h3 data-number="4.4" class="anchored" data-anchor-id="gráfica-de-esta-ecuación"><span class="header-section-number">4.4</span> ¿Gráfica de esta ecuación?</h3>
-<p>Normalización:<br>
-* Constante de tiempo: <span class="math inline">A/k = \tau</span><br>
-* Normalización: <span class="math inline">\hat{y} = y/(U_0/k)</span></p>
-<p>Haciendo esos cambios: <span class="math display"> \hat{y}(t) = 1-e^{-t/\tau} </span></p>
+<h3 data-number="4.4" class="anchored" data-anchor-id="gráfica-de-esta-ecuación"><span class="header-section-number">4.4</span> Gráfica de esta ecuación</h3>
+<p>Vamos a hacer un cambio de variables, para hacer más genérica la respuesta.</p>
+<ul>
+<li>Constante de tiempo: <span class="math inline">C/k = \tau</span><br>
+</li>
+<li>Normalización: <span class="math inline">\hat{h} = h/(U_0/k)</span></li>
+</ul>
+<p>Haciendo esos cambios: <span class="math display"> \hat{h}(t) = 1-e^{-t/\tau} </span></p>
 <p>GRÁFICA</p>
 </section>
 <section id="qué-cosas-estamos-asumiendo" class="level3" data-number="4.5">
 <h3 data-number="4.5" class="anchored" data-anchor-id="qué-cosas-estamos-asumiendo"><span class="header-section-number">4.5</span> ¿Qué cosas estamos asumiendo?</h3>
-<p>OJO: v ∝ P y v = ky Es verdad que a mayor presión, mayor velocidad de salida. Pero la relación entre ambas cantidades es más compleja: Bernoulli P1 + (1/2)ρ v1² + ρgy1 = P2 + (1/2)ρv2² + ρgy2</p>
-<p>El punto 1 es donde se mide y1. El punto y2 es donde se hace el desagote P1=P2 = atmosférica El término de y2 puede despreciarse, por considerarse mucho menor que y1 (OJO!) y1=y La velocidad de bajada v1 puede despreciarse por ser mucho menor que la velocidad de salida (OJO!)</p>
+<p>OJO: <span class="math inline">v_s \propto P_1 \propto h</span> Hay una relación entre las variables de presión, rapidez de salida y nivel, pero no es lineal, sino que está establecida por la ley de Bernoulli: <span class="math display"> P_h + \frac{1}{2} \rho v_h^2 + \rho g h =  P_2 + \frac{1}{2} \rho v_s^2 + \rho g h_s </span></p>
+<p>El lado izquierdo de la ecuación corresponde a la superficie del fluido. Allí, la presión es la presión atmosférica, dado que el recipiente se encuentra abierto: <span class="math inline">P_h=p_{atm}</span></p>
+<p>El lado derecho corresponde al punto de salida, que también está abierto, de manera que <span class="math inline">P_h=p_{atm}</span>. Si ponemos en este punto el origen de coordenadas, también podemos establecer que <span class="math inline">h_s=0</span> (OJO! No es válido si el tamaño del desagote es grande.)</p>
+<p>Nótese que la presión del lado izquierdo de la ecuación <strong>no</strong> es la del fondo del tanque.</p>
 <p>gy =(1/2)v2²</p>
 <p>v2 A2 = q2 (q2 en nuestro ejemplo se llama v, lo que es un poco confuso) q2 = A2 sqrt(2gy)</p>
 <p>Esta ecuación nos llevaría a una ED no-lineal… nos vamos a ocupar de eso más adelante Simulación en MATLAB Definiremos A=1, k=0,3, u=10, tfinal=50</p>

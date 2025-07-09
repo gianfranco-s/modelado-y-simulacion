@@ -53,7 +53,7 @@ En esta materia nos orientaremos a los modelos matemáticos, que representan fen
 * De caja gris: Combinación de ambos.
 
 
-Durante las clases 1 y 2, vamos a repasar y/o introducir temas de modelado y simulación de sistemas mecánicos
+Durante las clases 1 y 2, vamos a repasar e introducir temas de modelado y simulación.
 
 
 ## Ejemplo de derivación de un modelo
@@ -62,47 +62,46 @@ Durante el resto de esta clase vamos a ocuparnos de derivar un matemático, bas�
 Finalmente, realizaremos la simulación.
 
 ### Modelado de un tanque de agua
-Consideremos el caso del llenado de un tanque de agua ¿Por qué es relevante?
+Consideremos el caso del llenado de un tanque de agua.
 
-Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque.
-Hay una cantidad de materia que ingresa al tanque
-Una cantidad de materia que egresa
-En la relación de ambas, es que podremos decidir qué pasa con ese nivel
+![&#8203;](modelado_nivel_un_recipiente_sin_valvula.svg)
+
+Nos interesa conocer cómo evoluciona el nivel de líquido dentro del tanque. Hay una cantidad de materia que ingresa al tanque y una cantidad de materia que egresa. En la relación de ambas, podremos hallar la evolución del nivel de fluido.
 
 
 | Magnitud                   | Símbolo | Unidades SI   |
 |:--------------------------:|:-------:|:-------------:|
 | Tiempo                     | $t$     | $s$           |
-| Caudal de ingreso          | $u$     | $m^3/s$       |
-| Caudal de egreso           | $v$     | $m^3/s$       |
-| Superficie del tanque      | $A$     | $m^2$         |
+| Caudal de ingreso          | $q_i$   | $m^3/s$       |
+| Caudal de egreso           | $q_s$   | $m^3/s$       |
+| Superficie del tanque      | $C$     | $m^2$         |
 | Volumen dentro del tanque  | $V$     | $m^3$         |
-| Nivel de fluido            | $y$     | $m$           |
+| Nivel de fluido            | $h$     | $m$           |
 
 : Magnitudes del ejemplo
 
 
 El volumen dentro del tanque se calcula así:
-$$ V=Ay $$
+$$ V = Ch $$
 
 La ley de conservación de la masa se puede escribir así:
-$$ \frac{dV}{dt} = u - v $$
+$$ \frac{dV}{dt} = q_i - q_s $$
 
 Por lo tanto, reemplazando en la ecuación inicial:
-$$ A\frac{dy}{dt} = u - v $$
+$$ C\frac{dy}{dt} = q_i - q_s $$
 
-El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO):
-$$ v \propto P $$
+El caudal de salida se puede considerar como proporcional a la presión en el fondo del recipiente (OJO). A su vez, la presión en el fondo del recipiente puede considerarse proporcional al nivel de fluido (OJO de nuevo):
+$$ v_s \propto P_1 \propto h $$
 
-Y como la presión depende del nivel de fluido (OJO de nuevo):
-$$ v = ky $$
+Si la relación es de proporcionalidad, se puede plantear un valor de $k$ que la convierta en igualdad:
+$$ v_s \approx kh $$
 
 Reemplazando en la ecuación de diferencia de caudales:
-$$ A\frac{dy}{dt} = u - ky $$
-$$ \dot{y}(t) = -\frac{k}{A} y(t) + \frac{1}{A} u(t) $$
+$$ C\frac{dh}{dt} = q_i - kh $$
+$$ \dot{h}(t) = -\frac{k}{C} h(t) + \frac{1}{C} q_i(t) $$
 
 Hemos arribado a una expresión que relaciona el nivel de fluido (variable bajo estudio), con el caudal ingresante (variable externa), y los parámetros del sistema. Supongamos que sabemos que el caudal de entrada, en el instante $t_0=0$ pasa de $0$ a $U_0$. Para $t>=0$, la ecuación diferencial puede expresarse así:
-$$ \dot{y}(t) = -\frac{k}{A} y(t) + \frac{U_0}{A} $$
+$$ \dot{h}(t) = -\frac{k}{C} y(t) + \frac{U_0}{C} $$
 
 ### Respuesta temporal cualitativa
 Propongamos una posible evolución del nivel de fluido, considerando que “se abre la canilla” y se deja abierta.
@@ -113,17 +112,17 @@ Empecemos por graficar los ejes que nos interesa estudiar
 import matplotlib.pyplot as plt
 
 # create two side-by-side axes sharing the same x-axis
-fig, (ax_u, ax_v) = plt.subplots(1, 2, sharex=True, figsize=(8,4))
+fig, (ax_qi, ax_qs) = plt.subplots(1, 2, sharex=False, figsize=(8,4))
 
 # label the y-axes
-ax_u.set_ylabel('u')
-ax_v.set_ylabel('v')
+ax_qi.set_ylabel('q_i')
+ax_qs.set_ylabel('q_s')
 
-# common x-axis label
-fig.supxlabel('t')
+ax_qi.set_xlabel('t')
+ax_qs.set_xlabel('t')
 
 # only bottom & left spines; no ticks or tick labels
-for ax in (ax_u, ax_v):
+for ax in (ax_qi, ax_qs):
     for spine in ['top','right']:
         ax.spines[spine].set_visible(False)
     ax.set_xticks([])    # remove x-ticks
@@ -133,45 +132,46 @@ plt.tight_layout()
 plt.show()
 ```
 
-Luego propongamos posibles gráficas para cada una. Necesitaremos al menos tener el valor inicial en cada caso.
-			GRÁFICA DE u
-			GRÁFICA de v
+Luego propongamos posibles gráficas a mano alzada para cada una.
 
 ### Respuesta temporal analítica
 Implica hallar una solución a la ecuación diferencial. Recordando las clases de cálculo, vemos que se trata de una:
+
 * Ecuación Diferencial Ordinaria -- ODE, en inglés
 * De primer orden -- hay una única derivada
 * Lineal -- la variable no es argumento de ninguna otra función
 * No homogénea -- hay un término independiente
 
 La solución de esta ecuación diferencial es:
-$$ y(t) = \frac{U_0}{k} + \left(y_0 - \frac{U_0}{k}\right) e^{-(k/A) t} $$
+$$ h(t) = \frac{U_0}{k} + \left(h_0 - \frac{U_0}{k}\right) e^{-(k/C) t} $$
 
-Consideremos el llenado desde vacío, con $y_0 = 0$
-$$ y(t) = \left( 1 - e^{-(k/A) t} \right) \frac{U_0}{k} $$
+Consideremos el llenado desde vacío, con $h_0 = 0$
+$$ h(t) = \left( 1 - e^{-(k/C) t} \right) \frac{U_0}{k} $$
 
 
-### ¿Gráfica de esta ecuación?
-Normalización:  
-* Constante de tiempo: $A/k = \tau$  
-* Normalización: $\hat{y} = y/(U_0/k)$
+### Gráfica de esta ecuación
+Vamos a hacer un cambio de variables, para hacer más genérica la respuesta.
+
+* Constante de tiempo: $C/k = \tau$  
+* Normalización: $\hat{h} = h/(U_0/k)$
 
 Haciendo esos cambios:
-$$ \hat{y}(t) = 1-e^{-t/\tau} $$
+$$ \hat{h}(t) = 1-e^{-t/\tau} $$
 
 GRÁFICA
 
 ### ¿Qué cosas estamos asumiendo?
-OJO: v ∝ P y v = ky
-Es verdad que a mayor presión, mayor velocidad de salida. Pero la relación entre ambas cantidades es más compleja:
-Bernoulli
-P1 + (1/2)ρ v1² + ρgy1 = P2 + (1/2)ρv2² + ρgy2
+OJO: $v_s \propto P_1 \propto h$
+Hay una relación entre las variables de presión, rapidez de salida y nivel, pero no es lineal, sino que está establecida por la ley de Bernoulli:
+$$ P_h + \frac{1}{2} \rho v_h^2 + \rho g h =  P_2 + \frac{1}{2} \rho v_s^2 + \rho g h_s $$
 
-El punto 1 es donde se mide y1. El punto y2 es donde se hace el desagote
-P1=P2 = atmosférica
-El término de y2 puede despreciarse, por considerarse mucho menor que y1 (OJO!)
-y1=y
-La velocidad de bajada v1 puede despreciarse por ser mucho menor que la velocidad de salida (OJO!)
+El lado izquierdo de la ecuación corresponde a la superficie del fluido. Allí, la presión es la presión atmosférica, dado que el recipiente se encuentra abierto: $P_h=p_{atm}$
+
+El lado derecho corresponde al punto de salida, que también está abierto, de manera que $P_h=p_{atm}$. Si ponemos en este punto el origen de coordenadas, también podemos establecer que $h_s=0$ (OJO! No es válido si el tamaño del desagote es grande.)
+
+Nótese que la presión del lado izquierdo de la ecuación **no** es la del fondo del tanque.
+
+
 
 gy =(1/2)v2²
 
