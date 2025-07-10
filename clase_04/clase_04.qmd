@@ -1,0 +1,34 @@
+---
+title: "Modelado Y Simulación - Clase 4"
+author: "Gianfranco Salomone"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+    
+jupyter: python3
+---
+
+
+## Diagramas en bloques con FT
+Series
+Parallel
+Feedback
+
+## Respuestas temporales frente a diferentes entradas
+
+### Escalón
+### Rampa
+### Sinusoidal
+
+## Sistemas realimentados
+Control de una antena
+Diag en bloques
+Respuesta temporal para diferentes valores de la señal de control

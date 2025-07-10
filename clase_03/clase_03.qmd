@@ -1,0 +1,56 @@
+---
+title: "Modelado Y Simulación - Clase 3"
+author: "Gianfranco Salomone"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+    
+jupyter: python3
+---
+
+
+## Modelo de estados
+Dada la ecuación
+
+$$ \ddot{z}(t) + a\dot{z}(t) +bz(t) = cr(t) + d\dot{r}(t) $$
+
+Se trata de un sistema lineal, con coeficientes constantes. Puede ser representado utlizando un modelo de estados:
+
+$$ \dot{x} = Ax + Bu $$
+$$ y = Cx + Du $$
+
+
+## Transformada de Laplace
+Dado un sistema
+$$ \dot{y}(t) + a y(t) = bu(t) $$
+
+Se definen la siguientes transformadas
+
+| Función original           | Función transformada |
+|:--------------------------:|:--------------------:|
+| $y(t)$                     | $Y(s)$               |
+| $\dot{y}(t)$               | $sY(s) - y(0)$       |
+| $u(t)$                     | $U(s)$     |
+: Transformadas de Laplace
+
+
+Reemplazando:
+$$ sY(s) - y(0) + a Y(s) = bU(s) $$
+
+Despejando:
+$$ Y(s) = \frac{b}{s + a} U(s) + \frac{y(0)}{s + a} $$
+
+
+Ejemplo, con CI nulas:
+$$ \dot{y} + 3 y(t) = u(t) \longrightarrow Y(s) = \frac{1}{s+3} U(s) $$
+
+Si $U(s)=1$:
+$$ Y(s) = \frac{1}{s+3} \longrightarrow y(t) = e^{-3t} $$

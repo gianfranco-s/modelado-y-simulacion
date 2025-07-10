@@ -1,0 +1,65 @@
+---
+title: "Modelado Y Simulación - Clase 6"
+author: "Gianfranco Salomone"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+    
+jupyter: python3
+---
+
+## Sistemas de tiempo discreto
+
+Sea
+$$ \dot{y}(t) + 2 y(t) = u(t) $$
+$$ y(0) = 10 $$
+
+
+
+En lugar de hallar la solución analítica de la ecuación diferencial, podemos considerar cómo hacer un cálculo de cada punto consecutivo de la solución, partiendo de la condición inicial. Para ello, podemos utilizar la definición de derivada:
+$$ \dot{y}(t) = \frac{y(t+\Delta t) - y(t)}{\Delta t} $$
+
+Reemplazando en la ecuación diferencial:
+
+$$ \frac{y(t+\Delta t) - y(t)}{\Delta t} + 2 y(t) = u(t) $$
+$$ y(t+\Delta t) - y(t) + 2\Delta t \space y(t) = \Delta t \space u(t) $$
+$$ y(t+\Delta t) = \left[ 1-2\Delta t \right] y(t) + \Delta t \space u(t) $$
+
+Suponiendo $u(t)=1$ y $\Delta t = 0.1$, podemos calcular el valor de $y(t+\Delta t)$ para $t=0$:
+$$ y(0.1) = 0.8 \space y(0) + 0.1 = 8.1 $$
+
+¿Qué pasa ahora si calculamos para $t'=t+\Delta t$ (un $\Delta t$ después del cálculo anterior)?
+$$ y(t'+\Delta t) = \left[ 1-2\Delta t \right] y(t') + \Delta t \space u(t') $$
+
+$$ y(t+\Delta t+\Delta t) = \left[ 1-2\Delta t \right] y(t+\Delta t) + \Delta t \space u(t+\Delta t) $$
+
+Evaluando nuevamente para $t=0$:
+$$ y(0.2) = 0.8 \space y(0.1) + 0.1 = 0.8 \cdot 8.1 + 0.1 = 6.58 $$
+
+
+Y una vez más:
+$$ y(t+\Delta t+\Delta t+\Delta t) = \left[ 1-2\Delta t \right] y(t+\Delta t+\Delta t) + \Delta t \space u(t+\Delta t+\Delta t) $$
+
+Como siempre vamos a considerar $t=0$:
+$$ y(3\Delta t) = \left[ 1-2\Delta t \right] y(2\Delta t) + \Delta t \space u(2\Delta t) $$
+
+Observamos que los instantes posteriores dependen de instantes anteriores. El único instante del que tenemos información es $y(t=0)=10$; el resto de la información se irá obteniendo a partir de los incrementos $\Delta t$.
+
+
+| Iteración ($N$)  | Cálculo  | $y(t+\Delta t)$ |
+|:-------------:|:-------:|:---------------:|
+| 0             | $10$    |                 |
+: Evolución punto a punto de la respuesta
+
+```
+y[.1] = -2*.1-1*10+.1
+y[.1] = -2*.1-1*10+.1
+```
