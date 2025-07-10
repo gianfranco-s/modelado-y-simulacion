@@ -1,5 +1,5 @@
 *.lock
 .venv/
 **/*_files/
-*.pdf
-*.html
+pdf/
+html/
