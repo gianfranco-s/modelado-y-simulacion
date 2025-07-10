@@ -55,13 +55,11 @@ En esta materia nos orientaremos a los modelos matemáticos, que representan fen
 
 Durante las clases 1 y 2, vamos a repasar e introducir temas de modelado y simulación.
 
-
-## Ejemplo de derivación de un modelo
+## Modelado de un tanque de agua
 Durante el resto de esta clase vamos a ocuparnos de derivar un matemático, basándonos en leyes de la Física, y propondremos posibles comportamientos, suponiendo las condiciones del sistema. También intentaremos encontrar los comportamientos que estamos asumiendo.
 
 Finalmente, realizaremos la simulación.
 
-### Modelado de un tanque de agua
 Consideremos el caso del llenado de un tanque de agua.
 
 ![Sistema de nivel](modelado_nivel_un_recipiente_sin_valvula.svg)

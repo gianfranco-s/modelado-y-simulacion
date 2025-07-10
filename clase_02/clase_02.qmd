@@ -1,0 +1,47 @@
+---
+title: "Modelado Y Simulación - Clase 2"
+author: "Gianfranco Salomone"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+    
+jupyter: python3
+---
+
+## Modelado y simulación de un horno eléctrico
+En esta clase plantearemos el modelado básico de un horno eléctrico.
+
+* Análisis de sistemas no-lineales
+* Diagramas en bloques
+* Sistemas no-lineales y lineales
+* 
+
+![Sistema térmico](modelado_termico_con_resistor.svg)
+
+* Plantear todas las ecuaciones del sistema
+* Realizar un diagrama en bloques para el funcionamiento no-lineal
+* Linealizar y plantear modelo.
+* Hallar todas las funciones transferencia
+* Manteniendo la temperatura ambiente constante, mostrar el efecto de aumentar en 25% la tensión de entrada.
+* Manteniendo la tensión de entrada constante, mostrar el efecto de aumentar en 25% la temperatura ambiente.
+
+
+### Modelado inicial
+Balance de energía en el recinto:
+$$ q_i - q_s = C\frac{d\theta}{dt} $$
+
+Transferencia de energía hacia el medio:
+$$ \theta - \theta_{amb} = R q_s $$
+
+### Diagrama en bloques
+
+
+### Simulación 
