@@ -122,3 +122,47 @@ ax.legend()
 plt.tight_layout()
 plt.show()
 ```
+
+
+### Actividad 6.1
+Obtener la gráfica anterior usando MATLAB/Octave
+
+
+## Diferencias entre un sistema de tiempo discreto y uno de tiempo continuo
+1. Una computadora, ¿puede graficar tiempo continuo?
+2. ¿Cómo podríamos hacer para que la respuesta real se aproxime a la aproximada?
+
+## Transformada Z
+Para hallar la transformada Z a partir de la ecuación diferencial:
+1. Reemplazar las derivadas de la ecuación diferencial, por un su aproximada en diferencias finitas (lo hicimos más arriba).
+2. Reescribir la expresión como una ecuación en diferencias, considerando $t=0$ y un instante cualquiera:
+$$ y[n+1] = (1-2\Delta t)\space y[n] + \Delta t \space u[n] $$
+3. Aplicar la transformada Z y reemplazar
+$$ Z{y[n+1]} = zY(z) - z y[0], Z{y[n]} = Y(z), Z{u[n]} = U(z). $$
+$$ zY(z) - z y[0] = (1-2\Delta t)\space Y(z) + \Delta t \space U(z) $$
+
+Puede hallarse una función transferencia en z, considerando condiciones iniciales nulas:
+$$ H(z) = \frac{\Delta t}{z-(1-2\Delta t)} $$
+
+## Relación con la transformada de Laplace en tiempo continuo
+Considerando la función fransferencia:
+$$ H(s) = \frac{1}{s+2} $$
+
+Es posible utilizar un equivalente discreto
+
+* Forward Euler:
+$$ s \approx \frac{(z-1)}{\Delta t} \longrightarrow H(z) = \frac{1}{\frac{z-1}{\Delta t}+2} = \frac{\Delta t}{z-1+2\Delta t} = \frac{\Delta t}{z-(1-2\Delta t)}$$
+
+* Tustin (bilineal:)
+$$ s \approx \frac{2}{\Delta t} \space \frac{z-1}{z+1} \longrightarrow H(z) = \frac{1}{\frac{2}{\Delta t} \frac{z-1}{z+1}+2} = \frac{\Delta t}{2} \frac{z+1}{z-1+\Delta t (z+1) }$$
+
+
+### Actividad 6.1
+Corroborar el equivalente usando el equivalente Tustin, con $\Delta t = 0.01$.
+
+### Actividad 6.2
+1. Obtener una aproximación de tiempo discreto a partir de la función transferencia:
+$$ H(s) = \frac{1}{s+3} $$
+2. Volver a obtener la función de tiempo continuo.
+3. Analizar respuesta temporal frente a escalón en los tres casos.
+4. Graficar respuesta con $\Delta t = 0.1$
