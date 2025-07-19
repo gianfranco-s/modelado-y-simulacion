@@ -90,7 +90,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sistemas-de-tiempo-discreto" id="toc-sistemas-de-tiempo-discreto" class="nav-link active" data-scroll-target="#sistemas-de-tiempo-discreto"><span class="header-section-number">1</span> Sistemas de tiempo discreto</a></li>
+  <li><a href="#sistemas-de-tiempo-discreto" id="toc-sistemas-de-tiempo-discreto" class="nav-link active" data-scroll-target="#sistemas-de-tiempo-discreto"><span class="header-section-number">1</span> Sistemas de tiempo discreto</a>
+  <ul class="collapse">
+  <li><a href="#actividad-6.1" id="toc-actividad-6.1" class="nav-link" data-scroll-target="#actividad-6.1"><span class="header-section-number">1.1</span> Actividad 6.1</a></li>
+  </ul></li>
+  <li><a href="#diferencias-entre-un-sistema-de-tiempo-discreto-y-uno-de-tiempo-continuo" id="toc-diferencias-entre-un-sistema-de-tiempo-discreto-y-uno-de-tiempo-continuo" class="nav-link" data-scroll-target="#diferencias-entre-un-sistema-de-tiempo-discreto-y-uno-de-tiempo-continuo"><span class="header-section-number">2</span> Diferencias entre un sistema de tiempo discreto y uno de tiempo continuo</a></li>
+  <li><a href="#transformada-z" id="toc-transformada-z" class="nav-link" data-scroll-target="#transformada-z"><span class="header-section-number">3</span> Transformada Z</a></li>
+  <li><a href="#relación-con-la-transformada-de-laplace-en-tiempo-continuo" id="toc-relación-con-la-transformada-de-laplace-en-tiempo-continuo" class="nav-link" data-scroll-target="#relación-con-la-transformada-de-laplace-en-tiempo-continuo"><span class="header-section-number">4</span> Relación con la transformada de Laplace en tiempo continuo</a>
+  <ul class="collapse">
+  <li><a href="#actividad-6.1-1" id="toc-actividad-6.1-1" class="nav-link" data-scroll-target="#actividad-6.1-1"><span class="header-section-number">4.1</span> Actividad 6.1</a></li>
+  <li><a href="#actividad-6.2" id="toc-actividad-6.2" class="nav-link" data-scroll-target="#actividad-6.2"><span class="header-section-number">4.2</span> Actividad 6.2</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../clase_06.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -134,10 +144,132 @@ window.Quarto = {
 <p>Y una vez más: <span class="math display"> y(t+\Delta t+\Delta t+\Delta t) = \left[ 1-2\Delta t \right] y(t+\Delta t+\Delta t) + \Delta t \space u(t+\Delta t+\Delta t) </span></p>
 <p>Como siempre vamos a considerar <span class="math inline">t=0</span>: <span class="math display"> y(3\Delta t) = \left[ 1-2\Delta t \right] y(2\Delta t) + \Delta t \space u(2\Delta t) </span></p>
 <p>Observamos que los instantes posteriores dependen de instantes anteriores. El único instante del que tenemos información es <span class="math inline">y(t=0)=10</span>; el resto de la información se irá obteniendo a partir de los incrementos <span class="math inline">\Delta t</span>.</p>
-<p>Suponiendo <span class="math inline">u(t)=1</span> y <span class="math inline">\Delta t = 0,1</span>:</p>
-<p>Veamos lo que ocurre | Iteración | <span class="math inline">y(t)</span> | <span class="math inline">y(t+\Delta t)</span> | |:————-:|:——-:|:—————:| | 0 | <span class="math inline">10</span> | | : Evolución punto a punto de la respuesta</p>
-<pre><code>y[.1] = -2*.1-1*10+.1
-y[.1] = -2*.1-1*10+.1</code></pre>
+<table class="caption-top table">
+<caption>Evolución instante a instante</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 11%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Paso (<span class="math inline">k</span>)</th>
+<th style="text-align: center;"><span class="math inline">t=k\Delta t</span></th>
+<th style="text-align: center;"><span class="math inline">y_k</span></th>
+<th style="text-align: center;">Cálculo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">1</span></td>
+<td style="text-align: center;"><span class="math inline">0.1</span></td>
+<td style="text-align: center;"><span class="math inline">8.100</span></td>
+<td style="text-align: center;"><span class="math inline">y_1 = 0.8\cdot y_0 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">2</span></td>
+<td style="text-align: center;"><span class="math inline">0.2</span></td>
+<td style="text-align: center;"><span class="math inline">6.580</span></td>
+<td style="text-align: center;"><span class="math inline">y_2 = 0.8\cdot y_1 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">3</span></td>
+<td style="text-align: center;"><span class="math inline">0.3</span></td>
+<td style="text-align: center;"><span class="math inline">5.364</span></td>
+<td style="text-align: center;"><span class="math inline">y_3 = 0.8\cdot y_2 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">4</span></td>
+<td style="text-align: center;"><span class="math inline">0.4</span></td>
+<td style="text-align: center;"><span class="math inline">4.391</span></td>
+<td style="text-align: center;"><span class="math inline">y_4 = 0.8\cdot y_3 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">5</span></td>
+<td style="text-align: center;"><span class="math inline">0.5</span></td>
+<td style="text-align: center;"><span class="math inline">3.613</span></td>
+<td style="text-align: center;"><span class="math inline">y_5 = 0.8\cdot y_4 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">6</span></td>
+<td style="text-align: center;"><span class="math inline">0.6</span></td>
+<td style="text-align: center;"><span class="math inline">2.990</span></td>
+<td style="text-align: center;"><span class="math inline">y_6 = 0.8\cdot y_5 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">7</span></td>
+<td style="text-align: center;"><span class="math inline">0.7</span></td>
+<td style="text-align: center;"><span class="math inline">2.492</span></td>
+<td style="text-align: center;"><span class="math inline">y_7 = 0.8\cdot y_6 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">8</span></td>
+<td style="text-align: center;"><span class="math inline">0.8</span></td>
+<td style="text-align: center;"><span class="math inline">2.094</span></td>
+<td style="text-align: center;"><span class="math inline">y_8 = 0.8\cdot y_7 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">9</span></td>
+<td style="text-align: center;"><span class="math inline">0.9</span></td>
+<td style="text-align: center;"><span class="math inline">1.775</span></td>
+<td style="text-align: center;"><span class="math inline">y_9 = 0.8\cdot y_8 + 0.1 \cdot 1</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">10</span></td>
+<td style="text-align: center;"><span class="math inline">1.0</span></td>
+<td style="text-align: center;"><span class="math inline">1.520</span></td>
+<td style="text-align: center;"><span class="math inline">y_10 = 0.8\cdot y_9 + 0.1 \cdot 1</span></td>
+</tr>
+</tbody>
+</table>
+<div id="6d16d8dd" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="clase_06_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="actividad-6.1" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="actividad-6.1"><span class="header-section-number">1.1</span> Actividad 6.1</h3>
+<p>Obtener la gráfica anterior usando MATLAB/Octave</p>
+</section>
+</section>
+<section id="diferencias-entre-un-sistema-de-tiempo-discreto-y-uno-de-tiempo-continuo" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="diferencias-entre-un-sistema-de-tiempo-discreto-y-uno-de-tiempo-continuo"><span class="header-section-number">2</span> Diferencias entre un sistema de tiempo discreto y uno de tiempo continuo</h2>
+<ol type="1">
+<li>Una computadora, ¿puede graficar tiempo continuo?</li>
+<li>¿Cómo podríamos hacer para que la respuesta real se aproxime a la aproximada?</li>
+</ol>
+</section>
+<section id="transformada-z" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="transformada-z"><span class="header-section-number">3</span> Transformada Z</h2>
+<p>Para hallar la transformada Z a partir de la ecuación diferencial: 1. Reemplazar las derivadas de la ecuación diferencial, por un su aproximada en diferencias finitas (lo hicimos más arriba). 2. Reescribir la expresión como una ecuación en diferencias, considerando <span class="math inline">t=0</span> y un instante cualquiera: <span class="math display"> y[n+1] = (1-2\Delta t)\space y[n] + \Delta t \space u[n] </span> 3. Aplicar la transformada Z y reemplazar <span class="math display"> Z{y[n+1]} = zY(z) - z y[0], Z{y[n]} = Y(z), Z{u[n]} = U(z). </span> <span class="math display"> zY(z) - z y[0] = (1-2\Delta t)\space Y(z) + \Delta t \space U(z) </span></p>
+<p>Puede hallarse una función transferencia en z, considerando condiciones iniciales nulas: <span class="math display"> H(z) = \frac{\Delta t}{z-(1-2\Delta t)} </span></p>
+</section>
+<section id="relación-con-la-transformada-de-laplace-en-tiempo-continuo" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="relación-con-la-transformada-de-laplace-en-tiempo-continuo"><span class="header-section-number">4</span> Relación con la transformada de Laplace en tiempo continuo</h2>
+<p>Considerando la función fransferencia: <span class="math display"> H(s) = \frac{1}{s+2} </span></p>
+<p>Es posible utilizar un equivalente discreto</p>
+<ul>
+<li><p>Forward Euler: <span class="math display"> s \approx \frac{(z-1)}{\Delta t} \longrightarrow H(z) = \frac{1}{\frac{z-1}{\Delta t}+2} = \frac{\Delta t}{z-1+2\Delta t} = \frac{\Delta t}{z-(1-2\Delta t)}</span></p></li>
+<li><p>Tustin (bilineal:) <span class="math display"> s \approx \frac{2}{\Delta t} \space \frac{z-1}{z+1} \longrightarrow H(z) = \frac{1}{\frac{2}{\Delta t} \frac{z-1}{z+1}+2} = \frac{\Delta t}{2} \frac{z+1}{z-1+\Delta t (z+1) }</span></p></li>
+</ul>
+<section id="actividad-6.1-1" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="actividad-6.1-1"><span class="header-section-number">4.1</span> Actividad 6.1</h3>
+<p>Corroborar el equivalente usando el equivalente Tustin, con <span class="math inline">\Delta t = 0.01</span>.</p>
+</section>
+<section id="actividad-6.2" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="actividad-6.2"><span class="header-section-number">4.2</span> Actividad 6.2</h3>
+<ol type="1">
+<li>Obtener una aproximación de tiempo discreto a partir de la función transferencia: <span class="math display"> H(s) = \frac{1}{s+3} </span></li>
+<li>Volver a obtener la función de tiempo continuo.</li>
+<li>Obtener una aproximación de tiempo discreto simple, utilizando un tiempo de muestreo específico.</li>
+<li>Analizar respuesta temporal frente a escalón en los tres casos.</li>
+</ol>
+</section>
 </section>
 
 </main>

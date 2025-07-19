@@ -1,5 +1,5 @@
 % Modelos y Simulación
-% Tema: modelo lineal de nivel
+% Tema: verificación de equivalente discreto Tustin
 % Autor: Gianfranco Salomone
  
 clc;
