@@ -22,26 +22,128 @@ En esta clase plantearemos el modelado básico de un horno eléctrico.
 * Análisis de sistemas no-lineales
 * Diagramas en bloques
 * Sistemas no-lineales y lineales
-* 
+
 
 ![Sistema térmico](modelado_termico_con_resistor.svg)
 
-* Plantear todas las ecuaciones del sistema
-* Realizar un diagrama en bloques para el funcionamiento no-lineal
-* Linealizar y plantear modelo.
-* Hallar todas las funciones transferencia
-* Manteniendo la temperatura ambiente constante, mostrar el efecto de aumentar en 25% la tensión de entrada.
-* Manteniendo la tensión de entrada constante, mostrar el efecto de aumentar en 25% la temperatura ambiente.
+* (HECHO) Plantear todas las ecuaciones del sistema
+* (HECHO) Realizar un diagrama en bloques para el funcionamiento no-lineal
+* (HECHO) Linealizar y plantear modelo.
+* Manteniendo la temperatura ambiente constante, mostrar el efecto de aumentar en 25%
+  *  la temperatura ambiente.
+  *  la tensión de entrada.
 
 
 ### Modelado inicial
 Balance de energía en el recinto:
-$$ q_i - q_s = C\frac{d\theta}{dt} $$
+$$ q_i(t) - q_s(t) = C\frac{d\theta}{dt} $$
 
 Transferencia de energía hacia el medio:
-$$ \theta - \theta_{amb} = R q_s $$
+$$ \theta (t) - \theta_{amb} (t) = R q_s $$
 
-### Diagrama en bloques
+Ingreso de calor:
+$$ q_i(t) = \frac{1}{r} e^2(t) $$
+
+Linealizado:
+$$ q_{i \space lin}(t) = \frac{2e_0}{r} (e - e_0) + \frac{e_0^2}{r}$$
+
+Consideremos que en el punto de operación $e_0$: $q_i \approx q_{i \space lin}$
+¿Qué significa linealizar?
 
 
-### Simulación 
+### Actividad 2.1
+Diagrama en bloques y simulación utilizando bloques
+
+
+## Modelo de estados
+
+General:
+\begin{aligned}
+\dot x(t) &= A\,x(t) + B\,u(t),\\
+y(t)      &= C\,x(t) + D\,u(t),
+\end{aligned}
+
+### No lineal
+Ecuación diferencial no-lineal:
+$$ \dot \theta (t) = -\frac{1}{RC} \theta + \frac{1}{RC} \theta_{amb} + \frac{1}{rC} e^2(t) $$
+
+Convirtiendo al modelo de estados:
+$$
+\frac{d}{dt} \begin{bmatrix}
+             \theta(t) \\[4pt]
+             \dot\theta(t)
+             \end{bmatrix}
+=
+\begin{bmatrix}
+       0         & 1 \\[6pt]
+  -\dfrac{1}{RC} & 0
+\end{bmatrix}
+\begin{bmatrix}
+  \theta(t)     \\[4pt]
+  \dot\theta(t)
+\end{bmatrix}
++
+\begin{bmatrix}
+       0         &       0        \\[6pt]
+  \dfrac{1}{RC} & \dfrac{1}{rC}
+\end{bmatrix}
+\begin{bmatrix}
+  \theta_{amb}(t) \\[4pt]
+  e^2(t)
+\end{bmatrix}
+$$
+
+$$
+y(t)
+=
+\begin{bmatrix}
+1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+\theta(t) \\[4pt]
+\dot\theta(t)
+\end{bmatrix}
+$$
+
+### Lineal
+Ecuación diferencial linealizada:
+$$ \dot \theta (t) = -\frac{1}{RC} \theta + \frac{1}{RC} \theta_{amb} + \frac{2e_0}{rC} (e(t)-e_0) + \frac{e_0^2}{rC} $$
+
+Convirtiendo al modelo de estados:
+$$
+\frac{d}{dt} \begin{bmatrix}
+             \theta(t) \\[4pt]
+             \dot\theta(t)
+             \end{bmatrix}
+=
+\begin{bmatrix}
+       0         & 1 \\[6pt]
+  -\dfrac{1}{RC} & 0
+\end{bmatrix}
+\begin{bmatrix}
+  \theta(t)     \\[4pt]
+  \dot\theta(t)
+\end{bmatrix}
++
+\begin{bmatrix}
+       0        &       0          &         0         \\[6pt]
+  \dfrac{1}{RC} & \dfrac{2e_0}{rC} & -\dfrac{e_0^2}{rC}  
+\end{bmatrix}
+\begin{bmatrix}
+  \theta_{amb}(t) \\[4pt]
+  e(t) \\[4pt]
+  1
+\end{bmatrix}
+$$
+
+$$
+y(t)
+=
+\begin{bmatrix}
+1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+\theta(t) \\[4pt]
+\dot\theta(t)
+\end{bmatrix}
+$$
