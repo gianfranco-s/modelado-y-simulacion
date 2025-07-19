@@ -26,13 +26,6 @@ En esta clase plantearemos el modelado básico de un horno eléctrico.
 
 ![Sistema térmico](modelado_termico_con_resistor.svg)
 
-* (HECHO) Plantear todas las ecuaciones del sistema
-* (HECHO) Realizar un diagrama en bloques para el funcionamiento no-lineal
-* (HECHO) Linealizar y plantear modelo.
-* Manteniendo la temperatura ambiente constante, mostrar el efecto de aumentar en 25%
-  *  la temperatura ambiente.
-  *  la tensión de entrada.
-
 
 ### Modelado inicial
 Balance de energía en el recinto:
@@ -48,20 +41,21 @@ Linealizado:
 $$ q_{i \space lin}(t) = \frac{2e_0}{r} (e - e_0) + \frac{e_0^2}{r}$$
 
 Consideremos que en el punto de operación $e_0$: $q_i \approx q_{i \space lin}$
-¿Qué significa linealizar?
 
-
-### Actividad 2.1
-Diagrama en bloques y simulación utilizando bloques
-
+¿Qué significa linealizar? ¿Cuáles son sus limitaciones?
 
 ## Modelo de estados
 
-General:
+En general:
 \begin{aligned}
 \dot x(t) &= A\,x(t) + B\,u(t),\\
 y(t)      &= C\,x(t) + D\,u(t),
 \end{aligned}
+
+Consideraremos:
+
+* Entradas: $e(t)$, $\theta_{amb}(t)$
+* Salidas: $\theta (t)$
 
 ### No lineal
 Ecuación diferencial no-lineal:
@@ -70,21 +64,17 @@ $$ \dot \theta (t) = -\frac{1}{RC} \theta + \frac{1}{RC} \theta_{amb} + \frac{1}
 Convirtiendo al modelo de estados:
 $$
 \frac{d}{dt} \begin{bmatrix}
-             \theta(t) \\[4pt]
-             \dot\theta(t)
+             \theta(t)
              \end{bmatrix}
 =
 \begin{bmatrix}
-       0         & 1 \\[6pt]
-  -\dfrac{1}{RC} & 0
+  -\dfrac{1}{RC}
 \end{bmatrix}
 \begin{bmatrix}
-  \theta(t)     \\[4pt]
-  \dot\theta(t)
+  \theta(t)
 \end{bmatrix}
 +
 \begin{bmatrix}
-       0         &       0        \\[6pt]
   \dfrac{1}{RC} & \dfrac{1}{rC}
 \end{bmatrix}
 \begin{bmatrix}
@@ -94,15 +84,7 @@ $$
 $$
 
 $$
-y(t)
-=
-\begin{bmatrix}
-1 & 0
-\end{bmatrix}
-\begin{bmatrix}
-\theta(t) \\[4pt]
-\dot\theta(t)
-\end{bmatrix}
+y(t) = \theta(t)
 $$
 
 ### Lineal
@@ -112,21 +94,17 @@ $$ \dot \theta (t) = -\frac{1}{RC} \theta + \frac{1}{RC} \theta_{amb} + \frac{2e
 Convirtiendo al modelo de estados:
 $$
 \frac{d}{dt} \begin{bmatrix}
-             \theta(t) \\[4pt]
-             \dot\theta(t)
+             \theta(t)
              \end{bmatrix}
 =
 \begin{bmatrix}
-       0         & 1 \\[6pt]
-  -\dfrac{1}{RC} & 0
+  -\dfrac{1}{RC}
 \end{bmatrix}
 \begin{bmatrix}
-  \theta(t)     \\[4pt]
-  \dot\theta(t)
+  \theta(t)
 \end{bmatrix}
 +
 \begin{bmatrix}
-       0        &       0          &         0         \\[6pt]
   \dfrac{1}{RC} & \dfrac{2e_0}{rC} & -\dfrac{e_0^2}{rC}  
 \end{bmatrix}
 \begin{bmatrix}
@@ -136,14 +114,21 @@ $$
 \end{bmatrix}
 $$
 
-$$
-y(t)
-=
-\begin{bmatrix}
-1 & 0
-\end{bmatrix}
-\begin{bmatrix}
-\theta(t) \\[4pt]
-\dot\theta(t)
-\end{bmatrix}
-$$
+$$ y(t) = \theta(t) $$
+
+## Actividades de simulación
+
+
+### Actividad 2.1
+
+
+1. Graficar y explicar los siguientes cambios en $e(t)$, con $\theta_{amb}=cte$:
+   1. $e(t)=1$
+   2. $e(t)=2$
+   3. $e(t)=10$
+   4. $e(t)=0$
+2. ¿Qué efecto tiene $\theta_{amb}$ sobre la acción de linealización?
+
+
+### Actividad 2.2
+Realizar el diagrama en bloques y simulación, tanto del caso lineal, como del no-lineal. Repetir las simulaciones de la `Actividad 2.1.`
