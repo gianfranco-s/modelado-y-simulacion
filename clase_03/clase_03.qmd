@@ -18,7 +18,7 @@ jupyter: python3
 
 
 ## Modelo de estados
-Dada la ecuación
+Dada la ecuación  
 
 $$ \ddot{z}(t) + a\dot{z}(t) +bz(t) = cr(t) + d\dot{r}(t) $$
 
@@ -26,7 +26,7 @@ Se trata de un sistema lineal, con coeficientes constantes. Puede ser representa
 
 $$ \dot{x} = Ax + Bu $$
 $$ y = Cx + Du $$
-
+ 
 
 ## Transformada de Laplace
 Dado un sistema
@@ -38,7 +38,7 @@ Se definen la siguientes transformadas
 |:--------------------------:|:--------------------:|
 | $y(t)$                     | $Y(s)$               |
 | $\dot{y}(t)$               | $sY(s) - y(0)$       |
-| $u(t)$                     | $U(s)$     |
+| $u(t)$                     | $U(s)$               |
 : Transformadas de Laplace
 
 
@@ -48,9 +48,93 @@ $$ sY(s) - y(0) + a Y(s) = bU(s) $$
 Despejando:
 $$ Y(s) = \frac{b}{s + a} U(s) + \frac{y(0)}{s + a} $$
 
+## Sistema de primer orden
+Sea un sistema definido por la ecuación
+$$ \dot{y} + 3 y(t) = u(t) $$
 
-Ejemplo, con CI nulas:
-$$ \dot{y} + 3 y(t) = u(t) \longrightarrow Y(s) = \frac{1}{s+3} U(s) $$
+Su transformada de LaPlace es
+$$ Y(s) - s y(0) + 3Y(s)= U(s) $$
 
-Si $U(s)=1$:
+Suponiendo CI nulas:
+$$ Y(s) = \frac{1}{s+3} U(s) $$
+
+Si la entrada fuera un impulso unitario: $U(s)=1$. Luego:
 $$ Y(s) = \frac{1}{s+3} \longrightarrow y(t) = e^{-3t} $$
+
+¿Cómo puede explicarse este comportamiento?
+
+## Sistema de nivel
+Viene definido por
+$$ A\dot{y} = q_i(t) - ky(t) $$
+
+### Actividad 3.1
+Considerando $A=1$ y $k=0.3$, utilizar el algoritmo `ode23` para obtener una gráfica de la respuesta temporal de $y(t)$ cuando $q_i(t)=10$.
+
+### Actividad 3.2
+En las mismas condiciones que el apartado anterior, obtener la función transferencia del sistema, considerando que dicha función está definida únicamente con condiciones iniciales nulas.
+
+### Actividad 3.3
+Considerando como variables bajo estudio el nivel de fluido y la rapidez de descenso del mismo, el vector de salidas sería:
+$$ \begin{bmatrix}
+      y  \\
+      \dot{y}
+   \end{bmatrix}
+$$
+
+
+1. Verificar que el modelo de estados está definido por las siguientes matrices:
+$$ A = \begin{bmatrix}
+          \dfrac{-k}{A}
+       \end{bmatrix}
+$$
+$$ B = \begin{bmatrix}
+          \dfrac{1}{A}
+       \end{bmatrix}
+$$
+$$ C = \begin{bmatrix}
+          1  \\
+          -k/A
+       \end{bmatrix}
+$$
+$$ D = \begin{bmatrix}
+          0  \\
+          1/A
+       \end{bmatrix}
+$$
+
+
+1. Simular la respuesta temporal del mismo, y comparar con lo obtenido en la `Actividad 3.2`.
+
+## Sistema masa-resorte-amortiguador
+![Sistema masa-resorte-amortiguador](modelado_mecanico_mbk.svg)
+
+Viene definido por
+$$ f(t) - kx(t) - b\dot{x}(t) = m\ddot{x}(t) $$
+
+Reescribiendo:
+$$ \ddot{x}(t) = -\frac{k}{m} x -\frac{b}{m} \dot{x} + \frac{1}{m} f $$
+
+### Acvitividad 3.4
+Considerando $b=1$, $k=1$, $m=1$, $x(0)=0.5$ y $\dot{x}(0)=0.7$, y una entrada $f(t)=1.5$ (definida únicamente para $t>=0$.
+
+1. Utilizar el algoritmo `ode45` para graficar una respuesta temporal de $\dot{x}$.
+2. Determinar cuáles son las unidades físicas de cada variable.
+
+### Actividad 3.5
+1. Obtener la función transferencia, y graficar respuesta temporal.
+2. Graficar la ubicación de los polos.
+
+### Actividad 3.6
+1. Verificar que las matrices descriptivas son
+$$ A = \begin{bmatrix}
+                 1       &&  0              \\
+          \dfrac{-k}{m}  &&  \dfrac{-b}{m} 
+       \end{bmatrix}
+$$
+$$ B = \begin{bmatrix}
+                 1   \\
+          1/m 
+    \end{bmatrix}
+$$
+2. Construir las matrices de salida $C$ y $D$ de manera que las salidas del sistema sean la posición del móvil, la fuerza de rozamiento y la fuerza del resorte. 
+3. Graficar todas las salidas, y comparar con las actividades anteriores relacionadas al sistema masa-resorte-amortiguador.
