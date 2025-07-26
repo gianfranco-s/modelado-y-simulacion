@@ -1,6 +1,7 @@
 ---
-title: "Modelado Y Simulación - Clase 5"
-author: "Gianfranco Salomone"
+title: Sistemas MIMO
+subtitle: Modelado Y Simulación - Clase 5
+author: Gianfranco Salomone
 toc: true
 number-sections: true
 highlight-style: pygments

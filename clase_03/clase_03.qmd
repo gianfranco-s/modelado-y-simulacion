@@ -1,6 +1,7 @@
 ---
-title: "Modelado Y Simulación - Clase 3"
-author: "Gianfranco Salomone"
+title: Modelo de estados y función transferencia
+subtitle: Modelado Y Simulación - Clase 3
+author: Gianfranco Salomone
 toc: true
 number-sections: true
 highlight-style: pygments

@@ -1,6 +1,7 @@
 ---
-title: "Modelado Y Simulación - Clase 1"
-author: "Gianfranco Salomone"
+title: Intro a modelado y software
+subtitle: Modelado Y Simulación - Clase 1
+author: Gianfranco Salomone
 toc: true
 number-sections: true
 highlight-style: pygments

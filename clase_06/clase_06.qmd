@@ -1,6 +1,7 @@
 ---
-title: "Modelado Y Simulación - Clase 6"
-author: "Gianfranco Salomone"
+title: Sistemas en tiempo discreto
+subtitle: Modelado Y Simulación - Clase 6
+author: Gianfranco Salomone
 toc: true
 number-sections: true
 highlight-style: pygments
