@@ -131,7 +131,3 @@ $$ y(t) = \theta(t) $$
    3. $e(t)=10$
    4. $e(t)=0$
 2. ¿Qué efecto tiene $\theta_{amb}$ sobre la acción de linealización? Mostrarlo con una gráfica.
-
-
-### Actividad 2.2
-Realizar el diagrama en bloques y simulación, tanto del caso lineal, como del no-lineal. Repetir las simulaciones de la `Actividad 2.1.`

@@ -158,10 +158,10 @@ $$ s \approx \frac{(z-1)}{\Delta t} \longrightarrow H(z) = \frac{1}{\frac{z-1}{\
 $$ s \approx \frac{2}{\Delta t} \space \frac{z-1}{z+1} \longrightarrow H(z) = \frac{1}{\frac{2}{\Delta t} \frac{z-1}{z+1}+2} = \frac{\Delta t}{2} \frac{z+1}{z-1+\Delta t (z+1) }$$
 
 
-### Actividad 6.1
+### Actividad 6.2
 Corroborar el equivalente usando el equivalente Tustin, con $\Delta t = 0.01$.
 
-### Actividad 6.2
+### Actividad 6.3
 1. Obtener una aproximación de tiempo discreto a partir de la función transferencia:
 $$ H(s) = \frac{1}{s+3} $$
 2. Volver a obtener la función de tiempo continuo.
