@@ -15,8 +15,6 @@ format:
     
 jupyter: python3
 ---
-https://youtu.be/sUroO7PXm5M?t=1172
-https://ximera.osu.edu/ode
 
 ## Introducción
 Objetivos de la materia
@@ -191,7 +189,7 @@ OJO: $v_s \propto P_1 \propto h$
 Hay una relación entre las variables de presión, rapidez de salida y nivel, pero no es lineal, sino que está establecida por la ley de Bernoulli:
 $$ P_h + \frac{1}{2} \rho v_h^2 + \rho g h =  P_2 + \frac{1}{2} \rho v_s^2 + \rho g h_s $$
 
-El lado izquierdo de la ecuación corresponde a la superficie del fluido. Allí, la presión es la presión atmosférica, dado que el recipiente se encuentra abierto: $P_h=p_{atm}$
+El lado izquierdo de la ecuación corresponde a la superficie del fluido. Allí, la presión es la presión atmosférica, dado que el recipiente se encuentra abierto: $P_h=p_at{atm}$
 
 El lado derecho corresponde al punto de salida, que también está abierto, de manera que $P_h=p_{atm}$. Si ponemos en este punto el origen de coordenadas, también podemos establecer que $h_s=0$ (OJO! No es válido si el tamaño del desagote es grande.)
 
