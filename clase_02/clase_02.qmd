@@ -47,10 +47,12 @@ Consideremos que en el punto de operación $e_0$: $q_i \approx q_{i \space lin}$
 ## Modelo de estados
 
 En general:
+$$
 \begin{aligned}
 \dot x(t) &= A\,x(t) + B\,u(t),\\
 y(t)      &= C\,x(t) + D\,u(t),
 \end{aligned}
+$$
 
 Consideraremos:
 

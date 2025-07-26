@@ -17,18 +17,26 @@ jupyter: python3
 ---
 
 
-## Diagramas en bloques con FT
-Series
-Parallel
-Feedback
+## Diagramas en bloques
 
-## Respuestas temporales frente a diferentes entradas
-
-### Escalón
-### Rampa
-### Sinusoidal
-
-## Sistemas realimentados
+### Actividad 4.1
 Control de una antena
 Diag en bloques
 Respuesta temporal para diferentes valores de la señal de control
+
+### Actividad 4.2
+Diagrama en bloques de la actividad de modelo de estados de clase 3.
+
+### Actividad 4.3
+Gráfica de respuesta temporal frente a diferentes entradas:
+
+* escalón para $t_0\neq0$
+* rampa
+* seno
+
+1. En el diagrama en bloques.
+2. Usando ecuaciones.
+
+## Comandos para diagramas en bloques
+### Actividad 4.4
+Obtener respuesta temporal del control de la antena, con control PI, utilizando comandos `series`, `parallel` y `feedback`.

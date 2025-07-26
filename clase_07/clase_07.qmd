@@ -1,0 +1,27 @@
+---
+title: "Modelado Y Simulación - Clase 7"
+author: "Gianfranco Salomone"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+    
+jupyter: python3
+---
+
+## Diagrama de polos y ceros
+
+## Diagramas de estabilidad
+### Lugar de las raíces
+### Bode (respuesta en frecuencia)
+### Nyquist
+### rltool?
+
+## Diagramas de polos y ceros para sistemas discretos
