@@ -19,9 +19,53 @@ jupyter: python3
 
 
 
-## Sistemas MIMO
+## Operaciones con funciones transferencia
+En esta clase se plantearán ejemplos de diferentes modelos matemáticos, y su simulación programática.
 
-### Con FT
+Para los siguientes ejemplos supondremos cuatro funciones transferencia:
+
+$$ G_1(s) = \frac{1}{s + 2} $$
+$$ G_2(s) = \frac{3}{s + 4} $$
+$$ G_3(s) = \frac{5}{s + 6} $$
+$$ G_4(s) = \frac{7}{s + 8} $$
+
+También supondremos la siguientes señales de entrada en el intervalo $t\in[0;10]$, con paso de simulación de $0.1$:
+$$ u_1(t) = e^{-t/5} $$
+$$ u_2(t) = \sin{\pi t} u_1(t) $$
+
+Podemos definirlos así:
+
+### SISO
+Tomemos por ejemplo la combinación en serie de $G_1$ y $G_2$. Para calcularla, podemos utilizar el comando `series`.
+
+Si deseamos graficar la salida frente a $u_1(t)$ y frente a $u_2(t)$ por separado, podemos utilizar el comando `lsim`.
+
+La representación matemática de dichos casos sería la siguiente:
+$$ Y_1(s) = G_{12}(s) U_1(s) $$
+$$ Y_2(s) = G_{12}(s) U_2(s) $$
+
+Se representan usando transformada de Laplace, dado que es más directa en este caso. Recordemos que como convención, la tranformada de Laplace de $f(t)$ se escribe como $F(s)$.
+
+```{python}
+#| echo: false
+filename = "mys_clase_05a_sistemas_FT.m"
+```
+**Archivo "`{python} filename`"**
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
+
+### MISO
+Si el sistema fuera de dos entradas y una salida, matem
+
+### SIMO
+
 
 
 ### Con ME

@@ -4,7 +4,7 @@
  
 clc;
 clear all;
- 
+
 % U0:      acción externa  [m^3/s]
 % tfinal:  tiempo final    [s]
 % ho:      nivel inicial   [m]
