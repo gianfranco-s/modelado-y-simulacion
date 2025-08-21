@@ -15,7 +15,7 @@ r = 1;
 theta_0 = 10;
 theta_amb_0 = 20;
 e_0 = 1;
-e_t = 1.5;  % si e_t es aprox igual a e_0, el modelo linealizado es válido
+e_t = 1;  % si e_t es aprox igual a e_0, el modelo linealizado es válido
 
 % -------------------------------- Modelo linealizado --------------------------------
 AA = [-1/(R*C)];
