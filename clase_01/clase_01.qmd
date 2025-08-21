@@ -214,6 +214,12 @@ Esta ecuación es claramente no-lineal, y la usaremos para el trabajo práctico.
 ## Simulación del modelo lineal
 Para este primer ejemplo, estableceremos constantes "a dedo", para validar que el modelo sea coherente con nuestra expectativa de comportamiento.
 
+### Actividad 1.1
+Graficar evolución temporal del nivel
+* basándose en la ecuación analítica
+* utilizando una solución numérica
+
+
 ```{python}
 #| echo: false
 filename = "mys_clase_01a_modelo_lineal.m"

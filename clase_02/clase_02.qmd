@@ -123,6 +123,31 @@ $$ y(t) = \theta(t) $$
 
 
 ### Actividad 2.1
+Graficar la evolución de la temperatura $\theta(t)$ en base a la ecuación linealizada, considerando  
+
+* temperatura inicial $10º$
+* temperatura ambiente nula
+* tensión de entrada constante $e(t)=e_0$
+
+
+```{python}
+#| echo: false
+filename = "mys_clase_02a_simulacion_recinto_termico.m"
+```
+
+**Archivo "`{python} filename`"**
+
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
+
+### Actividad 2.2
 
 
 1. Graficar y explicar los siguientes cambios en $e(t)$, con $\theta_{amb}=cte$:
@@ -131,3 +156,21 @@ $$ y(t) = \theta(t) $$
    3. $e(t)=10$
    4. $e(t)=0$
 2. ¿Qué efecto tiene $\theta_{amb}$ sobre la acción de linealización? Mostrarlo con una gráfica.
+
+
+```{python}
+#| echo: false
+filename = "mys_clase_02b_comparacion_lineal_nolineal.m"
+```
+
+**Archivo "`{python} filename`"**
+
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
