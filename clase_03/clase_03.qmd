@@ -1,5 +1,5 @@
 ---
-title: Modelo de estados y función transferencia
+title: Función transferencia
 subtitle: Modelado Y Simulación - Clase 3
 author: Gianfranco Salomone
 toc: true
@@ -18,28 +18,18 @@ jupyter: python3
 ---
 
 
-## Modelo de estados
-Dada la ecuación  
-
-$$ \ddot{z}(t) + a\dot{z}(t) +bz(t) = cr(t) + d\dot{r}(t) $$
-
-Se trata de un sistema lineal, con coeficientes constantes. Puede ser representado utlizando un modelo de estados:
-
-$$ \dot{x} = Ax + Bu $$
-$$ y = Cx + Du $$
- 
-
 ## Transformada de Laplace
 Dado un sistema
 $$ \dot{y}(t) + a y(t) = bu(t) $$
 
 Se definen la siguientes transformadas
 
-| Función original           | Función transformada |
-|:--------------------------:|:--------------------:|
-| $y(t)$                     | $Y(s)$               |
-| $\dot{y}(t)$               | $sY(s) - y(0)$       |
-| $u(t)$                     | $U(s)$               |
+| Función original           | Función transformada                   |
+|:--------------------------:|:--------------------------------------:|
+| $y(t)$                     | $Y(s)$                                 |
+| $\dot{y}(t)$               | $sY(s) - y(0)$                         |
+| $\ddot{y}(t)$              | $s^2 Y(s) - s \space y(0) - \dot y(0)$ |
+| $u(t)$                     | $U(s)$                                 |
 : Transformadas de Laplace
 
 
@@ -69,13 +59,15 @@ Viene definido por
 $$ A\dot{y} = q_i(t) - ky(t) $$
 
 ### Actividad 3.1
-Considerando $A=1$ y $k=0.3
+Considerando $A=3$ y $k=1$
 
 1. Utilizar el algoritmo `ode23` para obtener una gráfica de la respuesta temporal de $y(t)$ cuando $q_i(t)=10$.
 
-2. Obtener la función transferencia del sistema, considerando que dicha función está definida únicamente con condiciones iniciales nulas.
+2. Transformar y despejar $Y(s)$ considerando condiciones iniciales no-nulas, y luego hallar la función transferencia (definida únicamente con condiciones iniciales nulas).
 
-3. Considerando como variables bajo estudio el nivel de fluido y la rapidez de descenso del mismo, el vector de salidas sería:
+3. ¿Qué unidades tiene el factor $A/k$?
+
+4. Considerando como variables bajo estudio el nivel de fluido y la rapidez de descenso del mismo, el vector de salidas sería:
 $$ \begin{bmatrix}
       y  \\
       \dot{y}
@@ -83,7 +75,7 @@ $$ \begin{bmatrix}
 $$
 
 
-3a. Verificar que el modelo de estados está definido por las siguientes matrices:
+Verificar que el modelo de estados está definido por las siguientes matrices:
 $$ A = \begin{bmatrix}
           \dfrac{-k}{A}
       \end{bmatrix}
@@ -104,7 +96,33 @@ $$ D = \begin{bmatrix}
 $$
 
 
-3b. Simular la respuesta temporal del mismo, y comparar con lo obtenido en la `Actividad 3.2`.
+**Solución**
+
+1. Gráfica de primer orden.
+2. Función transferencia
+$$ A(sY(s) - y(0)) = Q_i(s) - kY(s) $$
+$$ A(sY(s) - y(0)) + kY(s) = Q_i(s) $$
+$$ AsY(s) - Ay(0) + kY(s) = Q_i(s) $$
+$$ (As + k) Y(s) - Ay(0) = Q_i(s) $$
+
+Valor de $Y(s)$:
+$$ Y(s) = \frac{1}{As + k} Q_i(s) + \frac{Ay(0)}{As + k} $$
+
+Función transferencia:
+$$ \frac{Y(s)}{Q_i(s)} = \frac{1}{As + k} = \frac{1/A}{s + k/A} = \frac{1/k}{\dfrac{A}{k} s + 1} $$
+
+3. La variable compleja $s$ tienen unidades $rad/s$. Por tanto $A/k$: tiene unidad $s$ (segundos).
+
+4. Las matrices fundamentales del modelo de estados ($A$ y $B$) pueden hallarse reescribiendo el sistema:
+$$ \dot{y}(t) = \dfrac{-k}{A} y(t) + \dfrac{1}{A} q_i(t) $$
+
+Para hallar las matrices de salida, es necesario escribir las ecuaciones de salida, como se desean obtener, en función del vector de estados (que en este caso es de 1 x 1) y la señal de entrada (que también es de 1x1)
+
+$$ v_1(t) = 1 \space y(t) + 0 q_i(t) $$
+$$ v_2(t) = -k/A \space y(t) + 1/A q_i(t) $$
+
+Considerando que $v_1 = y$ y $v_2=\dot{y}$, podemos escribir las ecuaciones anteriores de manera matricial, obteniendo las matrices del enunciado.
+
 
 ## Sistema masa-resorte-amortiguador
 ![Sistema masa-resorte-amortiguador](modelado_mecanico_mbk.svg)
@@ -118,15 +136,12 @@ $$ \ddot{x}(t) = -\frac{k}{m} x -\frac{b}{m} \dot{x} + \frac{1}{m} f $$
 ### Acvitividad 3.2
 Considerando $b=1$, $k=1$, $m=1$, $x(0)=0.5$ y $\dot{x}(0)=0.7$, y una entrada $f(t)=1.5$ (definida únicamente para $t>=0$.
 
-1. Utilizar el algoritmo `ode45` para graficar una respuesta temporal de $\dot{x}$.
-2. Determinar cuáles son las unidades físicas de cada variable.
 
-3. Obtener la función transferencia, y graficar respuesta temporal.
-4. Graficar la ubicación de los polos.
+1. Determinar cuáles son las unidades físicas de cada variable.
 
-5. Verificar que las matrices descriptivas son
+2. Verificar que las matrices descriptivas son
 $$ A = \begin{bmatrix}
-                 1       &&  0              \\
+                 0       &&  1              \\
           \dfrac{-k}{m}  &&  \dfrac{-b}{m} 
        \end{bmatrix}
 $$
@@ -135,5 +150,58 @@ $$ B = \begin{bmatrix}
           1/m 
     \end{bmatrix}
 $$
+
+3. Utilizar el algoritmo `ode45` para graficar una respuesta temporal de $\dot{x}$ y $x$. Tener en cuenta que `ode45` únicamente acepta ecuaciones de primer orden.
+
+4. Obtener la función transferencia, y graficar respuesta temporal usando la función `step`.
+
+5. Graficar la ubicación de los polos.
+
 6. Construir las matrices de salida $C$ y $D$ de manera que las salidas del sistema sean la posición del móvil, la fuerza de rozamiento y la fuerza del resorte. 
-7. Graficar todas las salidas, y comparar con las actividades anteriores relacionadas al sistema masa-resorte-amortiguador.
+
+7. Graficar todas las salidas del modelo de estados.
+
+
+**Solución**  
+
+1. Unidades de masa, conocidas: $[m] = kg$. Unidades de aceleración: $[\ddot{x}]=m/s^2$. Unidades de rapidez: $[\dot{x}] = m/s$. Unidades de fuerza: $[f] = N$. Las demás pueden derivarse a partir de la ecuación diferencial
+$$ \frac{m}{s^2} = \frac{[k]}{kg} m \Longrightarrow [k] = \frac{N}{m} = \frac{kg}{s^2} $$
+
+$$ \frac{m}{s^2} = \frac{[b]}{kg} m/s \Longrightarrow [b] = \frac{N}{m/s} = \frac{kg}{s} $$
+
+
+2. En este caso el vector de estados es de 2 x 1. Puede ser útil realizar un cambio de variables, mirando la parte derecha de la ecuación original:
+$$ x = x_1 $$
+$$ x_2 = \dot{x} $$
+
+Derivando cada una:
+$$ x_1 = x \Rightarrow \dot{x}_1 = \dot{x} \Rightarrow \dot{x}_1 = x_2$$
+$$ \dot{x} = x_2 \Rightarrow \dot{x}_2 = \ddot{x} \Rightarrow \dot{x}_2 = -\frac{k}{m} x -\frac{b}{m} \dot{x} + \frac{1}{m} f = -\frac{k}{m} x_1 -\frac{b}{m} x_2 + \frac{1}{m} f $$
+
+En definitiva entonces:
+$$ \dot{x}_1 = 0 \space x_1 + 1 \space x_2 + 0 \space f $$
+$$ \dot{x}_2 = -\frac{k}{m} x_1 -\frac{b}{m} x_2 + \frac{1}{m} f $$
+
+Escribiendo estas últimas dos ecuaciones de manera matricial, se arriba a las matrices del enunciado.
+
+3. Respuesta usando ODE45
+```{python}
+#| echo: false
+filename = "mys_clase_03a_mbk_ode45."
+```
+
+**Archivo "`{python} filename`"**
+
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+
+4. TO DO:
+5. TO DO:
+6. TO DO:
+7. TO DO:
