@@ -15,7 +15,28 @@ r = 1;
 theta_0 = 10;
 theta_amb_0 = 20;
 e_0 = 1;
-e_t = 1;  % si e_t es aprox igual a e_0, el modelo linealizado es válido
+
+% % Caso 1.
+% e_t = 1;  % si e_t es aprox igual a e_0, el modelo linealizado es válido
+
+% % Caso 2.
+% e_t = 2;
+
+% % Caso 3.
+% e_t = 10;
+
+% % Caso 4.
+% e_t = 0;
+
+% % Cambio de temp amb
+% % Caso 5.
+% theta_amb_0 = 25;
+% e_t = 1;
+
+% % Caso 5.
+% theta_amb_0 = 10;
+% e_t = 1;
+
 
 % -------------------------------- Modelo linealizado --------------------------------
 AA = [-1/(R*C)];

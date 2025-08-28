@@ -86,6 +86,8 @@ $$
 \end{bmatrix}
 $$
 
+NOTA: esta ecuación corresponde a un sistema no-lineal con respecto a $e(t)$, pero lineal con respecto a $g(t) = e^2(t)$, por eso es posible definir las matrices $A$ y $B$.
+
 $$
 y(t) = \theta(t)
 $$

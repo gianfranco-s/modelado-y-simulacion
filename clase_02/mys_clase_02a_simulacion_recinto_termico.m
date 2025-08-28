@@ -12,7 +12,7 @@ C = 1;
 r = 1;
 
 % Valores iniciales:
-theta_0 = 0.1;
+theta_0 = 10;
 e_0 = 1;
 
 dtheta = @(t, theta) -1/(R*C) * theta + e_0^2/(r*C);
