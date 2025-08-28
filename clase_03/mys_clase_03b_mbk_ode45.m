@@ -21,7 +21,7 @@ z0 = [x_0; dx_0];
 % Como `ode45` únicamente admite ecuaciones de primer orden,
 % el modelo de estados es una buena elección:
 A = [0   1; -k/m -b/m];
-B = [1 ; 1/m];
+B = [0 ; 1/m];
 
 u  = @(t) f0;
 dX = @(t, X) A * X + B * u(t);

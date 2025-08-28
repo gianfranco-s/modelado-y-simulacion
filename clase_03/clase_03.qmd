@@ -222,11 +222,7 @@ $$
 
 4. Obtener la función transferencia, y graficar respuesta temporal usando la función `step`.
 
-5. Graficar la ubicación de los polos.
-
-6. Construir las matrices de salida $C$ y $D$ de manera que las salidas del sistema sean la posición del móvil, la fuerza de rozamiento y la fuerza del resorte. 
-
-7. Graficar todas las salidas del modelo de estados.
+5. Graficar la ubicación de ceros y polos.
 
 
 **Solución**  
@@ -268,7 +264,21 @@ with open(filename, "r") as f:
     print(f.read())
 print("-" * 60)
 ```
-4. TO DO:
-5. TO DO:
-6. TO DO:
-7. TO DO:
+
+4. y 5. Función transferencia, respuesta temporal y ubicación de ceros y polos.
+```{python}
+#| echo: false
+filename = "mys_clase_03c_me2ft.m"
+```
+
+**Archivo "`{python} filename`"**
+
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
