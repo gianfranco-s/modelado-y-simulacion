@@ -1,5 +1,5 @@
 % Modelos y Simulación
-% Tema: Simulación recinto térmico
+% Tema: Simulación MBK
 % Autor: Gianfranco Salomone
  
 clc;

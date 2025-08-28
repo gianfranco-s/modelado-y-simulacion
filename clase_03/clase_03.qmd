@@ -1,5 +1,5 @@
 ---
-title: Función transferencia
+title: Modelo de Estados y Función transferencia
 subtitle: Modelado Y Simulación - Clase 3
 author: Gianfranco Salomone
 toc: true
@@ -17,8 +17,70 @@ format:
 jupyter: python3
 ---
 
+## Modelo de estados (en el dominio del tiempo)
+Implica hallar un sistema de ecuaciones diferenciales de primer orden.
+![Sistema masa-resorte-amortiguador-2gdl](modelado_mecanico_mbk_2gdl.svg)
 
-## Transformada de Laplace
+Ecuaciones de Newton:
+$$ f - k_2 x_2 - k_{12} (x_2 - x_1) - b_{12} (\dot{x}_2 - \dot{x}_1) = m_2 \ddot{x}_2 $$
+$$ k_{12} (x_2 - x_1) + b_{12} (\dot{x}_2 - \dot{x}_1) - k_1 x_1 = m_1 \ddot{x}_1 $$
+
+
+Para hallar modelo de estados, cambio de variables
+
+$$ z_1 = x_1 \Rightarrow \dot{z}_1 = \dot{x}_1 \Rightarrow \dot{z}_1 = \dot{x}_1 = z_2 $$
+$$ z_2 = \dot{x}_1 \Rightarrow \dot{z}_2 = \ddot{x}_1 \Rightarrow \dot{z}_2 = \text{ ... despejar de ecuaciones de más arriba ...} $$
+$$ z_3 = x_2 \Rightarrow \dot{z}_3 = \dot{x}_2 \Rightarrow \dot{z}_3 = z_4 $$
+$$ z_4 = \dot{x}_2 \Rightarrow \dot{z}_4 = \ddot{x}_2 \Rightarrow \dot{z}_4 = \text{ ... despejar de ecuaciones de más arriba ...} $$
+
+
+Despejando y reemplazando
+
+$$ \dot{z}_1 = 0\,z_1 + 1\,z_2 + 0\,z_3 + 0\,z_4 + 0\,u $$
+$$ \dot{z}_2 = -\frac{k_{12}+k_1}{m_1} z_1 - \frac{b_{12}}{m_1} z_2 + \frac{k_{12}}{m_1} z_3 + \frac{b_{12}}{m_1} z_4 + 0\,u $$
+$$ \dot{z}_3 = 0\,z_1 + 0\,z_2 + 0\,z_3 + 1\,z_4 + 0\,u $$
+$$ \dot{z}_4 = \frac{k_{12}}{m_2} z_1 + \frac{b_{12}}{m_2} z_2 - \frac{k_2 + k_{12}}{m_2} z_3 - \frac{b_{12}}{m_2} z_4 + \frac{1}{m_2} u $$
+
+
+$$ A =
+\begin{bmatrix}
+0 & 1 & 0 & 0 \\[6pt]
+-\dfrac{k_{12}+k_1}{m_1} & -\dfrac{b_{12}}{m_1} & \dfrac{k_{12}}{m_1} & \dfrac{b_{12}}{m_1} \\[10pt]
+0 & 0 & 0 & 1 \\[6pt]
+\dfrac{k_{12}}{m_2} & \dfrac{b_{12}}{m_2} & -\dfrac{k_2+k_{12}}{m_2} & -\dfrac{b_{12}}{m_2}
+\end{bmatrix}
+$$
+
+$$ B = 
+\begin{bmatrix}
+0 \\[6pt]
+0 \\[6pt]
+0 \\[6pt]
+\dfrac{1}{m_2}
+\end{bmatrix}
+$$
+
+### Actividad 3.1
+Graficar respuesta temporal de la posición de cada carro, considerando $f(t) = \sin{t}$
+
+```{python}
+#| echo: false
+filename = "mys_clase_03a_mbk_2gdl.m"
+```
+
+**Archivo "`{python} filename`"**
+
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
+
+## Función transferencia (en el dominio de la frecuencia)
 Dado un sistema
 $$ \dot{y}(t) + a y(t) = bu(t) $$
 
@@ -36,10 +98,14 @@ Se definen la siguientes transformadas
 Reemplazando:
 $$ sY(s) - y(0) + a Y(s) = bU(s) $$
 
-Despejando:
+Despejando, obtenemos la función transformada.
 $$ Y(s) = \frac{b}{s + a} U(s) + \frac{y(0)}{s + a} $$
 
-## Sistema de primer orden
+La función transferencia de un sistema se determina considerando condiciones iniciales nulas, y se define como **el cociente entre la señal de salida y la señal de entrada**
+$$ \frac{Y(s)}{U(s)} = \frac{b}{s + a}$$
+
+
+### Comportamiento de un sistema de primer orden
 Sea un sistema definido por la ecuación
 $$ \dot{y} + 3 y(t) = u(t) $$
 
@@ -54,11 +120,12 @@ $$ Y(s) = \frac{1}{s+3} \longrightarrow y(t) = e^{-3t} $$
 
 ¿Cómo puede explicarse este comportamiento?
 
-## Sistema de nivel
-Viene definido por
+
+## Actividad 3.2 Modelo de estados y Función transferencia
+Un sistema de nivel viene definido por 
 $$ A\dot{y} = q_i(t) - ky(t) $$
 
-### Actividad 3.1
+
 Considerando $A=3$ y $k=1$
 
 1. Utilizar el algoritmo `ode23` para obtener una gráfica de la respuesta temporal de $y(t)$ cuando $q_i(t)=10$.
@@ -133,7 +200,7 @@ $$ f(t) - kx(t) - b\dot{x}(t) = m\ddot{x}(t) $$
 Reescribiendo:
 $$ \ddot{x}(t) = -\frac{k}{m} x -\frac{b}{m} \dot{x} + \frac{1}{m} f $$
 
-### Acvitividad 3.2
+### Acvitividad 3.3
 Considerando $b=1$, $k=1$, $m=1$, $x(0)=0.5$ y $\dot{x}(0)=0.7$, y una entrada $f(t)=1.5$ (definida únicamente para $t>=0$.
 
 
@@ -187,7 +254,7 @@ Escribiendo estas últimas dos ecuaciones de manera matricial, se arriba a las m
 3. Respuesta usando ODE45
 ```{python}
 #| echo: false
-filename = "mys_clase_03a_mbk_ode45."
+filename = "mys_clase_03b_mbk_ode45.m"
 ```
 
 **Archivo "`{python} filename`"**
@@ -200,7 +267,7 @@ print("-" * 60)
 with open(filename, "r") as f:
     print(f.read())
 print("-" * 60)
-
+```
 4. TO DO:
 5. TO DO:
 6. TO DO:
