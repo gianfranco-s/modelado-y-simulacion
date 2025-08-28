@@ -60,7 +60,7 @@ Consideraremos:
 * Entradas: $e(t)$, $\theta_{amb}(t)$
 * Salidas: $\theta (t)$
 
-### No lineal
+### Modelo no lineal
 Ecuación diferencial no-lineal:
 $$ \dot \theta (t) = -\frac{1}{RC} \theta + \frac{1}{RC} \theta_{amb} + \frac{1}{rC} e^2(t) $$
 
@@ -92,7 +92,7 @@ $$
 y(t) = \theta(t)
 $$
 
-### Lineal
+### Modelo linealizado
 Ecuación diferencial linealizada:
 $$ \dot \theta (t) = -\frac{1}{RC} \theta + \frac{1}{RC} \theta_{amb} + \frac{2e_0}{rC} (e(t)-e_0) + \frac{e_0^2}{rC} $$
 
