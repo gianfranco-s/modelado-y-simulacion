@@ -22,7 +22,23 @@ jupyter: python3
 
 ### Actividad 4.1
 Control de una antena
-Diag en bloques
+
+Ecuaciones de la antena
+$$ L_a \dfrac{di_a}{dt} + R_a i_a = e_a - e_b $$
+$$ e_b = k_b \omega_m $$
+
+$$ T_m - T_1 - b_m \omega_m $$
+$$ T_2 - b_L \omega_L = J_L \dot{\omega}_L $$
+
+$$ \omega_2 = n \omega_1 $$
+$$ n T_2 = T_1 $$
+
+![antena-lazo-abierto](modelado_motordc_diag_bl.svg)
+
+
+A lazo cerrado
+(esquema)
+
 Respuesta temporal para diferentes valores de la señal de control
 
 ### Actividad 4.2
