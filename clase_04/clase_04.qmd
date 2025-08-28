@@ -35,25 +35,80 @@ $$ n T_2 = T_1 $$
 
 ![antena-lazo-abierto](modelado_motordc_diag_bl.svg)
 
+$$ G(s) = \frac{\Theta (s)}{E_a(s)} = \frac{1}{s} \frac{n k_t}{(L_a s + R)(J_{eq}s + b_{eq}) + k_t k_b} $$
 
-A lazo cerrado
-(esquema)
+A lazo cerrado, con control proporcional:
+$$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{k_p G(s)}{1 + k_p G(s)} $$
 
-Respuesta temporal para diferentes valores de la señal de control
+**Solución**  
+```{python}
+#| echo: false
+filename = "mys_clase_03a_control_antena.m"
+```
+
+**Archivo "`{python} filename`"**
+
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
 
 ### Actividad 4.2
-Diagrama en bloques de la actividad de modelo de estados de clase 3.
+Diagrama en bloques para un sistema MBK simple (clase 3)
+$$ f - f_b - f_k = m \ddot{x} $$
+$$ f_b = b \dot{x} $$
+$$ f_k = k x $$  
+
+a. transformada
+b. variable de estados
+c. variable de estados matricial
+
+**Solución**  
+a. Reemplazando todos los términos en la primera ecuación, y transformando con condiciones iniciales nulas:
+$$ F(s) - bs X(s) - k X(s) = ms^2 X(s) $$
+
+Despejando el cociente de señal de salida sobre señal de entrada:
+$$ \frac{X(s)}{F(s)} = \frac{1}{ms^2 + bs + k} $$
+![diagrama-en-bloques-mbk-ft](diag_bl_ft.png)
+
+b. Reemplazo las expresiones de fuerza dependiente de $x$, y despejo derivada de mayor orden:
+$$ f - b \dot{x} - k x = m \ddot{x} $$
+$$ \ddot{x} = -\frac{k}{m} x - \frac{b}{m} \dot{x} + \frac{1}{m} f $$
+
+Luego, en pasos
+
+![diagrama-en-bloques-mbk-me-01](diag_bl_me_01.png)  
+![diagrama-en-bloques-mbk-me-02](diag_bl_me_02.png)  
+![diagrama-en-bloques-mbk-me-03](diag_bl_me_03.png)  
+![diagrama-en-bloques-mbk-me-04](diag_bl_me_04.png)  
+![diagrama-en-bloques-mbk-me-05](diag_bl_me_05.png)  
+![diagrama-en-bloques-mbk-me-06](diag_bl_me_06.png)  
+
 
 ### Actividad 4.3
-Gráfica de respuesta temporal frente a diferentes entradas:
-
-* escalón para $t_0\neq0$
-* rampa
-* seno
-
-1. En el diagrama en bloques.
-2. Usando ecuaciones.
-
-## Comandos para diagramas en bloques
-### Actividad 4.4
 Obtener respuesta temporal del control de la antena, con control PI, utilizando comandos `series`, `parallel` y `feedback`.
+
+Acción de control:
+$$ u(t) = k_p e(t) + k_i \int e(t) dt
+
+```{python}
+#| echo: false
+filename = "mys_clase_03b_comandos_bloques_control_pi.m"
+```
+
+**Archivo "`{python} filename`"**
+
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```

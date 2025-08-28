@@ -1,5 +1,5 @@
 ---
-title: Sistemas MIMO
+title: Sistemas con múltiples entradas y múltiples salidas
 subtitle: Modelado Y Simulación - Clase 5
 author: Gianfranco Salomone
 toc: true
@@ -31,12 +31,10 @@ $$ G_4(s) = \frac{7}{s + 8} $$
 
 También supondremos la siguientes señales de entrada en el intervalo $t\in[0;10]$, con paso de simulación de $0.1$:
 $$ u_1(t) = e^{-t/5} $$
-$$ u_2(t) = \sin{\pi t} u_1(t) $$
+$$ u_2(t) = \sin{(\pi t)} \space u_1(t) $$
 
-Podemos definirlos así:
-
-### SISO
-Tomemos por ejemplo la combinación en serie de $G_1$ y $G_2$. Para calcularla, podemos utilizar el comando `series`.
+### Actividad 5.1 - Single Input Single Output (SISO)
+Tomemos por ejemplo la combinación en serie de $G_1$ y $G_2$.
 
 Si deseamos graficar la salida frente a $u_1(t)$ y frente a $u_2(t)$ por separado, podemos utilizar el comando `lsim`.
 
@@ -48,7 +46,7 @@ Se representan usando transformada de Laplace, dado que es más directa en este 
 
 ```{python}
 #| echo: false
-filename = "mys_clase_05a_sistemas_FT.m"
+filename = "mys_clase_05a_sistemas_FT_SISO.m"
 ```
 **Archivo "`{python} filename`"**
 
@@ -61,11 +59,37 @@ with open(filename, "r") as f:
 print("-" * 60)
 ```
 
-### MISO
-Si el sistema fuera de dos entradas y una salida, matem
+### Actividad 5.2 - Multiple Inputs Single Output (MISO)
 
-### SIMO
+Si el sistema fuera de dos entradas y una salida,
+```{python}
+#| echo: false
+filename = "mys_clase_05b_sistemas_FT_MISO.m"
+```
+**Archivo "`{python} filename`"**
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
 
 
+### Actividad 5.3 - Multiple Inputs Multiple Outputs (MIMO)
+```{python}
+#| echo: false
+filename = "mys_clase_05c_sistemas_FT_MIMO.m"
+```
+**Archivo "`{python} filename`"**
 
-### Con ME
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```

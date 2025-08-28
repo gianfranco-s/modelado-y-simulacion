@@ -1,5 +1,5 @@
 % Modelos y Simulación
-% Tema: Sistemas con Función Transferencia
+% Tema: SISO
 % Autor: Gianfranco Salomone
 
 clc;

@@ -126,8 +126,31 @@ plt.show()
 
 
 ### Actividad 6.1
-Obtener la gráfica anterior usando MATLAB/Octave
+Obtener la gráfica de una función en tiempo discreto usando MATLAB/Octave
+$$ \dot{y}(t) + 2 y(t) = u(t) $$
+$$ y(0) = 10 $$
+$$ u(t) = 1 $$
 
+Usando función transferencia y superposición
+$$ y = y_\text{forzada} + y_\text{libre} $$
+$$ Y(s) = \frac{1}{s+2} U(s) + \frac{y(0)}{s+2}$$
+
+
+**Solución**  
+```{python}
+#| echo: false
+filename = "mys_06a_respuesta_discreta.m"
+```
+**Archivo "`{python} filename`"**
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
 
 ## Diferencias entre un sistema de tiempo discreto y uno de tiempo continuo
 1. Una computadora, ¿puede graficar tiempo continuo?

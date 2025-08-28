@@ -8,7 +8,7 @@
 
 <meta name="author" content="Gianfranco Salomone">
 
-<title>Modelado Y Simulación - Clase 6</title>
+<title>Sistemas en tiempo discreto</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -98,8 +98,8 @@ window.Quarto = {
   <li><a href="#transformada-z" id="toc-transformada-z" class="nav-link" data-scroll-target="#transformada-z"><span class="header-section-number">3</span> Transformada Z</a></li>
   <li><a href="#relación-con-la-transformada-de-laplace-en-tiempo-continuo" id="toc-relación-con-la-transformada-de-laplace-en-tiempo-continuo" class="nav-link" data-scroll-target="#relación-con-la-transformada-de-laplace-en-tiempo-continuo"><span class="header-section-number">4</span> Relación con la transformada de Laplace en tiempo continuo</a>
   <ul class="collapse">
-  <li><a href="#actividad-6.1-1" id="toc-actividad-6.1-1" class="nav-link" data-scroll-target="#actividad-6.1-1"><span class="header-section-number">4.1</span> Actividad 6.1</a></li>
-  <li><a href="#actividad-6.2" id="toc-actividad-6.2" class="nav-link" data-scroll-target="#actividad-6.2"><span class="header-section-number">4.2</span> Actividad 6.2</a></li>
+  <li><a href="#actividad-6.2" id="toc-actividad-6.2" class="nav-link" data-scroll-target="#actividad-6.2"><span class="header-section-number">4.1</span> Actividad 6.2</a></li>
+  <li><a href="#actividad-6.3" id="toc-actividad-6.3" class="nav-link" data-scroll-target="#actividad-6.3"><span class="header-section-number">4.2</span> Actividad 6.3</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../clase_06.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -108,7 +108,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modelado Y Simulación - Clase 6</h1>
+<h1 class="title">Sistemas en tiempo discreto</h1>
+<p class="subtitle lead">Modelado Y Simulación - Clase 6</p>
 </div>
 
 
@@ -223,7 +224,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div id="6d16d8dd" class="cell" data-execution_count="1">
+<div id="4dc018b1" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -234,7 +235,57 @@ window.Quarto = {
 </div>
 <section id="actividad-6.1" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="actividad-6.1"><span class="header-section-number">1.1</span> Actividad 6.1</h3>
-<p>Obtener la gráfica anterior usando MATLAB/Octave</p>
+<p>Obtener la gráfica de una función en tiempo discreto usando MATLAB/Octave <span class="math display"> \dot{y}(t) + 2 y(t) = u(t) </span> <span class="math display"> y(0) = 10 </span> <span class="math display"> u(t) = 1 </span></p>
+<p>Usando función transferencia y superposición <span class="math display"> y = y_\text{forzada} + y_\text{libre} </span> <span class="math display"> Y(s) = \frac{1}{s+2} U(s) + \frac{y(0)}{s+2}</span></p>
+<p><strong>Solución</strong></p>
+<p><strong>Archivo “mys_06a_respuesta_discreta.m”</strong></p>
+<div id="ed6760b8" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>------------------------------------------------------------
+% Modelos y Simulación
+% Tema: Respuesta discreta desde G y Gd (sin espacio de estados)
+% Ecuación: dy/dt + 2 y = u(t),  u(t)=1,  y(0)=10
+
+clc; clearvars; clf;
+
+% --- Parámetros de simulación
+y0 = 10;
+t_end = 5;          % horizonte
+muestras = 21;      % cantidad de muestras (&gt;=2)
+Ts = t_end/(muestras-1);
+t  = 0:Ts:t_end;    % tiempos discretos
+u  = ones(size(t)); % escalón unitario
+
+% --- Modelo continuo y su versión discreta (ZOH)
+G  = tf(1,[1 2]);          % Y(s)/U(s) = 1/(s+2)
+Gd = c2d(G, Ts, 'zoh');    % Discretización ZOH
+
+% --- Respuesta forzada DISCRETA (CI = 0) con el Gd
+y_forzada_d = lsim(Gd, u, t);
+
+% --- Respuesta libre DISCRETA (u=0) sin usar estados
+Ad = exp(-2*Ts);                   % e^{-2 Ts}
+k  = 0:numel(t)-1;
+y_libre_d = y0 * (Ad.^k);          % y[k] = y0 * (e^{-2Ts})^k
+
+% --- Respuesta total por superposición
+y_total_d = y_forzada_d(:) + y_libre_d(:);
+
+% --- (Opcional) referencia continua analítica para visualizar
+t_cont = linspace(0, t_end, 1000);
+y_cont = y0*exp(-2*t_cont) + 0.5*(1 - exp(-2*t_cont));  % solución exacta
+
+% --- Gráfica
+stem(t, y_total_d, 'filled', 'DisplayName','Discreto (Gd): y_f + y_l'); hold on;
+plot(t_cont, y_cont, 'k--', 'LineWidth',1.2, 'DisplayName','Continuo exacto');
+grid on; box off;
+xlabel('t [s]'); ylabel('y');
+title(sprintf('Respuesta discreta (Ts=%.3g s) por superposición desde Gd', Ts));
+legend('Location','Best');
+
+------------------------------------------------------------</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="diferencias-entre-un-sistema-de-tiempo-discreto-y-uno-de-tiempo-continuo" class="level2" data-number="2">
@@ -257,17 +308,17 @@ window.Quarto = {
 <li><p>Forward Euler: <span class="math display"> s \approx \frac{(z-1)}{\Delta t} \longrightarrow H(z) = \frac{1}{\frac{z-1}{\Delta t}+2} = \frac{\Delta t}{z-1+2\Delta t} = \frac{\Delta t}{z-(1-2\Delta t)}</span></p></li>
 <li><p>Tustin (bilineal:) <span class="math display"> s \approx \frac{2}{\Delta t} \space \frac{z-1}{z+1} \longrightarrow H(z) = \frac{1}{\frac{2}{\Delta t} \frac{z-1}{z+1}+2} = \frac{\Delta t}{2} \frac{z+1}{z-1+\Delta t (z+1) }</span></p></li>
 </ul>
-<section id="actividad-6.1-1" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="actividad-6.1-1"><span class="header-section-number">4.1</span> Actividad 6.1</h3>
+<section id="actividad-6.2" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="actividad-6.2"><span class="header-section-number">4.1</span> Actividad 6.2</h3>
 <p>Corroborar el equivalente usando el equivalente Tustin, con <span class="math inline">\Delta t = 0.01</span>.</p>
 </section>
-<section id="actividad-6.2" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="actividad-6.2"><span class="header-section-number">4.2</span> Actividad 6.2</h3>
+<section id="actividad-6.3" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="actividad-6.3"><span class="header-section-number">4.2</span> Actividad 6.3</h3>
 <ol type="1">
 <li>Obtener una aproximación de tiempo discreto a partir de la función transferencia: <span class="math display"> H(s) = \frac{1}{s+3} </span></li>
 <li>Volver a obtener la función de tiempo continuo.</li>
-<li>Obtener una aproximación de tiempo discreto simple, utilizando un tiempo de muestreo específico.</li>
 <li>Analizar respuesta temporal frente a escalón en los tres casos.</li>
+<li>Graficar respuesta con <span class="math inline">\Delta t = 0.1</span></li>
 </ol>
 </section>
 </section>
