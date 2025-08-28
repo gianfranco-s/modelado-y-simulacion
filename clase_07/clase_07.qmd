@@ -18,11 +18,25 @@ jupyter: python3
 ---
 
 ## Diagrama de polos y ceros
+Efecto de polos en el semiplano derecho
 
 ## Diagramas de estabilidad
-### Lugar de las raíces
+### Actividad 7.1 - Lugar de las raíces
+Dada la función transferencia
+$$ G(s) = \frac{K}{s^3+3s^2+2s} $$
+
+a. Determinar cantidad de polos a lazo abierto y su ubicación.
+b. Hallar los polos del sistema a lazo cerrado para $K\in[0 10]$.
+c. ¿Cuántos polos hay para cada valor de $K$?
+
+**Solución**  
+A lazo cerrado, la función transferencia es
+$$ M(s) = \frac{K}{s^3+3s^2+2s+K} $$
+
+### Actividad 7.2 - Efecto de añadir polos en el origen
+1. Efecto sobre la respuesta temporal
+2. Efecto sobre la estabilidad
+
 ### Bode (respuesta en frecuencia)
-### Nyquist
-### rltool?
 
 ## Diagramas de polos y ceros para sistemas discretos
