@@ -22,7 +22,9 @@ jupyter: python3
 Son una herramienta para representar ecuaciones, o sistemas de ecuaciones, gráficamente.
 
 ### Actividad 4.1
-Control de una antena
+Se desea controlar la posición angular de una antena. Para ello, se ha implementado un control proporcional-integral a lazo cerrado.
+
+Obtenga la respuesta a lazo cerrado considerando $k_p = k_i = 1$
 
 Ecuaciones de la antena
 $$ L_a \dfrac{di_a}{dt} + R_a i_a = e_a - e_b $$
@@ -38,8 +40,12 @@ $$ n T_2 = T_1 $$
 
 $$ G(s) = \frac{\Theta (s)}{E_a(s)} = \frac{1}{s} \frac{n k_t}{(L_a s + R)(J_{eq}s + b_{eq}) + k_t k_b} $$
 
-A lazo cerrado, con control proporcional:
-$$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{k_p G(s)}{1 + k_p G(s)} $$
+Suponiendo que un controlador PI tiene una función transferencia $G_{PI}(s)$, a lazo cerrado la función transferencia total puede hallarse así:
+$$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{G_{PI}(s) G(s)}{1 + G_{PI}(s) G(s)} $$
+
+
+La función transferencia del controlador se define como
+$$ G_{PI}(s) = k_p + \frac{k_i}{s} = \frac{k_p s + k_i}{s} $$
 
 **Solución**  
 ```{python}
