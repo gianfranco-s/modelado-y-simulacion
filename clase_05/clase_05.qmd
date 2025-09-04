@@ -38,10 +38,14 @@ Supongamos que se desea evaluar la respuesta de un sistema conformado por la com
 
 Siendo así, para cada entrada, se obtendrá la correspondiente salida.
 
-
-**TODO: gráfico**
-U1 --> G12 --> Y1
-U2 --> G12 --> Y2
+```{mermaid}
+flowchart LR
+    U1 --> G12 --> Y1
+```
+```{mermaid}
+flowchart LR
+    U2 --> G12 --> Y2
+```
 
 
 Si deseamos graficar la salida frente a $u_1(t)$ y frente a $u_2(t)$ por separado, podemos utilizar el comando `lsim`.
@@ -70,10 +74,12 @@ print("-" * 60)
 ### Actividad 5.2 - Multiple Inputs Single Output (MISO)
 Supongamos que se desea evaluar la respuesta de un sistema que tiene una única salida, pero múltiples entradas.
 
-**TODO: gráfica**
+```{mermaid}
+flowchart LR
+    U1[U1] --> G1[G1] --> SUM --> Y[Y]
+    U2[U2] --> G2[G2] --> SUM
+```
 
-U1 --> G1 --> + --> Y
-U2 --> G2 ----^
 
 $$ Y(s) = G_1(s) U_1(s) + G_2(s) U_2(s) $$
 
@@ -115,9 +121,11 @@ print("-" * 60)
 ### Actividad 5.3 - Single Input Multiple Outputs (SIMO)
 Supongamos ahora que se desea evaluar la respuesta de un sistema que que tiene diferentes salidas, asociadas a una única entrada.
 
-**TODO: gráfica**
-U_1 ----> G1 --> Y1
-     |--> G2 --> Y2
+```{mermaid}
+flowchart LR
+    U1 --> G1 --> Y1
+    U1 --> G2 --> Y2
+```
 
 $$ Y_1(s) = G_1(s) U_1(s) $$
 $$ Y_2(s) = G_2(s) U_1(s) $$
@@ -145,11 +153,13 @@ print("-" * 60)
 ### Actividad 5.4 - Multiple Inputs Multiple Outputs (MIMO)
 Finalmente, supongamos que se desea evaluar la respuesta de un sistema que que tiene diferentes salidas, relacionadas con diferentes entradas. 
 
-**TODO: gráfica**
-U_1 ----> G1 --> + --> Y1
-U_2 ++--> G2 ----^
-    ||--> G3 --> + --> Y2
-    ----> G4 ----^
+```{mermaid}
+flowchart LR
+    U1 --> G1 --> SUM1 --> Y1
+    U2 --> G2 --> SUM1
+    U1 --> G3 --> SUM2 --> Y2
+    U2 --> G4 --> SUM2
+```
 
 
 $$ Y_1(s) = G_1(s) U_1(s) + G_2(s) U_2(s) $$
