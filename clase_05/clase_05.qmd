@@ -34,7 +34,15 @@ $$ u_1(t) = e^{-t/5} $$
 $$ u_2(t) = \sin{(\pi t)} \space u_1(t) $$
 
 ### Actividad 5.1 - Single Input Single Output (SISO)
-Tomemos por ejemplo la combinación en serie de $G_1$ y $G_2$.
+Supongamos que se desea evaluar la respuesta de un sistema conformado por la combinación en serie de $G_1$ y $G_2$, frente a diferentes entradas.
+
+Siendo así, para cada entrada, se obtendrá la correspondiente salida.
+
+
+**gráfico**
+U1 --> G12 --> Y1
+U2 --> G12 --> Y2
+
 
 Si deseamos graficar la salida frente a $u_1(t)$ y frente a $u_2(t)$ por separado, podemos utilizar el comando `lsim`.
 
@@ -60,8 +68,34 @@ print("-" * 60)
 ```
 
 ### Actividad 5.2 - Multiple Inputs Single Output (MISO)
+Supongamos que se desea evaluar la respuesta de un sistema que tiene una única salida, pero múltiples entradas.
 
-Si el sistema fuera de dos entradas y una salida,
+**gráfica**
+
+U1 --> G1 --> + --> Y
+U2 --> G2 ----^
+
+$$ Y(s) = G_1(s) U_1(s) + G_2(s) U_2(s) $$
+
+Este es un sistema lineal, porque puede expresarse en términos de la transformada de Laplace.
+
+La respuesta puede hallarse de dos modos:
+
+**Caso 1: superposición**
+Se calculan las respuestas parciales, y luego se suman (esto es particularmente útil al evaluar respuestas frente a condiciones iniciales):
+$$ Y_\text{parcial 1}(s) = G_1(s) U_1(s) $$
+$$ Y_\text{parcial 2}(s) = G_2(s) U_2(s) $$
+
+Luego 
+$$ Y(s) = Y_\text{parcial 1}(s) + Y_\text{parcial 2}(s) $$
+
+
+**Caso 2: matrices**
+Se expresa el sistema en modo matricial, y se encuentra la respuesta total: 
+
+$$ Y(s) = \begin{bmatrix} G_1(s) & G_2(s) \end{bmatrix} \begin{bmatrix} U_1(s) \\[10pt] U_2(s) \end{bmatrix} $$
+
+
 ```{python}
 #| echo: false
 filename = "mys_clase_05b_sistemas_FT_MISO.m"

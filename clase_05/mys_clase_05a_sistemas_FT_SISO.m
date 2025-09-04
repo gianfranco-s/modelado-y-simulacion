@@ -8,8 +8,6 @@ clear all;
 % Funciones transferencia
 G1 = tf(1, [1 2]);
 G2 = tf(3, [1 4]);
-G3 = tf(5, [1 6]);
-G4 = tf(7, [1 8]);
 
 % Tiempo de simulación
 t = 0:.1:10;
