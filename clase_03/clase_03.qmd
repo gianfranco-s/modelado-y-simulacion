@@ -128,7 +128,7 @@ $$ A\dot{y} = q_i(t) - ky(t) $$
 
 Considerando $A=3$ y $k=1$
 
-1. Utilizar el algoritmo `ode23` para obtener una gráfica de la respuesta temporal de $y(t)$ cuando $q_i(t)=10$.
+1. Utilizar el algoritmo `ode23` para obtener una gráfica de la respuesta temporal de $y(t)$ cuando $q_i(t)=10$, y frente a condiciones iniciales nulas.
 
 2. Transformar y despejar $Y(s)$ considerando condiciones iniciales no-nulas, y luego hallar la función transferencia (definida únicamente con condiciones iniciales nulas).
 
@@ -152,7 +152,7 @@ $$ B = \begin{bmatrix}
       \end{bmatrix}
 $$
 $$ C = \begin{bmatrix}
-          1  \\
+          0  \\
           -k/A
       \end{bmatrix}
 $$
