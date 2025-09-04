@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.23">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -27,14 +27,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="clase_06_files/libs/clipboard/clipboard.min.js"></script>
 <script src="clase_06_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="clase_06_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="clase_06_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="clase_06_files/libs/quarto-html/popper.min.js"></script>
 <script src="clase_06_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="clase_06_files/libs/quarto-html/anchor.min.js"></script>
 <link href="clase_06_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="clase_06_files/libs/quarto-html/quarto-syntax-highlighting-236d90495073fb2ac8939117e3e83141.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="clase_06_files/libs/quarto-html/quarto-syntax-highlighting-9041f07b7be9b5ab81962a5af5c425bf.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="clase_06_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="clase_06_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="clase_06_files/libs/bootstrap/bootstrap-e749e0063aba91fd750f88f320edf3b1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="clase_06_files/libs/bootstrap/bootstrap-14b8666be25602dea4cb5bebbb532e20.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -64,7 +65,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -224,11 +225,11 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div id="4dc018b1" class="cell" data-execution_count="1">
+<div id="0e1870a4" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="clase_06_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="clase_06_files/figure-html/cell-2-output-1.png" width="757" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -239,7 +240,7 @@ window.Quarto = {
 <p>Usando función transferencia y superposición <span class="math display"> y = y_\text{forzada} + y_\text{libre} </span> <span class="math display"> Y(s) = \frac{1}{s+2} U(s) + \frac{y(0)}{s+2}</span></p>
 <p><strong>Solución</strong></p>
 <p><strong>Archivo “mys_06a_respuesta_discreta.m”</strong></p>
-<div id="ed6760b8" class="cell" data-execution_count="3">
+<div id="faecaa1e" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>------------------------------------------------------------
 % Modelos y Simulación
@@ -310,7 +311,28 @@ legend('Location','Best');
 </ul>
 <section id="actividad-6.2" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="actividad-6.2"><span class="header-section-number">4.1</span> Actividad 6.2</h3>
-<p>Corroborar el equivalente usando el equivalente Tustin, con <span class="math inline">\Delta t = 0.01</span>.</p>
+<p>Corroborar en MATLAB el equivalente usando el equivalente Tustin, con <span class="math inline">\Delta t = 0.01</span>.</p>
+<p><strong>Solución</strong></p>
+<p><strong>Archivo “mys_06b_verificacion.m”</strong></p>
+<div id="8684c1f5" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-stdout">
+<pre><code>------------------------------------------------------------
+% Modelos y Simulación
+% Tema: verificación de equivalente discreto Tustin
+% Autor: Gianfranco Salomone
+ 
+clc;
+clear all;
+
+G = tf(1, [1 2])
+
+% Conversión a tiempo discreto (sin `;` para ver el resultado)
+Ts = 0.01;
+zu = c2d(su, Ts, 'tustin')
+
+------------------------------------------------------------</code></pre>
+</div>
+</div>
 </section>
 <section id="actividad-6.3" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="actividad-6.3"><span class="header-section-number">4.2</span> Actividad 6.3</h3>
@@ -320,6 +342,46 @@ legend('Location','Best');
 <li>Analizar respuesta temporal frente a escalón en los tres casos.</li>
 <li>Graficar respuesta con <span class="math inline">\Delta t = 0.1</span></li>
 </ol>
+<p><strong>Solución</strong></p>
+<p><strong>Archivo “mys_06c_conversiones.m”</strong></p>
+<div id="950c0cef" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-stdout">
+<pre><code>------------------------------------------------------------
+% Modelos y Simulación
+% Tema: equivalentes discretos y continuos
+% Autor: Gianfranco Salomone
+ 
+clc;
+clear all;
+
+% 1a. Definición de la función transferencia
+su_original = tf(1, [1 3])
+
+% 1b. Conversión a tiempo discreto
+Ts = 0.1;
+zu = c2d(su_original, Ts, 'matched')  % Otras opciones: zoh, tustin, matched
+
+% 2. Re-conversión a tiempo continuo
+su_restored = d2c(zu, 'matched')
+
+% 4. Comparanción de las respuestas al escalón
+t_end = 2;  % Tiempo de simulación
+
+subplot(2, 2, 1)
+step(su_original, t_end)
+
+subplot(2, 2, 2)
+step(zu, t_end)
+
+subplot(2, 2, 3)
+step(su_restored, t_end)
+
+subplot(2, 2, 4)
+step(su_original, su_restored, zu, t_end)
+
+------------------------------------------------------------</code></pre>
+</div>
+</div>
 </section>
 </section>
 
@@ -376,13 +438,14 @@ legend('Location','Best');
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
