@@ -3,12 +3,20 @@ Materia de Posgrado en Sistema de Control
 Facultad de Ingeniería del Ejército
 
 
-## Instalación de Quarto:
+## Instalación de Quarto
 https://quarto.org/docs/get-started/
-sudo apt install -y texlive-xetex texlive-latex-extra texlive-fonts-recommended librsvg2-bin  # Minimal PED for rendering
+´´´bash
+sudo apt install -y  \
+    texlive-xetex \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
+    librsvg2-bin  # Minimal packages for rendering
+´´´
 
-quarto render clase_01/clase_01.qmd --to html --output-dir ../html/
-quarto render clase_01/clase_01.qmd --to pdf --output-dir ../pdf/
-https://quarto.org/docs/get-started/authoring/vscode.html
+
+## Documentación interesante
+https://quarto.org/docs/get-started/authoring/vscode.html  
 https://quarto.org/docs/authoring/tables.html
 
+## Documentos de la cátedra
+[Cronograma 2025](https://docs.google.com/spreadsheets/d/1g1H_kBzkO-_x6UO8inxDsTYmaAV_soVcEZjy99uy45g/edit?pli=1&gid=0#gid=0)
