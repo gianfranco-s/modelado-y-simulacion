@@ -19,6 +19,7 @@ jupyter: python3
 
 
 ## Diagramas en bloques
+Son una herramienta para representar ecuaciones, o sistemas de ecuaciones, gráficamente.
 
 ### Actividad 4.1
 Control de una antena
