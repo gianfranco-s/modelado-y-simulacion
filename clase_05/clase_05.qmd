@@ -39,7 +39,7 @@ Supongamos que se desea evaluar la respuesta de un sistema conformado por la com
 Siendo así, para cada entrada, se obtendrá la correspondiente salida.
 
 
-**gráfico**
+**TODO: gráfico**
 U1 --> G12 --> Y1
 U2 --> G12 --> Y2
 
@@ -70,7 +70,7 @@ print("-" * 60)
 ### Actividad 5.2 - Multiple Inputs Single Output (MISO)
 Supongamos que se desea evaluar la respuesta de un sistema que tiene una única salida, pero múltiples entradas.
 
-**gráfica**
+**TODO: gráfica**
 
 U1 --> G1 --> + --> Y
 U2 --> G2 ----^
@@ -112,10 +112,69 @@ print("-" * 60)
 ```
 
 
-### Actividad 5.3 - Multiple Inputs Multiple Outputs (MIMO)
+### Actividad 5.3 - Single Input Multiple Outputs (SIMO)
+Supongamos ahora que se desea evaluar la respuesta de un sistema que que tiene diferentes salidas, asociadas a una única entrada.
+
+**TODO: gráfica**
+U_1 ----> G1 --> Y1
+     |--> G2 --> Y2
+
+$$ Y_1(s) = G_1(s) U_1(s) $$
+$$ Y_2(s) = G_2(s) U_1(s) $$
+
+Si bien cada salida puede evaluarse por separado, también es interesante analizar el caso en que se expresa el sistema de manera matricial
+
+$$ \begin{bmatrix} Y_1(s) \\[10pt] Y_2(s) \end{bmatrix} = \begin{bmatrix} G_1(s) \\[10pt] G_2(s) \end{bmatrix} U_1(s) $$
+
+
 ```{python}
 #| echo: false
-filename = "mys_clase_05c_sistemas_FT_MIMO.m"
+filename = "mys_clase_05c_sistemas_FT_SIMO.m"
+```
+**Archivo "`{python} filename`"**
+
+```{python}
+#| echo: false
+
+print("-" * 60)
+with open(filename, "r") as f:
+    print(f.read())
+print("-" * 60)
+```
+
+### Actividad 5.4 - Multiple Inputs Multiple Outputs (MIMO)
+Finalmente, supongamos que se desea evaluar la respuesta de un sistema que que tiene diferentes salidas, relacionadas con diferentes entradas. 
+
+**TODO: gráfica**
+U_1 ----> G1 --> + --> Y1
+U_2 ++--> G2 ----^
+    ||--> G3 --> + --> Y2
+    ----> G4 ----^
+
+
+$$ Y_1(s) = G_1(s) U_1(s) + G_2(s) U_2(s) $$
+$$ Y_2(s) = G_3(s) U_1(s) + G_4(s) U_2(s) $$
+
+En este caso, la notación matricial es particularmente útil
+$$ 
+\begin{bmatrix} 
+  Y_1(s) \\[10pt] 
+  Y_2(s) 
+\end{bmatrix} = 
+\begin{bmatrix}
+  G_1(s) & G_2(s) \\[10pt]
+  G_3(s) & G_4(s)
+\end{bmatrix} 
+\begin{bmatrix}
+  U_1(s) \\[10pt]
+  U_2(s)
+\end{bmatrix} 
+$$
+
+
+```{python}
+#| echo: false
+filename = "mys_clase_05d_sistemas_FT_MIMO.m"
 ```
 **Archivo "`{python} filename`"**
 
