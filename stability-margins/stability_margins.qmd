@@ -1,0 +1,59 @@
+---
+title: Estabilidad
+subtitle: Modelado Y Simulación - Clase 7
+author: Gianfranco Salomone
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+    
+jupyter: python3
+---
+
+## Diagrama de polos y ceros
+Efecto de polos en el semiplano derecho
+
+## Diagramas de estabilidad
+### Actividad 7.1 - Lugar de las raíces
+Dada la función transferencia
+$$ G(s) = \frac{K}{s^3+3s^2+2s} $$
+
+a. Determinar cantidad de polos a lazo abierto y su ubicación.
+b. Hallar los polos del sistema a lazo cerrado para $K\in[0 10]$.
+c. ¿Cuántos polos hay para cada valor de $K$?
+
+**Solución**  
+a. Los polos a lazo abierto se hallan igualando el denominador a cero:
+
+```{matlab}
+>> roots([1 3 2 0])
+
+ans =
+
+     0
+    -2
+    -1
+```
+
+b. A lazo cerrado, la función transferencia es
+$$ M(s) = \frac{K}{s^3+3s^2+2s+K} $$
+Para hallar los polos, debemos igualar nuevamente el denominador a cero. Pero en este caso, para hallar los polos, deberemos dar valores a $K$
+En tal caso, su ubicación depende del valor de K.
+
+Tabla
+Valores
+
+
+### Actividad 7.2 - Efecto de añadir polos en el origen
+1. Efecto sobre la respuesta temporal
+2. Efecto sobre la estabilidad
+
+### Actividad 7.3 - Bode (respuesta en frecuencia)
+### Actividad 7.4 - Estabilidad en tiempo discreto
