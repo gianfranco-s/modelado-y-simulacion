@@ -22,35 +22,32 @@ jupyter: python3
 Son una herramienta para representar ecuaciones, o sistemas de ecuaciones, gráficamente.
 
 ### Actividad 4.1
-Se desea controlar la posición angular de una antena. Para ello, se ha implementado un control proporcional-integral a lazo cerrado.
-
-Obtenga la respuesta a lazo cerrado considerando $k_p = k_i = 1$
-
-Ecuaciones de la antena
+Se desea obtener la respuesta temporal del modelo de una antena acoplada a un motor de continua. Las ecuaciones del sistema antena-motor son las siguientes:
 $$ L_a \dfrac{di_a}{dt} + R_a i_a = e_a - e_b $$
 $$ e_b = k_b \omega_m $$
+$$ T_m = k_t i_a $$
 
-$$ T_m - T_1 - b_m \omega_m $$
+$$ T_m - T_1 - b_m \omega_m = J_m \dot{\omega}_m $$
 $$ T_2 - b_L \omega_L = J_L \dot{\omega}_L $$
 
-$$ \omega_2 = n \omega_1 $$
+$$ \omega_L = n \omega_m $$
 $$ n T_2 = T_1 $$
 
 ![antena-lazo-abierto](modelado_motordc_diag_bl.svg)
 
-$$ G(s) = \frac{\Theta (s)}{E_a(s)} = \frac{1}{s} \frac{n k_t}{(L_a s + R)(J_{eq}s + b_{eq}) + k_t k_b} $$
+Reduciendo el diagrame en bloques:
+$$ \frac{\Omega_L (s)}{E_a(s)} = \frac{n k_t}{(L_a s + R_a)(J_{eq}s + b_{eq}) + k_t k_b} $$
 
-Suponiendo que un controlador PI tiene una función transferencia $G_{PI}(s)$, a lazo cerrado la función transferencia total puede hallarse así:
-$$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{G_{PI}(s) G(s)}{1 + G_{PI}(s) G(s)} $$
+Sabiendo que $\omega_L = \dot{\theta}_L \Rightarrow \Omega_L = s \theta_L$
+$$ \frac{\Theta (s)}{E_a(s)} = \frac{1}{s} \frac{n k_t}{(L_a s + R_a)(J_{eq}s + b_{eq}) + k_t k_b} $$
 
+Donde $J_{eq} = J_L + n^2 J_m$ y $b_{eq} = b_L + n^2 b_m$
 
-La función transferencia del controlador se define como
-$$ G_{PI}(s) = k_p + \frac{k_i}{s} = \frac{k_p s + k_i}{s} $$
 
 **Solución**  
 ```{python}
 #| echo: false
-filename = "mys_clase_03a_control_antena.m"
+filename = "mys_clase_03a_antena_motor_lazo_abierto.m"
 ```
 
 **Archivo "`{python} filename`"**
@@ -98,14 +95,21 @@ Luego, en pasos
 
 
 ### Actividad 4.3
-Obtener respuesta temporal del control de la antena, con control PI, utilizando comandos `series`, `parallel` y `feedback`.
+Se desea controlar la posición angular de la antena simulada anteriormente. Para ello, se ha implementado un control proporcional a lazo cerrado.
 
 Acción de control:
-$$ u(t) = k_p e(t) + k_i \int e(t) dt
+$$ u(t) = k_p e(t) \Longrightarrow \frac{U(s)}{E(s)} = k_p $$
+
+A lazo cerrado la función transferencia total puede hallarse así:
+$$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{k_p G(s)}{1 + k_p G(s)} $$
+
+Obtenga la respuesta a lazo cerrado considerando $k_i = 1$ y $k_p = 1$, $k_p = 30$, $k_p = 70$, $k_p = 100$
+
+
 
 ```{python}
 #| echo: false
-filename = "mys_clase_03b_comandos_bloques_control_pi.m"
+filename = "mys_clase_03b_control_antena.m"
 ```
 
 **Archivo "`{python} filename`"**
