@@ -63,7 +63,7 @@ print("-" * 60)
 ```
 
 ### Actividad 4.2
-Diagrama en bloques para un sistema MBK simple (clase 3)
+Diagrama en bloques para un sistema MBK simple
 $$ f - f_b - f_k = m \ddot{x} $$
 $$ f_b = b \dot{x} $$
 $$ f_k = k x $$  
@@ -103,7 +103,11 @@ $$ u(t) = k_p e(t) \Longrightarrow \frac{U(s)}{E(s)} = k_p $$
 A lazo cerrado la función transferencia total puede hallarse así:
 $$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{k_p G(s)}{1 + k_p G(s)} $$
 
-Obtenga la respuesta a lazo cerrado considerando $k_i = 1$ y $k_p = 1$, $k_p = 30$, $k_p = 70$, $k_p = 100$
+Obtenga la respuesta a lazo cerrado considerando $k_p = 1$, $k_p = 30$, $k_p = 70$, $k_p = 100$
+
+
+**Solución**
+Usando diagrama en bloques:
 
 
 
