@@ -34,7 +34,7 @@ $$ u_1(t) = e^{-t/5} $$
 $$ u_2(t) = \sin{(\pi t)} \space u_1(t) $$
 
 ### Actividad 5.1 - Single Input Single Output (SISO)
-Supongamos que se desea evaluar la respuesta de un sistema conformado por la combinación en serie de $G_1$ y $G_2$, frente a diferentes entradas.
+Se desea evaluar la respuesta de un sistema conformado por la combinación en serie de $G_1$ y $G_2$, frente a diferentes entradas.
 
 Siendo así, para cada entrada, se obtendrá la correspondiente salida.
 
@@ -72,7 +72,7 @@ print("-" * 60)
 ```
 
 ### Actividad 5.2 - Multiple Inputs Single Output (MISO)
-Supongamos que se desea evaluar la respuesta de un sistema que tiene una única salida, pero múltiples entradas.
+Se desea evaluar la respuesta de un sistema que tiene una única salida, pero múltiples entradas.
 
 ```{mermaid}
 flowchart LR

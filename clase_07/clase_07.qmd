@@ -28,6 +28,10 @@ $$ G(s) = \frac{K}{s^3+3s^2+2s} $$
 a. Determinar cantidad de polos a lazo abierto y su ubicación.
 b. Hallar los polos del sistema a lazo cerrado para $K\in[0 10]$.
 c. ¿Cuántos polos hay para cada valor de $K$?
+d. Graficar la respuesta frente a escalón unitario para $K=1, 2, 3, 10$
+e. Graficar la respuesta frente a escalón unitario para $K=0$
+f. ¿Qué valores de K implican un sistema estable?
+
 
 **Solución**  
 a. Los polos a lazo abierto se hallan igualando el denominador a cero:
