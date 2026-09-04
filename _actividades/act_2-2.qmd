@@ -1,0 +1,8 @@
+### Actividad 2.2
+
+1. Graficar y explicar los siguientes cambios en $e(t)$, con $\theta_{amb}=cte$:
+   1. $e(t)=1$
+   2. $e(t)=2$
+   3. $e(t)=10$
+   4. $e(t)=0$
+2. ¿Qué efecto tiene $\theta_{amb}$ sobre la acción de linealización? Mostrarlo con una gráfica.

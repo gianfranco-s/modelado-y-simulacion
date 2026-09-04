@@ -1,0 +1,6 @@
+### Actividad 1.1
+
+Graficar evolución temporal del nivel
+
+* basándose en la ecuación analítica
+* utilizando una solución numérica

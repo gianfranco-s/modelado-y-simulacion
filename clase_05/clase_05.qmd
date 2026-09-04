@@ -5,15 +5,15 @@ author: Gianfranco Salomone
 toc: true
 number-sections: true
 highlight-style: pygments
-format: 
-  html: 
+format:
+  html:
     code-fold: true
     html-math-method: katex
-  pdf: 
-    geometry: 
+  pdf:
+    geometry:
       - top=30mm
       - left=20mm
-    
+
 jupyter: python3
 ---
 
@@ -33,166 +33,38 @@ También supondremos la siguientes señales de entrada en el intervalo $t\in[0;1
 $$ u_1(t) = e^{-t/5} $$
 $$ u_2(t) = \sin{(\pi t)} \space u_1(t) $$
 
-### Actividad 5.1 - Single Input Single Output (SISO)
-Se desea evaluar la respuesta de un sistema conformado por la combinación en serie de $G_1$ y $G_2$, frente a diferentes entradas.
-
-Siendo así, para cada entrada, se obtendrá la correspondiente salida.
-
-```{mermaid}
-flowchart LR
-    U1 --> G12 --> Y1
-```
-```{mermaid}
-flowchart LR
-    U2 --> G12 --> Y2
-```
-
-
-Si deseamos graficar la salida frente a $u_1(t)$ y frente a $u_2(t)$ por separado, podemos utilizar el comando `lsim`.
-
-La representación matemática de dichos casos sería la siguiente:
-$$ Y_1(s) = G_{12}(s) U_1(s) $$
-$$ Y_2(s) = G_{12}(s) U_2(s) $$
-
-Se representan usando transformada de Laplace, dado que es más directa en este caso. Recordemos que como convención, la tranformada de Laplace de $f(t)$ se escribe como $F(s)$.
+{{< include /_actividades/act_5-1.qmd >}}
 
 ```{python}
 #| echo: false
 filename = "mys_clase_05a_sistemas_FT_SISO.m"
 ```
-**Archivo "`{python} filename`"**
 
-```{python}
-#| echo: false
+{{< include /_includes/_codigo.qmd >}}
 
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
-
-### Actividad 5.2 - Multiple Inputs Single Output (MISO)
-Se desea evaluar la respuesta de un sistema que tiene una única salida, pero múltiples entradas.
-
-```{mermaid}
-flowchart LR
-    U1[U1] --> G1[G1] --> SUM --> Y[Y]
-    U2[U2] --> G2[G2] --> SUM
-```
-
-
-$$ Y(s) = G_1(s) U_1(s) + G_2(s) U_2(s) $$
-
-Este es un sistema lineal, porque puede expresarse en términos de la transformada de Laplace.
-
-La respuesta puede hallarse de dos modos:
-
-**Caso 1: superposición**
-Se calculan las respuestas parciales, y luego se suman (esto es particularmente útil al evaluar respuestas frente a condiciones iniciales):
-$$ Y_\text{parcial 1}(s) = G_1(s) U_1(s) $$
-$$ Y_\text{parcial 2}(s) = G_2(s) U_2(s) $$
-
-Luego 
-$$ Y(s) = Y_\text{parcial 1}(s) + Y_\text{parcial 2}(s) $$
-
-
-**Caso 2: matrices**
-Se expresa el sistema en modo matricial, y se encuentra la respuesta total: 
-
-$$ Y(s) = \begin{bmatrix} G_1(s) & G_2(s) \end{bmatrix} \begin{bmatrix} U_1(s) \\[10pt] U_2(s) \end{bmatrix} $$
-
+{{< include /_actividades/act_5-2.qmd >}}
 
 ```{python}
 #| echo: false
 filename = "mys_clase_05b_sistemas_FT_MISO.m"
 ```
-**Archivo "`{python} filename`"**
 
-```{python}
-#| echo: false
+{{< include /_includes/_codigo.qmd >}}
 
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
-
-
-### Actividad 5.3 - Single Input Multiple Outputs (SIMO)
-Supongamos ahora que se desea evaluar la respuesta de un sistema que que tiene diferentes salidas, asociadas a una única entrada.
-
-```{mermaid}
-flowchart LR
-    U1 --> G1 --> Y1
-    U1 --> G2 --> Y2
-```
-
-$$ Y_1(s) = G_1(s) U_1(s) $$
-$$ Y_2(s) = G_2(s) U_1(s) $$
-
-Si bien cada salida puede evaluarse por separado, también es interesante analizar el caso en que se expresa el sistema de manera matricial
-
-$$ \begin{bmatrix} Y_1(s) \\[10pt] Y_2(s) \end{bmatrix} = \begin{bmatrix} G_1(s) \\[10pt] G_2(s) \end{bmatrix} U_1(s) $$
-
+{{< include /_actividades/act_5-3.qmd >}}
 
 ```{python}
 #| echo: false
 filename = "mys_clase_05c_sistemas_FT_SIMO.m"
 ```
-**Archivo "`{python} filename`"**
 
-```{python}
-#| echo: false
+{{< include /_includes/_codigo.qmd >}}
 
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
-
-### Actividad 5.4 - Multiple Inputs Multiple Outputs (MIMO)
-Finalmente, supongamos que se desea evaluar la respuesta de un sistema que que tiene diferentes salidas, relacionadas con diferentes entradas. 
-
-```{mermaid}
-flowchart LR
-    U1 --> G1 --> SUM1 --> Y1
-    U2 --> G2 --> SUM1
-    U1 --> G3 --> SUM2 --> Y2
-    U2 --> G4 --> SUM2
-```
-
-
-$$ Y_1(s) = G_1(s) U_1(s) + G_2(s) U_2(s) $$
-$$ Y_2(s) = G_3(s) U_1(s) + G_4(s) U_2(s) $$
-
-En este caso, la notación matricial es particularmente útil
-$$ 
-\begin{bmatrix} 
-  Y_1(s) \\[10pt] 
-  Y_2(s) 
-\end{bmatrix} = 
-\begin{bmatrix}
-  G_1(s) & G_2(s) \\[10pt]
-  G_3(s) & G_4(s)
-\end{bmatrix} 
-\begin{bmatrix}
-  U_1(s) \\[10pt]
-  U_2(s)
-\end{bmatrix} 
-$$
-
+{{< include /_actividades/act_5-4.qmd >}}
 
 ```{python}
 #| echo: false
 filename = "mys_clase_05d_sistemas_FT_MIMO.m"
 ```
-**Archivo "`{python} filename`"**
 
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}

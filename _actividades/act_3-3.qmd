@@ -1,0 +1,23 @@
+### Actividad 3.3
+
+Considerando $b=1$, $k=1$, $m=1$, $x(0)=0.5$ y $\dot{x}(0)=0.7$, y una entrada $f(t)=1.5$ (definida únicamente para $t>=0$.
+
+1. Determinar cuáles son las unidades físicas de cada variable.
+
+2. Verificar que las matrices descriptivas son
+$$ A = \begin{bmatrix}
+                 0       &&  1              \\
+          \dfrac{-k}{m}  &&  \dfrac{-b}{m}
+       \end{bmatrix}
+$$
+$$ B = \begin{bmatrix}
+                 1   \\
+          1/m
+    \end{bmatrix}
+$$
+
+3. Utilizar el algoritmo `ode45` para graficar una respuesta temporal de $\dot{x}$ y $x$. Tener en cuenta que `ode45` únicamente acepta ecuaciones de primer orden.
+
+4. Obtener la función transferencia, y graficar respuesta temporal usando la función `step`.
+
+5. Graficar la ubicación de ceros y polos.

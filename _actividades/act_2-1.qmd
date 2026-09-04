@@ -1,0 +1,7 @@
+### Actividad 2.1
+
+Graficar la evolución de la temperatura $\theta(t)$ en base a la ecuación linealizada, considerando
+
+* temperatura inicial $10º$
+* temperatura ambiente nula
+* tensión de entrada constante $e(t)=e_0$

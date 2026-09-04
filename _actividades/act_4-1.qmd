@@ -1,0 +1,22 @@
+### Actividad 4.1
+
+Se desea obtener la respuesta temporal del modelo de una antena acoplada a un motor de continua. Las ecuaciones del sistema antena-motor son las siguientes:
+$$ L_a \dfrac{di_a}{dt} + R_a i_a = e_a - e_b $$
+$$ e_b = k_b \omega_m $$
+$$ T_m = k_t i_a $$
+
+$$ T_m - T_1 - b_m \omega_m = J_m \dot{\omega}_m $$
+$$ T_2 - b_L \omega_L = J_L \dot{\omega}_L $$
+
+$$ \omega_L = n \omega_m $$
+$$ n T_2 = T_1 $$
+
+![antena-lazo-abierto](/clase_04/modelado_motordc_diag_bl.svg)
+
+Reduciendo el diagrame en bloques:
+$$ \frac{\Omega_L (s)}{E_a(s)} = \frac{n k_t}{(L_a s + R_a)(J_{eq}s + b_{eq}) + k_t k_b} $$
+
+Sabiendo que $\omega_L = \dot{\theta}_L \Rightarrow \Omega_L = s \theta_L$
+$$ \frac{\Theta (s)}{E_a(s)} = \frac{1}{s} \frac{n k_t}{(L_a s + R_a)(J_{eq}s + b_{eq}) + k_t k_b} $$
+
+Donde $J_{eq} = J_L + n^2 J_m$ y $b_{eq} = b_L + n^2 b_m$

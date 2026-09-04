@@ -1,0 +1,39 @@
+### Actividad 3.2 — Modelo de estados y función transferencia
+
+Un sistema de nivel viene definido por
+$$ A\dot{y} = q_i(t) - ky(t) $$
+
+Considerando $A=3$ y $k=1$
+
+1. Utilizar el algoritmo `ode23` para obtener una gráfica de la respuesta temporal de $y(t)$ cuando $q_i(t)=10$, y frente a condiciones iniciales nulas.
+
+2. Transformar y despejar $Y(s)$ considerando condiciones iniciales no-nulas, y luego hallar la función transferencia (definida únicamente con condiciones iniciales nulas).
+
+3. ¿Qué unidades tiene el factor $A/k$?
+
+4. Considerando como variables bajo estudio el nivel de fluido y la rapidez de descenso del mismo, el vector de salidas sería:
+$$ \begin{bmatrix}
+      y  \\
+      \dot{y}
+   \end{bmatrix}
+$$
+
+Verificar que el modelo de estados está definido por las siguientes matrices:
+$$ A = \begin{bmatrix}
+          \dfrac{-k}{A}
+      \end{bmatrix}
+$$
+$$ B = \begin{bmatrix}
+          \dfrac{1}{A}
+      \end{bmatrix}
+$$
+$$ C = \begin{bmatrix}
+          0  \\
+          -k/A
+      \end{bmatrix}
+$$
+$$ D = \begin{bmatrix}
+          0  \\
+          1/A
+      \end{bmatrix}
+$$

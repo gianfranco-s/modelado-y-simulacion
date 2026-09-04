@@ -1,0 +1,3 @@
+### Actividad 3.1
+
+Graficar respuesta temporal de la posición de cada carro, considerando $f(t) = \sin{t}$

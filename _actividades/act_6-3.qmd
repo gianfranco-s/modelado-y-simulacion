@@ -1,0 +1,6 @@
+### Actividad 6.3
+
+1. Obtener una aproximación de tiempo discreto a partir de la función transferencia:
+$$ H(s) = \frac{1}{s+3} $$
+2. Volver a obtener la función de tiempo continuo.
+3. Graficar respuesta temporal frente a escalón en los tres casos (original, discreta, restaurada).

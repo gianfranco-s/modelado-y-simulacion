@@ -60,25 +60,14 @@ $$ B =
 \end{bmatrix}
 $$
 
-### Actividad 3.1
-Graficar respuesta temporal de la posición de cada carro, considerando $f(t) = \sin{t}$
+{{< include /_actividades/act_3-1.qmd >}}
 
 ```{python}
 #| echo: false
 filename = "mys_clase_03a_mbk_2gdl.m"
 ```
 
-**Archivo "`{python} filename`"**
-
-
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}
 
 ## Función transferencia (en el dominio de la frecuencia)
 Dado un sistema
@@ -121,47 +110,7 @@ $$ Y(s) = \frac{1}{s+3} \longrightarrow y(t) = e^{-3t} $$
 ¿Cómo puede explicarse este comportamiento?
 
 
-## Actividad 3.2 Modelo de estados y Función transferencia
-Un sistema de nivel viene definido por 
-$$ A\dot{y} = q_i(t) - ky(t) $$
-
-
-Considerando $A=3$ y $k=1$
-
-1. Utilizar el algoritmo `ode23` para obtener una gráfica de la respuesta temporal de $y(t)$ cuando $q_i(t)=10$, y frente a condiciones iniciales nulas.
-
-2. Transformar y despejar $Y(s)$ considerando condiciones iniciales no-nulas, y luego hallar la función transferencia (definida únicamente con condiciones iniciales nulas).
-
-3. ¿Qué unidades tiene el factor $A/k$?
-
-4. Considerando como variables bajo estudio el nivel de fluido y la rapidez de descenso del mismo, el vector de salidas sería:
-$$ \begin{bmatrix}
-      y  \\
-      \dot{y}
-   \end{bmatrix}
-$$
-
-
-Verificar que el modelo de estados está definido por las siguientes matrices:
-$$ A = \begin{bmatrix}
-          \dfrac{-k}{A}
-      \end{bmatrix}
-$$
-$$ B = \begin{bmatrix}
-          \dfrac{1}{A}
-      \end{bmatrix}
-$$
-$$ C = \begin{bmatrix}
-          0  \\
-          -k/A
-      \end{bmatrix}
-$$
-$$ D = \begin{bmatrix}
-          0  \\
-          1/A
-      \end{bmatrix}
-$$
-
+{{< include /_actividades/act_3-2.qmd >}}
 
 **Solución**
 
@@ -200,32 +149,9 @@ $$ f(t) - kx(t) - b\dot{x}(t) = m\ddot{x}(t) $$
 Reescribiendo:
 $$ \ddot{x}(t) = -\frac{k}{m} x -\frac{b}{m} \dot{x} + \frac{1}{m} f $$
 
-### Acvitividad 3.3
-Considerando $b=1$, $k=1$, $m=1$, $x(0)=0.5$ y $\dot{x}(0)=0.7$, y una entrada $f(t)=1.5$ (definida únicamente para $t>=0$.
+{{< include /_actividades/act_3-3.qmd >}}
 
-
-1. Determinar cuáles son las unidades físicas de cada variable.
-
-2. Verificar que las matrices descriptivas son
-$$ A = \begin{bmatrix}
-                 0       &&  1              \\
-          \dfrac{-k}{m}  &&  \dfrac{-b}{m} 
-       \end{bmatrix}
-$$
-$$ B = \begin{bmatrix}
-                 1   \\
-          1/m 
-    \end{bmatrix}
-$$
-
-3. Utilizar el algoritmo `ode45` para graficar una respuesta temporal de $\dot{x}$ y $x$. Tener en cuenta que `ode45` únicamente acepta ecuaciones de primer orden.
-
-4. Obtener la función transferencia, y graficar respuesta temporal usando la función `step`.
-
-5. Graficar la ubicación de ceros y polos.
-
-
-**Solución**  
+**Solución**
 
 1. Unidades de masa, conocidas: $[m] = kg$. Unidades de aceleración: $[\ddot{x}]=m/s^2$. Unidades de rapidez: $[\dot{x}] = m/s$. Unidades de fuerza: $[f] = N$. Las demás pueden derivarse a partir de la ecuación diferencial
 $$ \frac{m}{s^2} = \frac{[k]}{kg} m \Longrightarrow [k] = \frac{N}{m} = \frac{kg}{s^2} $$
@@ -253,17 +179,7 @@ Escribiendo estas últimas dos ecuaciones de manera matricial, se arriba a las m
 filename = "mys_clase_03b_mbk_ode45.m"
 ```
 
-**Archivo "`{python} filename`"**
-
-
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}
 
 4. y 5. Función transferencia, respuesta temporal y ubicación de ceros y polos.
 ```{python}
@@ -271,14 +187,4 @@ print("-" * 60)
 filename = "mys_clase_03c_me2ft.m"
 ```
 
-**Archivo "`{python} filename`"**
-
-
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}

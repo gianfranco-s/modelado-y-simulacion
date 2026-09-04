@@ -1,0 +1,81 @@
+---
+title: "Actividades"
+subtitle: "Modelado y Simulación — listado consolidado"
+toc: true
+toc-depth: 3
+number-sections: false
+html-math-method: katex
+---
+
+Listado consolidado de todas las actividades de la materia, ordenadas por clase.
+El enunciado de cada actividad se mantiene en un único lugar
+(`_actividades/`) y se reutiliza tanto aquí como en la página de la clase
+correspondiente, donde además está la resolución y el código.
+
+## Clase 1 · Intro a modelado y software
+
+{{< include /_actividades/act_1-1.qmd >}}
+
+→ [Ver la Clase 1 completa](clase_01/clase_01.qmd)
+
+## Clase 2 · Modelo de estados y linealización
+
+{{< include /_actividades/act_2-1.qmd >}}
+
+{{< include /_actividades/act_2-2.qmd >}}
+
+→ [Ver la Clase 2 completa](clase_02/clase_02.qmd)
+
+## Clase 3 · Modelo de estados y función transferencia
+
+{{< include /_actividades/act_3-1.qmd >}}
+
+{{< include /_actividades/act_3-2.qmd >}}
+
+{{< include /_actividades/act_3-3.qmd >}}
+
+→ [Ver la Clase 3 completa](clase_03/clase_03.qmd)
+
+## Clase 4 · Diagramas en bloques
+
+{{< include /_actividades/act_4-1.qmd >}}
+
+{{< include /_actividades/act_4-2.qmd >}}
+
+{{< include /_actividades/act_4-3.qmd >}}
+
+→ [Ver la Clase 4 completa](clase_04/clase_04.qmd)
+
+## Clase 5 · Sistemas con múltiples entradas y salidas
+
+{{< include /_actividades/act_5-1.qmd >}}
+
+{{< include /_actividades/act_5-2.qmd >}}
+
+{{< include /_actividades/act_5-3.qmd >}}
+
+{{< include /_actividades/act_5-4.qmd >}}
+
+→ [Ver la Clase 5 completa](clase_05/clase_05.qmd)
+
+## Clase 6 · Sistemas en tiempo discreto
+
+{{< include /_actividades/act_6-1.qmd >}}
+
+{{< include /_actividades/act_6-2.qmd >}}
+
+{{< include /_actividades/act_6-3.qmd >}}
+
+→ [Ver la Clase 6 completa](clase_06/clase_06.qmd)
+
+## Clase 7 · Estabilidad
+
+{{< include /_actividades/act_7-1.qmd >}}
+
+{{< include /_actividades/act_7-2.qmd >}}
+
+{{< include /_actividades/act_7-3.qmd >}}
+
+{{< include /_actividades/act_7-4.qmd >}}
+
+→ [Ver la Clase 7 completa](clase_07/clase_07.qmd)

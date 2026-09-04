@@ -1,0 +1,10 @@
+### Actividad 6.1
+
+Obtener la gráfica de una función en tiempo discreto usando MATLAB/Octave
+$$ \dot{y}(t) + 2 y(t) = u(t) $$
+$$ y(0) = 10 $$
+$$ u(t) = 1 $$
+
+Usando función transferencia y superposición
+$$ y = y_\text{forzada} + y_\text{libre} $$
+$$ Y(s) = \frac{1}{s+2} U(s) + \frac{y(0)}{s+2}$$

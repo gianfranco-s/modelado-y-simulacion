@@ -125,32 +125,16 @@ plt.show()
 ```
 
 
-### Actividad 6.1
-Obtener la gráfica de una función en tiempo discreto usando MATLAB/Octave
-$$ \dot{y}(t) + 2 y(t) = u(t) $$
-$$ y(0) = 10 $$
-$$ u(t) = 1 $$
+{{< include /_actividades/act_6-1.qmd >}}
 
-Usando función transferencia y superposición
-$$ y = y_\text{forzada} + y_\text{libre} $$
-$$ Y(s) = \frac{1}{s+2} U(s) + \frac{y(0)}{s+2}$$
+**Solución**
 
-
-**Solución**  
 ```{python}
 #| echo: false
 filename = "mys_06a_respuesta_discreta.m"
 ```
-**Archivo "`{python} filename`"**
 
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}
 
 ## Diferencias entre un sistema de tiempo discreto y uno de tiempo continuo
 1. Una computadora, ¿puede graficar tiempo continuo?
@@ -181,45 +165,25 @@ $$ s \approx \frac{(z-1)}{\Delta t} \longrightarrow H(z) = \frac{1}{\frac{z-1}{\
 $$ s \approx \frac{2}{\Delta t} \space \frac{z-1}{z+1} \longrightarrow H(z) = \frac{1}{\frac{2}{\Delta t} \frac{z-1}{z+1}+2} = \frac{\Delta t}{2} \frac{z+1}{z-1+\Delta t (z+1) }$$
 
 
-### Actividad 6.2
-Corroborar en MATLAB el equivalente usando el equivalente Tustin, con $\Delta t = 0.01$.
+{{< include /_actividades/act_6-2.qmd >}}
 
 **Solución**
+
 ```{python}
 #| echo: false
 filename = "mys_06b_verificacion.m"
 ```
-**Archivo "`{python} filename`"**
 
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}
 
 
-### Actividad 6.3
-1. Obtener una aproximación de tiempo discreto a partir de la función transferencia:
-$$ H(s) = \frac{1}{s+3} $$
-2. Volver a obtener la función de tiempo continuo.
-3. Graficar respuesta temporal frente a escalón en los tres casos (original, discreta, restaurada).
-
+{{< include /_actividades/act_6-3.qmd >}}
 
 **Solución**
+
 ```{python}
 #| echo: false
 filename = "mys_06c_conversiones.m"
 ```
-**Archivo "`{python} filename`"**
 
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}

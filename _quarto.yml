@@ -1,0 +1,49 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Modelado y Simulación"
+  description: "Materia de Posgrado en Sistemas de Control — Facultad de Ingeniería del Ejército"
+  site-url: "https://gianfranco-s.github.io/modelado-y-simulacion/"
+  repo-url: "https://github.com/gianfranco-s/modelado-y-simulacion"
+  repo-actions: [source, issue]
+  page-navigation: true
+  navbar:
+    background: primary
+    left:
+      - text: "Inicio"
+        href: index.qmd
+      - text: "Actividades"
+        href: actividades.qmd
+      - text: "Clases"
+        menu:
+          - text: "1 · Intro a modelado y software"
+            href: clase_01/clase_01.qmd
+          - text: "2 · Modelo de estados y linealización"
+            href: clase_02/clase_02.qmd
+          - text: "3 · Modelo de estados y función transferencia"
+            href: clase_03/clase_03.qmd
+          - text: "4 · Diagramas en bloques"
+            href: clase_04/clase_04.qmd
+          - text: "5 · Múltiples entradas y salidas"
+            href: clase_05/clase_05.qmd
+          - text: "6 · Sistemas en tiempo discreto"
+            href: clase_06/clase_06.qmd
+          - text: "7 · Estabilidad"
+            href: clase_07/clase_07.qmd
+    right:
+      - icon: github
+        href: "https://github.com/gianfranco-s/modelado-y-simulacion"
+        aria-label: GitHub
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+    code-tools: true
+    html-math-method: katex
+
+execute:
+  freeze: auto

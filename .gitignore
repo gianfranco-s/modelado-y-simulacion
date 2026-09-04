@@ -5,3 +5,8 @@ pdf/
 html/
 **.html
 *.xopp
+.DS_Store
+
+# Quarto
+/_site/
+/.quarto/

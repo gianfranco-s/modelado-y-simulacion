@@ -21,58 +21,20 @@ jupyter: python3
 ## Diagramas en bloques
 Son una herramienta para representar ecuaciones, o sistemas de ecuaciones, gráficamente.
 
-### Actividad 4.1
-Se desea obtener la respuesta temporal del modelo de una antena acoplada a un motor de continua. Las ecuaciones del sistema antena-motor son las siguientes:
-$$ L_a \dfrac{di_a}{dt} + R_a i_a = e_a - e_b $$
-$$ e_b = k_b \omega_m $$
-$$ T_m = k_t i_a $$
+{{< include /_actividades/act_4-1.qmd >}}
 
-$$ T_m - T_1 - b_m \omega_m = J_m \dot{\omega}_m $$
-$$ T_2 - b_L \omega_L = J_L \dot{\omega}_L $$
+**Solución**
 
-$$ \omega_L = n \omega_m $$
-$$ n T_2 = T_1 $$
-
-![antena-lazo-abierto](modelado_motordc_diag_bl.svg)
-
-Reduciendo el diagrame en bloques:
-$$ \frac{\Omega_L (s)}{E_a(s)} = \frac{n k_t}{(L_a s + R_a)(J_{eq}s + b_{eq}) + k_t k_b} $$
-
-Sabiendo que $\omega_L = \dot{\theta}_L \Rightarrow \Omega_L = s \theta_L$
-$$ \frac{\Theta (s)}{E_a(s)} = \frac{1}{s} \frac{n k_t}{(L_a s + R_a)(J_{eq}s + b_{eq}) + k_t k_b} $$
-
-Donde $J_{eq} = J_L + n^2 J_m$ y $b_{eq} = b_L + n^2 b_m$
-
-
-**Solución**  
 ```{python}
 #| echo: false
 filename = "mys_clase_03a_antena_motor_lazo_abierto.m"
 ```
 
-**Archivo "`{python} filename`"**
+{{< include /_includes/_codigo.qmd >}}
 
+{{< include /_actividades/act_4-2.qmd >}}
 
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
-
-### Actividad 4.2
-Diagrama en bloques para un sistema MBK simple
-$$ f - f_b - f_k = m \ddot{x} $$
-$$ f_b = b \dot{x} $$
-$$ f_k = k x $$  
-
-a. transformada
-b. variable de estados
-c. variable de estados matricial
-
-**Solución**  
+**Solución**
 a. Reemplazando todos los términos en la primera ecuación, y transformando con condiciones iniciales nulas:
 $$ F(s) - bs X(s) - k X(s) = ms^2 X(s) $$
 
@@ -94,36 +56,14 @@ Luego, en pasos
 ![diagrama-en-bloques-mbk-me-06](diag_bl_me_06.png)  
 
 
-### Actividad 4.3
-Se desea controlar la posición angular de la antena simulada anteriormente. Para ello, se ha implementado un control proporcional a lazo cerrado.
-
-Acción de control:
-$$ u(t) = k_p e(t) \Longrightarrow \frac{U(s)}{E(s)} = k_p $$
-
-A lazo cerrado la función transferencia total puede hallarse así:
-$$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{k_p G(s)}{1 + k_p G(s)} $$
-
-Obtenga la respuesta a lazo cerrado considerando $k_p = 1$, $k_p = 30$, $k_p = 70$, $k_p = 100$
-
+{{< include /_actividades/act_4-3.qmd >}}
 
 **Solución**
 Usando diagrama en bloques:
-
-
 
 ```{python}
 #| echo: false
 filename = "mys_clase_03b_control_antena.m"
 ```
 
-**Archivo "`{python} filename`"**
-
-
-```{python}
-#| echo: false
-
-print("-" * 60)
-with open(filename, "r") as f:
-    print(f.read())
-print("-" * 60)
-```
+{{< include /_includes/_codigo.qmd >}}

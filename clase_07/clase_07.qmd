@@ -5,15 +5,15 @@ author: Gianfranco Salomone
 toc: true
 number-sections: true
 highlight-style: pygments
-format: 
-  html: 
+format:
+  html:
     code-fold: true
     html-math-method: katex
-  pdf: 
-    geometry: 
+  pdf:
+    geometry:
       - top=30mm
       - left=20mm
-    
+
 jupyter: python3
 ---
 
@@ -21,22 +21,14 @@ jupyter: python3
 Efecto de polos en el semiplano derecho
 
 ## Diagramas de estabilidad
-### Actividad 7.1 - Lugar de las raíces
-Dada la función transferencia
-$$ G(s) = \frac{K}{s^3+3s^2+2s} $$
 
-a. Determinar cantidad de polos a lazo abierto y su ubicación.
-b. Hallar los polos del sistema a lazo cerrado para $K\in[0 10]$.
-c. ¿Cuántos polos hay para cada valor de $K$?
-d. Graficar la respuesta frente a escalón unitario para $K=1, 2, 3, 10$
-e. Graficar la respuesta frente a escalón unitario para $K=0$
-f. ¿Qué valores de K implican un sistema estable?
+{{< include /_actividades/act_7-1.qmd >}}
 
+**Solución**
 
-**Solución**  
 a. Los polos a lazo abierto se hallan igualando el denominador a cero:
 
-```{matlab}
+```matlab
 >> roots([1 3 2 0])
 
 ans =
@@ -54,10 +46,8 @@ En tal caso, su ubicación depende del valor de K.
 Tabla
 Valores
 
+{{< include /_actividades/act_7-2.qmd >}}
 
-### Actividad 7.2 - Efecto de añadir polos en el origen
-1. Efecto sobre la respuesta temporal
-2. Efecto sobre la estabilidad
+{{< include /_actividades/act_7-3.qmd >}}
 
-### Actividad 7.3 - Bode (respuesta en frecuencia)
-### Actividad 7.4 - Estabilidad en tiempo discreto
+{{< include /_actividades/act_7-4.qmd >}}

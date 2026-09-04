@@ -1,0 +1,11 @@
+### Actividad 4.3
+
+Se desea controlar la posición angular de la antena simulada anteriormente. Para ello, se ha implementado un control proporcional a lazo cerrado.
+
+Acción de control:
+$$ u(t) = k_p e(t) \Longrightarrow \frac{U(s)}{E(s)} = k_p $$
+
+A lazo cerrado la función transferencia total puede hallarse así:
+$$ M(s) = \frac{\Theta(s)}{R(s)} = \frac{k_p G(s)}{1 + k_p G(s)} $$
+
+Obtenga la respuesta a lazo cerrado considerando $k_p = 1$, $k_p = 30$, $k_p = 70$, $k_p = 100$

@@ -1,0 +1,22 @@
+### Actividad 5.1 — Single Input Single Output (SISO)
+
+Se desea evaluar la respuesta de un sistema conformado por la combinación en serie de $G_1$ y $G_2$, frente a diferentes entradas.
+
+Siendo así, para cada entrada, se obtendrá la correspondiente salida.
+
+```{mermaid}
+flowchart LR
+    U1 --> G12 --> Y1
+```
+```{mermaid}
+flowchart LR
+    U2 --> G12 --> Y2
+```
+
+Si deseamos graficar la salida frente a $u_1(t)$ y frente a $u_2(t)$ por separado, podemos utilizar el comando `lsim`.
+
+La representación matemática de dichos casos sería la siguiente:
+$$ Y_1(s) = G_{12}(s) U_1(s) $$
+$$ Y_2(s) = G_{12}(s) U_2(s) $$
+
+Se representan usando transformada de Laplace, dado que es más directa en este caso. Recordemos que como convención, la tranformada de Laplace de $f(t)$ se escribe como $F(s)$.

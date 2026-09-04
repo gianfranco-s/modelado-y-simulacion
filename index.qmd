@@ -1,0 +1,37 @@
+---
+title: "Modelado y Simulación"
+subtitle: "Posgrado en Sistemas de Control — Facultad de Ingeniería del Ejército"
+toc: false
+---
+
+Sitio de apuntes, ejemplos y actividades de la materia. Cada clase deriva un
+modelo matemático, propone su comportamiento y lo verifica mediante simulación.
+
+## Clases
+
+1. [Intro a modelado y software](clase_01/clase_01.qmd)
+2. [Modelo de estados y linealización](clase_02/clase_02.qmd)
+3. [Modelo de estados y función transferencia](clase_03/clase_03.qmd)
+4. [Diagramas en bloques](clase_04/clase_04.qmd)
+5. [Sistemas con múltiples entradas y salidas](clase_05/clase_05.qmd)
+6. [Sistemas en tiempo discreto](clase_06/clase_06.qmd)
+7. [Estabilidad](clase_07/clase_07.qmd)
+
+## Actividades
+
+El [listado consolidado de actividades](actividades.qmd) reúne todos los
+enunciados en una sola página, con enlace a la clase donde se resuelven.
+
+## Recursos
+
+- [Cronograma 2025](https://docs.google.com/spreadsheets/d/1g1H_kBzkO-_x6UO8inxDsTYmaAV_soVcEZjy99uy45g/edit?pli=1&gid=0#gid=0)
+- [Documentación de Quarto](https://quarto.org/docs/get-started/)
+- [Quarto en VS Code](https://quarto.org/docs/get-started/authoring/vscode.html)
+
+## Render local
+
+```bash
+uv sync
+uv run quarto preview      # vista previa con recarga
+uv run quarto render       # genera el sitio en _site/
+```

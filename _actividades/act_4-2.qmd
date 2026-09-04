@@ -1,0 +1,10 @@
+### Actividad 4.2
+
+Diagrama en bloques para un sistema MBK simple
+$$ f - f_b - f_k = m \ddot{x} $$
+$$ f_b = b \dot{x} $$
+$$ f_k = k x $$
+
+a. transformada
+b. variable de estados
+c. variable de estados matricial

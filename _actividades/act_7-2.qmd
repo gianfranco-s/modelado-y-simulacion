@@ -1,0 +1,4 @@
+### Actividad 7.2 — Efecto de añadir polos en el origen
+
+1. Efecto sobre la respuesta temporal
+2. Efecto sobre la estabilidad

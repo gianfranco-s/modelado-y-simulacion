@@ -1,0 +1,10 @@
+```{python}
+#| echo: false
+from pathlib import Path
+
+_ruta = Path(filename)  # `filename` se define en una celda previa de cada clase
+print(f'Archivo: {_ruta.name}')
+print('-' * 60)
+print(_ruta.read_text())
+print('-' * 60)
+```
