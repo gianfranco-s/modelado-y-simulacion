@@ -20,19 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Instalar Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
       - name: Instalar uv + Python
         uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.11"
 
-      - name: Instalar dependencias
+      - name: Instalar dependencias (incluye Quarto vía quarto-cli)
         run: uv sync
 
       - name: Renderizar sitio
-        run: uv run quarto render --to html
+        run: uv run quarto render
 
       - name: Subir artefacto de Pages
         uses: actions/upload-pages-artifact@v3

@@ -2,18 +2,7 @@
 title: Sistemas en tiempo discreto
 subtitle: Modelado Y Simulación - Clase 6
 author: Gianfranco Salomone
-toc: true
 number-sections: true
-highlight-style: pygments
-format: 
-  html: 
-    code-fold: true
-    html-math-method: katex
-  pdf: 
-    geometry: 
-      - top=30mm
-      - left=20mm
-    
 jupyter: python3
 ---
 

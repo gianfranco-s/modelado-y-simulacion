@@ -12,3 +12,8 @@ dependencies = [
     "plotly>=6.2.0",
     "scipy>=1.16.0",
 ]
+
+[dependency-groups]
+dev = [
+    "quarto-cli>=1.10.18",
+]

@@ -43,6 +43,7 @@ format:
     toc: true
     code-fold: true
     code-tools: true
+    highlight-style: pygments
     html-math-method: katex
 
 execute:
