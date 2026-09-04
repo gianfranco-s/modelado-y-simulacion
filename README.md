@@ -61,3 +61,12 @@ Requiere configurar una única vez, en **Settings → Pages**, la fuente
 ## Documentos de la cátedra
 
 - [Cronograma 2025](https://docs.google.com/spreadsheets/d/1g1H_kBzkO-_x6UO8inxDsTYmaAV_soVcEZjy99uy45g/edit?pli=1&gid=0#gid=0)
+
+
+## Render local
+
+```bash
+uv sync
+uv run quarto preview      # vista previa con recarga
+uv run quarto render       # genera el sitio en _site/
+```

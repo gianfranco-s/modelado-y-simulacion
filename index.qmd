@@ -24,14 +24,6 @@ enunciados en una sola página, con enlace a la clase donde se resuelven.
 
 ## Recursos
 
-- [Cronograma 2025](https://docs.google.com/spreadsheets/d/1g1H_kBzkO-_x6UO8inxDsTYmaAV_soVcEZjy99uy45g/edit?pli=1&gid=0#gid=0)
-- [Documentación de Quarto](https://quarto.org/docs/get-started/)
-- [Quarto en VS Code](https://quarto.org/docs/get-started/authoring/vscode.html)
+- [Cronograma 2026](https://docs.google.com/spreadsheets/d/1_24I_Ytx_MUHN5FcAh_E1lgNNtY4ObMNbDIRCMPmXrg/edit?gid=0#gid=0)
+- [Material de la cátedra](https://drive.google.com/drive/folders/1hm8X0qeN8RKaMHeGNgBr8Tshfat-Prby?usp=drive_link&authuser=1)
 
-## Render local
-
-```bash
-uv sync
-uv run quarto preview      # vista previa con recarga
-uv run quarto render       # genera el sitio en _site/
-```
